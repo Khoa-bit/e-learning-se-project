@@ -1,2 +1,2 @@
 # e-learning-se-project
-Ung Thu Hà SE Project
+Ung Thu Hà and the Boiz SE Project
