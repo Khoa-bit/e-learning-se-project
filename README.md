@@ -1,2 +1,2 @@
 # e-learning-se-project
-Ung Thu Hà's SE Project
+Ung Thu Hà SE Project
