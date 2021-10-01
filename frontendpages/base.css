@@ -3,13 +3,22 @@
 /* Custom properties/variables  */
 
 :root {
-  --alert-primary: #EF255D;
+  --white-default: #f0f6ff;
+  --gray-default: #6a818a;
+  --gray-light: #dce2e4;
+  --gray-dark: #3e4b51;
+  --alert-primary: #ef255d;
+  --alert-secondary: #fdecf1;
+  --success-primary: #1ac687;
+  --success-secondary: #e2fcf2;
+  --iu-primary: #2e3191;
+  --iu-secondary: #1c9acc;
 
   --body-font-family: Iter, sans-serif;
   --body-font-size: 1.6rem;
   --body-font-weight: 400;
   --body-line-height: 1.5;
-  --body-color: #8a92a6;
+  --body-color: #000810;
   --body-bg: #f5f6fa;
 }
 
@@ -107,7 +116,6 @@ h6,
   margin-block: 0;
   font-weight: 500;
   line-height: 1.2;
-  color: #232d42;
 }
 
 h1,
