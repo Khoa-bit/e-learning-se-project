@@ -1,0 +1,9 @@
+{%extends 'User/base.html'%}
+{%block body%}
+YOU LOGGED IN GOOD JOB <3
+{%if user.first_name%}
+This page is {{user.first_name}}'s home page
+{%else%}
+This user's home page
+{%endif%}
+{%endblock%}
