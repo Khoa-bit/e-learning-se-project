@@ -15,6 +15,8 @@ def LoginView(request):
       login(request,user)
       if user.is_staff:
         return HttpResponseRedirect(reverse("admin:index"))
+      elif user.student:
+        return UserInfoView(request,user.id)
       return render(request,"User/userinfo.html",{"user":user})
   else:
     form = AuthenticationForm()
@@ -23,4 +25,8 @@ def LoginView(request):
 def UserInfoView(request,id):
   user = User.objects.get(id=id)
   context={"user":user}
+  if user.student:
+    context["role"]="student"
+  else: context["role"]="Lecturer"
   return render(request,"User/userinfo.html",context)
+
