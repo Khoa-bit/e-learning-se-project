@@ -402,6 +402,7 @@ body > footer {
 
 /* Page Main Content */
 main {
+  background-color: #eaeef0;
   padding: 2rem;
 }
 

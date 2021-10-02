@@ -1,5 +1,5 @@
 article.panel > * {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 article.panel h2 {
@@ -9,7 +9,7 @@ article.panel h2 {
   color: var(--gray-default);
   text-align: unset;
 
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
   border-bottom: 1px solid var(--gray-light);
 }
 
@@ -30,23 +30,47 @@ article.panel > footer .view-all-btn:hover {
   background-color: var(--iu-secondary-light);
 }
 
-.general-information > article {
+
+/* Announcement List */
+.announcement > article {
   position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
 }
 
-.general-information > article h3 {
+.announcement > article .heading  {
   width: 76.6%;
-  
 }
 
-.general-information > article footer {
+.announcement > article footer {
   width: 15.5rem;
   padding-block: 1rem;
   margin-inline-start: auto;
   
   color: var(--gray-default);
   text-align: right;
+}
+
+
+/* General information panel */
+
+
+
+/* Courses Announcements panel */
+.courses-announcements > article .heading p  {
+  margin-bottom: 0.4rem;
+  color: var(--gray-default);
+  font-weight: 500;
+}
+
+.courses-announcements > article .heading p:hover  {
+  color: var(--gray-dark);
+}
+
+.courses-announcements > article .heading h3  {
+  /* color: var(--iu-primary-default); */
+  font-weight: bold;
+  font-size: 2.2rem;
+  line-height: 2.6rem;
 }
