@@ -3,6 +3,7 @@
 body {
   --header-height: 10rem;
   --hover-transition: 0.25s ease-out;
+  --spacing: 1rem;
 }
 
 .page-grid {
@@ -57,7 +58,7 @@ body > footer {
 
 .logo p {
   margin: 0;
-  margin-inline-start: 1rem;
+  margin-inline-start: var(--spacing);
 }
 
 .header-bar nav {
@@ -88,6 +89,10 @@ body > footer {
   transition: background-color var(--hover-transition);
 
   white-space: nowrap;
+}
+
+.header-nav .btn > svg {
+  margin-inline-end: var(--spacing);
 }
 
 .header-nav .guest {
@@ -126,8 +131,8 @@ body > footer {
   top: 0;
   max-height: 100vh;
   padding-block-end: calc(
-    var(--header-height) + 1rem
-  ); /* 1rem = Section title padding top */
+    var(--header-height) + var(--spacing)
+  ); /* var(--gap) = Section title padding top */
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--gray-default) transparent;
@@ -145,7 +150,7 @@ body > footer {
   display: flex;
   flex-direction: column;
 
-  padding-inline: 1rem;
+  padding-inline: var(--spacing);
   margin: 0;
   list-style: none;
 }
@@ -154,7 +159,7 @@ body > footer {
   color: var(--gray-default);
   font-weight: bold;
   margin: 0;
-  padding-block: 1rem;
+  padding-block: var(--spacing);
 }
 
 .sidebar-nav .btn {
@@ -191,7 +196,7 @@ body > footer {
 .footer-top-container {
   display: flex;
   justify-content: space-between;
-  padding: clamp(1rem, 3vw, 3rem) clamp(1rem, 6vw, 12rem);
+  padding: clamp(var(--spacing), 3vw, 3rem) clamp(var(--spacing), 6vw, 12rem);
 }
 
 .footer-top-container ul {
@@ -227,7 +232,7 @@ body > footer {
 .icon-list li a svg {
   min-width: 2.4rem;
   height: 2.4rem;
-  margin-inline-end: 1rem;
+  margin-inline-end: var(--spacing);
 }
 
 .icon-list li a p {
@@ -236,7 +241,7 @@ body > footer {
 
 .footer-bottom-container {
   display: flex;
-  padding: 1rem clamp(1rem, 6vw, 12rem);
+  padding: var(--spacing) clamp(var(--spacing), 6vw, 12rem);
   border-top: 1px solid var(--gray-light);
 }
 
@@ -276,7 +281,7 @@ body > footer {
 
   .footer-top-container ul {
     width: auto;
-    margin-top: 1rem;
+    margin-top: var(--spacing);
   }
 }
 
@@ -309,7 +314,7 @@ body > footer {
 .my-profile img {
   width: 5rem;
   height: 5rem;
-  margin-inline-start: 1rem;
+  margin-inline-start: var(--spacing);
   border-radius: 50%;
   background-color: var(--white-default);
 }
@@ -325,7 +330,7 @@ body > footer {
 
 .my-profile p {
   margin: 0;
-  margin-inline-start: 1rem;
+  margin-inline-start: var(--spacing);
 
   white-space: nowrap;
 }
@@ -333,20 +338,20 @@ body > footer {
 .my-profile img {
   width: 5rem;
   height: 5rem;
-  margin-inline-start: 1rem;
+  margin-inline-start: var(--spacing);
   border-radius: 50%;
-  background-color: var(--white-default);
+  background-color: transparent;
 }
 
 .my-profile > .drop-down-menu {
   display: none;
   position: absolute;
   top: 6rem;
-  left: 1rem;
+  left: var(--spacing);
   background-color: white;
   border-radius: 0px 6px 6px 6px;
   border: 1px solid var(--gray-light);
-  padding: 1rem;
+  padding: var(--spacing);
   margin: 0;
   list-style: none;
   z-index: 1;
@@ -354,6 +359,10 @@ body > footer {
 
 .my-profile:focus-within > .drop-down-menu {
   display: block;
+}
+
+.my-profile > .drop-down-menu .btn {
+  justify-content: flex-start;
 }
 
 .my-profile > .drop-down-menu .log-out.btn {
