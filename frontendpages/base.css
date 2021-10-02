@@ -3,7 +3,7 @@
 /* Custom properties/variables  */
 
 :root {
-  --white-default: #f0f6ff;
+  --white-default: #f6f7f8;
   --gray-default: #6a818a;
   --gray-light: #dce2e4;
   --gray-dark: #3e4b51;
@@ -19,7 +19,7 @@
   --body-font-weight: 400;
   --body-line-height: 1.5;
   --body-color: #000810;
-  --body-bg: #f5f6fa;
+  --body-bg: var(--white-default);
 }
 
 /* Base reset */

@@ -7,11 +7,11 @@ body {
 
 .page-grid {
   display: grid;
-  grid-template-columns: max-content repeat(4, 1fr);
+  grid-template-columns: max-content 1fr;
   grid-template-areas:
-    "header header header header header"
-    "sidebar content content content content"
-    "footer footer footer footer footer";
+    "header header"
+    "sidebar content"
+    "footer footer";
 }
 
 body > header {
@@ -40,16 +40,31 @@ body > footer {
   border-bottom: 1px solid #dce2e4;
 }
 
-.logo-img {
-  max-width: 34rem;
+.logo img {
+  max-width: 8rem;
   height: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: var(--iu-primary);
+}
+
+.logo:hover {
+  color: var(--iu-primary);
+}
+
+.logo p {
+  margin: 0;
+  margin-inline-start: 1rem;
 }
 
 .header-bar nav {
   margin-inline-start: auto;
 }
 
-.header-nav ul {
+.header-nav > ul {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,16 +73,21 @@ body > footer {
   list-style: none;
 }
 
+.header-nav > ul > li {
+  margin-inline-start: 2rem;
+}
+
 .header-nav .btn {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 5rem;
   padding-inline: 1.85rem;
-  margin-inline-start: 2rem;
 
   border-radius: 6px;
   transition: background-color var(--hover-transition);
+
+  white-space: nowrap;
 }
 
 .header-nav .guest {
@@ -86,9 +106,17 @@ body > footer {
   background-color: var(--iu-secondary);
 }
 
+/* 980px / 16px = 61.25em */
+@media (max-width: 61.25em) {
+  .logo p {
+    display: none;
+  }
+}
+
 /* SideBar */
 .sidebar {
   position: relative;
+  background-color: white;
 }
 
 .sidebar-nav {
@@ -116,8 +144,8 @@ body > footer {
 .sidebar-nav ul {
   display: flex;
   flex-direction: column;
-  padding:0;
 
+  padding-inline: 1rem;
   margin: 0;
   list-style: none;
 }
@@ -134,7 +162,6 @@ body > footer {
   align-items: center;
   height: 5rem;
 
-  margin-inline: 1rem;
   padding-inline: 2rem;
   border-radius: 6px;
   transition: background-color var(--hover-transition);
@@ -239,4 +266,123 @@ body > footer {
 
 .footer-bottom-container ul > li a:hover {
   color: var(--gray-default);
+}
+
+/* 980px / 16px = 61.25em */
+@media (max-width: 61.25em) {
+  .footer-top-container {
+    flex-direction: column;
+  }
+
+  .footer-top-container ul {
+    width: auto;
+    margin-top: 1rem;
+  }
+}
+
+/* Page Header when User Login */
+.user-login {
+  color: var(--white-default);
+  background-color: var(--iu-secondary);
+}
+
+.user-login .logo {
+  color: var(--white-default);
+}
+
+.user-login .logo:hover {
+  color: var(--white-default);
+}
+
+.my-profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: var(--white-default);
+  cursor: pointer;
+}
+
+.my-profile:hover {
+  color: var(--white-default);
+}
+
+.my-profile img {
+  width: 5rem;
+  height: 5rem;
+  margin-inline-start: 1rem;
+  border-radius: 50%;
+  background-color: var(--white-default);
+}
+
+.my-profile svg {
+  transform: rotateZ(-90deg);
+  transition: transform var(--hover-transition);
+}
+
+.my-profile:focus-within svg {
+  transform: rotateZ(0deg);
+}
+
+.my-profile p {
+  margin: 0;
+  margin-inline-start: 1rem;
+
+  white-space: nowrap;
+}
+
+.my-profile img {
+  width: 5rem;
+  height: 5rem;
+  margin-inline-start: 1rem;
+  border-radius: 50%;
+  background-color: var(--white-default);
+}
+
+.my-profile > .drop-down-menu {
+  display: none;
+  position: absolute;
+  top: 6rem;
+  left: 1rem;
+  background-color: white;
+  border-radius: 0px 6px 6px 6px;
+  border: 1px solid var(--gray-light);
+  padding: 1rem;
+  margin: 0;
+  list-style: none;
+  z-index: 1;
+}
+
+.my-profile:focus-within > .drop-down-menu {
+  display: block;
+}
+
+.my-profile > .drop-down-menu .log-out.btn {
+  color: var(--alert-primary);
+}
+
+.my-profile > .drop-down-menu .log-out.btn:hover {
+  background-color: var(--alert-secondary);
+}
+
+.my-profile > .drop-down-menu .info.btn:hover {
+  background-color: var(--white-default);
+}
+
+/* Page Footer When user login */
+.user-login .footer-bottom-container ul > li a {
+  color: var(--white-default);
+  transition: color var(--hover-transition);
+}
+
+.user-login .footer-bottom-container ul > li a:hover {
+  color: var(--gray-light);
+}
+
+.user-login .footer-top-container a {
+  color: var(--gray-light);
+  transition: color var(--hover-transition);
+}
+
+.user-login .footer-top-container a:hover {
+  color: var(--white-default);
 }
