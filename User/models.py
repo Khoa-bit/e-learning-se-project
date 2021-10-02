@@ -58,11 +58,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         return True
 
 class Student(models.Model):
+    id = models.BigAutoField(primary_key=True)
     user_id = models.OneToOneField(User,on_delete=CASCADE)
     def __str__(self):
-        return User.objects.get(pk=self.user_id).email
+        return User.objects.get(pk=self.user_id.pk).email
 
 class Lecturer(models.Model):
+    id = models.BigAutoField(primary_key=True)
     user_id= models.OneToOneField(User,on_delete=CASCADE)
     def __str__(self):
-        return User.objects.get(pk=self.user_id).email
+        return User.objects.get(pk=self.user_id.pk).email

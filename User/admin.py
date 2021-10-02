@@ -24,5 +24,7 @@ class NewUserAdmin(UserAdmin):
   list_filter=()
   fieldsets=()
   ordering=('email',)
-  
+
 admin.site.register(User,NewUserAdmin)
+admin.site.register(Student)
+admin.site.register(Lecturer)
