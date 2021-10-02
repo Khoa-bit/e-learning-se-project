@@ -49,14 +49,16 @@ body > footer {
 .logo {
   display: flex;
   align-items: center;
-  color: var(--iu-primary);
+  color: var(--iu-primary-default);
 }
 
 .logo:hover {
-  color: var(--iu-primary);
+  color: var(--iu-primary-default);
 }
 
-.logo p {
+.logo h1 {
+  font-size: 1.6rem;
+  text-align: unset;
   margin: 0;
   margin-inline-start: var(--spacing);
 }
@@ -104,16 +106,16 @@ body > footer {
 .header-nav .sign-in {
   font-weight: bold;
   color: var(--white-default);
-  background-color: var(--iu-primary);
+  background-color: var(--iu-primary-default);
 }
 
 .header-nav .sign-in:hover {
-  background-color: var(--iu-secondary);
+  background-color: var(--iu-primary-light);
 }
 
 /* 980px / 16px = 61.25em */
 @media (max-width: 61.25em) {
-  .logo p {
+  .logo h1 {
     display: none;
   }
 }
@@ -121,7 +123,7 @@ body > footer {
 /* SideBar */
 .sidebar {
   position: relative;
-  background-color: white;
+  background-color: var(--white-default);
 }
 
 .sidebar-nav {
@@ -176,7 +178,7 @@ body > footer {
 }
 
 .sidebar-nav .btn:hover {
-  background-color: var(--gray-light);
+  background-color: var(--gray-lighter);
 }
 
 .sidebar-nav .btn svg {
@@ -189,7 +191,7 @@ body > footer {
 .sidebar-nav .active:hover {
   font-weight: bold;
   color: var(--white-default);
-  background-color: var(--iu-secondary);
+  background-color: var(--iu-secondary-default);
 }
 
 /* Footer */
@@ -242,7 +244,7 @@ body > footer {
 .footer-bottom-container {
   display: flex;
   padding: var(--spacing) clamp(var(--spacing), 6vw, 12rem);
-  border-top: 1px solid var(--gray-light);
+  border-top: 1px solid var(--gray-lighter);
 }
 
 .footer-bottom-container p {
@@ -288,7 +290,7 @@ body > footer {
 /* Page Header when User Login */
 .user-login {
   color: var(--white-default);
-  background-color: var(--iu-secondary);
+  background-color: var(--iu-secondary-default);
 }
 
 .user-login .logo {
@@ -348,9 +350,9 @@ body > footer {
   position: absolute;
   top: 6rem;
   left: var(--spacing);
-  background-color: white;
+  background-color: var(--white-default);
   border-radius: 0px 6px 6px 6px;
-  border: 1px solid var(--gray-light);
+  border: 1px solid var(--gray-lighter);
   padding: var(--spacing);
   margin: 0;
   list-style: none;
@@ -379,6 +381,7 @@ body > footer {
 
 /* Page Footer When user login */
 .user-login .footer-bottom-container ul > li a {
+  font-weight: 500;
   color: var(--white-default);
   transition: color var(--hover-transition);
 }
@@ -388,10 +391,23 @@ body > footer {
 }
 
 .user-login .footer-top-container a {
-  color: var(--gray-light);
+  font-weight: 500;
+  color: var(--gray-lighter);
   transition: color var(--hover-transition);
 }
 
 .user-login .footer-top-container a:hover {
-  color: var(--white-default);
+  color: var(--gray-light);
+}
+
+/* Page Main Content */
+main {
+  padding: 2rem;
+}
+
+article.panel {
+  background-color: var(--white-default);
+  border-radius: 6px;
+  padding: 2rem 3rem;
+  margin-bottom: 2rem;
 }

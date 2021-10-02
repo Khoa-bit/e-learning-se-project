@@ -4,15 +4,19 @@
 
 :root {
   --white-default: #f6f7f8;
+  --gray-lighter: #dce2e4;
+  --gray-light: #bac5ca;
   --gray-default: #6a818a;
-  --gray-light: #dce2e4;
   --gray-dark: #3e4b51;
   --alert-primary: #ef255d;
   --alert-secondary: #fdecf1;
   --success-primary: #1ac687;
   --success-secondary: #e2fcf2;
-  --iu-primary: #2e3191;
-  --iu-secondary: #1c9acc;
+  --iu-primary-default: #2e3191;
+  --iu-primary-dark: #1d1f5d;
+  --iu-secondary-light: #dbf1fa;
+  --iu-secondary-default: #1c9acc;
+  --iu-secondary-dark: #115f7e;
 
   --body-font-family: Iter, sans-serif;
   --body-font-size: 1.6rem;

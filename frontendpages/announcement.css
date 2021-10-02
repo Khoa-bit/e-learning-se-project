@@ -1,0 +1,52 @@
+article.panel > * {
+  margin-bottom: 2rem;
+}
+
+article.panel h2 {
+  font-weight: bold;
+  font-size: 1.8rem;
+  line-height: 2.1rem;
+  color: var(--gray-default);
+  text-align: unset;
+
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--gray-light);
+}
+
+article.panel > footer {
+  text-align: right;
+}
+
+article.panel > footer .view-all-btn {
+  padding: 1rem;
+  border-radius: 6px;
+  
+  font-weight: bold;
+  margin: 0;
+  transition: background-color var(--hover-transition);
+}
+
+article.panel > footer .view-all-btn:hover {
+  background-color: var(--iu-secondary-light);
+}
+
+.general-information > article {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.general-information > article h3 {
+  width: 76.6%;
+  
+}
+
+.general-information > article footer {
+  width: 15.5rem;
+  padding-block: 1rem;
+  margin-inline-start: auto;
+  
+  color: var(--gray-default);
+  text-align: right;
+}
