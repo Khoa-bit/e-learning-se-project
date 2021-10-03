@@ -78,12 +78,19 @@ class User(AbstractBaseUser, PermissionsMixin):
         return hasattr(self,'student')
     def is_lecturer(self):
         return hasattr(self,'lecturer')
-    
+
+    @property
+    def full_name(self):
+        return self.first_name + " " + self.last_name + " " + self.middle_name
+
+
 class Student(models.Model):
     user_id = models.OneToOneField(User,on_delete=CASCADE)
     #major_id = models.ForeignKey("Courses.Major",on_delete=SET_NULL,null=True)
+
     def __str__(self):
         return User.objects.get(pk=self.user_id.pk).email
+
     def save(self,*args,**kwargs):
         created = not self.pk
         self.user_id.user_type= "student"
@@ -92,10 +99,14 @@ class Student(models.Model):
         super().save(*args,**kwargs)
 
 
+
+
 class Lecturer(models.Model):
     user_id= models.OneToOneField(User,on_delete=CASCADE,null=True)
+
     def __str__(self):
         return User.objects.get(pk=self.user_id.pk).email
+
     def save(self,*args,**kwargs):
         created = not self.pk
         self.user_id.user_type= "lecturer"
