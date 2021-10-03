@@ -9,7 +9,7 @@ article.panel h2 {
   color: var(--gray-default);
   text-align: unset;
 
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid var(--gray-light);
 }
 
