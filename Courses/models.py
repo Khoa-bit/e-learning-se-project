@@ -13,6 +13,9 @@ class Course(models.Model):
     major = models.ForeignKey(Major, on_delete=CASCADE)
     name = models.CharField(max_length=80)
 
+    def __str__(self):
+        return self.name
+
 
 class Timetable(models.Model):
     DAYS_OF_WEEK = [
@@ -49,5 +52,5 @@ class Class(models.Model):
     name = models.CharField(max_length=90)
 
     def __str__(self):
-        return self.course.name + " - " + self.schedule + " - " + self.lecturer.full_name
+        return self.course + " - " + self.schedule + " - " + self.lecturer.full_name
 
