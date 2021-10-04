@@ -6,3 +6,4 @@ urlpatterns = [
     path('user/',include("User.urls")),
     path('about/',views.AboutView,name="about-page")
 ]
+
