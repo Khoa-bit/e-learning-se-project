@@ -38,6 +38,9 @@ class Timetable(models.Model):
     def __str__(self):
         return self.day_of_the_week + " " + self.day_part
 
+    class Meta:
+        ordering = ['day_of_the_week', 'start_time']
+
 
 class Class(models.Model):
     course = models.ForeignKey(Course, on_delete=CASCADE)
