@@ -25,7 +25,7 @@ class Timetable(models.Model):
         ('SUN', 'Sunday'),
     ]
     day_of_the_week = models.CharField(max_length=3, choices=DAYS_OF_WEEK)
-    start_time = models.TimeField(auto_now=False, auto_add_now=False)
+    start_time = models.TimeField(auto_now=False, auto_now_add=False)
     duration = models.DurationField()
 
     @property
@@ -42,7 +42,7 @@ class Timetable(models.Model):
 class Class(models.Model):
     course = models.ForeignKey(Course, on_delete=CASCADE)
     lecturer = models.ForeignKey(Lecturer, on_delete=CASCADE)
-    schedule = models.ForeignKey(Timetable, on_delete=SET_NULL)
+    schedule = models.ForeignKey(Timetable, on_delete=SET_NULL, null=True)
     name = models.CharField(max_length=90)
 
     def __str__(self):

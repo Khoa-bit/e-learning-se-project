@@ -3,7 +3,9 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate,login,logout
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm
+from .forms import PasswordResetForm
 from django.urls import reverse
+from django.contrib import messages
 
 
 # Create your views here.
@@ -41,3 +43,19 @@ def StudentInfoView(request,id):
   if not (request.user.is_authenticated and request.user==user.user_id):
     return HttpResponseRedirect(reverse("home"))
   return render(request, "User/Studentinfo.html")
+
+def PasswordChangeView(request):
+  if request.method == "POST":
+    form = PasswordResetForm(data=request.POST)
+    if form.is_valid():
+      data = form.cleaned_data
+      if User.objects.filter(email = data["email"]):
+        user = User.objects.get(email=data['email'])
+        if user.first_name == data['first_name']: 
+          user.set_password(data["password"])
+          user.save()
+          messages.success(request, 'Form submission successful')
+
+  else:
+    form = PasswordResetForm()
+  return render(request,"User/resetpassword.html",{"form":form})

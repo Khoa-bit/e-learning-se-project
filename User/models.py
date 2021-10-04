@@ -61,7 +61,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def has_module_perms(self, app_label: str) -> bool:
         return True
     def save(self,*args,**kwargs):
-        print("saving")
         super().save(*args,**kwargs) 
         if self.user_type:
             if self.user_type.lower() == "student":
