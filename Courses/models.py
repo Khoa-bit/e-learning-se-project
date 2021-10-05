@@ -10,7 +10,7 @@ class Major(models.Model):
 
 
 class Course(models.Model):
-    major = models.ForeignKey(Major, on_delete=CASCADE)
+    major = models.ManyToManyField(Major)
     name = models.CharField(max_length=80)
 
     def __str__(self):
@@ -49,7 +49,6 @@ class Class(models.Model):
     course = models.ForeignKey(Course, on_delete=CASCADE)
     lecturer = models.ForeignKey(Lecturer, on_delete=CASCADE)
     schedule = models.ForeignKey(Timetable, on_delete=SET_NULL, null=True)
-    name = models.CharField(max_length=90)
 
     def __str__(self):
         return self.course + " - " + self.schedule + " - " + self.lecturer.full_name
