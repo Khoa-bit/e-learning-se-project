@@ -6,4 +6,5 @@ urlpatterns = [
     path('student/<int:id>/about/',views.StudentInfoView,name="studentinfo"),
     path('lecturer/<int:id>/about/',views.LecturerInfoView,name="lecturerinfo"),
     path('forgor/',views.PasswordChangeView,name="passwordreset"),
+    path('user-announcement/', views.UserAnnouncement, name="user-announcement-page"),
 ]
