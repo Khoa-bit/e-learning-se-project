@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +7,9 @@
     {% block title %}
         <title>Index</title>
     {% endblock title %}
+    {% load static %}
 
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     <link rel="stylesheet" href="{% static 'Home/index.css' %}">
 
     <!-- !Create a {stylesheets} Block here to add stylesheet -->
