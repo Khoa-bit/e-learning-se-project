@@ -86,14 +86,14 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Student(models.Model):
     user_id = models.OneToOneField(User,on_delete=CASCADE)
-    #major_id = models.ForeignKey("Courses.Major",on_delete=SET_NULL,null=True)
+    major_id = models.ForeignKey("Courses.Major",on_delete=SET_NULL,null=True)
 
     def __str__(self):
         return User.objects.get(pk=self.user_id.pk).email
 
     def save(self,*args,**kwargs):
         created = not self.pk
-        self.user_id.user_type= "student"
+        self.user_id.user_type= "Student"
         if Lecturer.objects.filter(user_id=self.user_id):
             Lecturer.objects.get(user_id=self.user_id).delete()
         super().save(*args,**kwargs)
@@ -109,7 +109,7 @@ class Lecturer(models.Model):
 
     def save(self,*args,**kwargs):
         created = not self.pk
-        self.user_id.user_type= "lecturer"
+        self.user_id.user_type= "Lecturer"
         if Student.objects.filter(user_id=self.user_id):
             Student.objects.get(user_id=self.user_id).delete()
         super().save(*args,**kwargs)    
