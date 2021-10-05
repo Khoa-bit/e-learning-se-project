@@ -169,7 +169,7 @@ body > footer {
   align-items: center;
   height: 5rem;
 
-  padding-inline: 2rem;
+  padding-inline: 2rem 5rem;
   border-radius: 6px;
   transition: background-color var(--hover-transition);
 
@@ -192,6 +192,28 @@ body > footer {
   font-weight: bold;
   color: var(--white-default);
   background-color: var(--iu-secondary-default);
+}
+
+/* 1200px / 16px = 75em */
+@media (max-width: 75em) {
+  .sidebar-nav .btn {
+    flex-direction: column;
+    height: auto;
+    padding-inline: 1rem;
+    padding-block: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .sidebar-nav .btn svg {
+    /*flex-shrink: 0;*/
+    margin: 0;
+    margin-block-end: 0.6rem;
+  }
+}
+
+/* 980px / 16px = 61.25em */
+@media (max-width: 61.25em) {
+/* TODO:Hamburger Menu + JS */
 }
 
 /* Footer */
