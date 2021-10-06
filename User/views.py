@@ -59,3 +59,6 @@ def PasswordChangeView(request):
   else:
     form = PasswordResetForm()
   return render(request,"User/resetpassword.html",{"form":form})
+
+def UserAnnouncement(request):
+  return render(request, "User/user-announcement.html")
