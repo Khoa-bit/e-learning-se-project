@@ -10,9 +10,9 @@
 {% block content %}
     {% for i in courses %}
         <tr>
-            <th scope="row">{{ course.pk }}</th>
-                <td>{{ course }}</td>
-                <td>{{ course.lecturer.user_id.full_name }}</td>
+            <th scope="row">{{ i.pk }}</th>
+                <td>{{ i.course.name }}</td>
+                <td>{{ i.lecturer.user_id.full_name }}</td>
             </tr>
     {% endfor %}
 {% endblock content %}

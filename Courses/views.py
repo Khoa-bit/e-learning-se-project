@@ -26,9 +26,9 @@ def CoursesPage(request, id):
     #except Student.DoesNotExist:
     #    user = None
 
-    user = Student.objects.filter(id=id)
+    user = Student.objects.get(id=id)
     courses = []
-    for i in user.class_id:
-        courses.append(i.course)
+    for i in user.class_id.all():
+        courses.append(i)
     context = {'courses': courses}
     return render(request, 'Courses/courses.html', context)
