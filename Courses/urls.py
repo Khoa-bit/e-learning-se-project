@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.lmao, name='lmao'),
-    path('registration', views.ClassRegistration, name='class-registration'),
-    path('timetable', views.StudentSchedule, name='student-timetable'),
+    #path('registration', views.ClassRegistration, name='class-registration'),
+    path('<int:id>/timetable', views.StudentSchedule, name='student-timetable'),
+    path('<int:id>/classes', views.CoursesPage, name='student-classes')
 ]

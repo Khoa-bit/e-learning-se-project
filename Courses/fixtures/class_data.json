@@ -1,0 +1,119 @@
+[
+  {
+    "model": "Courses.Class",
+    "pk": 1,
+    "fields": {
+      "course": 1,
+      "lecturer": 1,
+      "schedule": 7
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 2,
+    "fields": {
+      "course": 2,
+      "lecturer": 4,
+      "schedule": 6
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 3,
+    "fields": {
+      "course": 3,
+      "lecturer": 6,
+      "schedule": 9
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 4,
+    "fields": {
+      "course": 3,
+      "lecturer": 6,
+      "schedule": 8
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 5,
+    "fields": {
+      "course": 4,
+      "lecturer": 6,
+      "schedule": 2
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 6,
+    "fields": {
+      "course": 5,
+      "lecturer": 2,
+      "schedule": 1
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 7,
+    "fields": {
+      "course": 5,
+      "lecturer": 2,
+      "schedule": 10
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 8,
+    "fields": {
+      "course": 6,
+      "lecturer": 2,
+      "schedule": 10
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 9,
+    "fields": {
+      "course": 6,
+      "lecturer": 3,
+      "schedule": 11
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 10,
+    "fields": {
+      "course": 7,
+      "lecturer": 1,
+      "schedule": 12
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 11,
+    "fields": {
+      "course": 8,
+      "lecturer": 5,
+      "schedule": 13
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 12,
+    "fields": {
+      "course": 9,
+      "lecturer": 5,
+      "schedule": 5
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 13,
+    "fields": {
+      "course": 10,
+      "lecturer": 5,
+      "schedule": 4
+    }
+  }
+]

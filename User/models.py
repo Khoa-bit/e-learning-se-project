@@ -81,12 +81,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def full_name(self):
-        return self.first_name + " " + self.last_name + " " + self.middle_name
+        return self.last_name + " " + self.middle_name + " " + self.first_name
 
 
 class Student(models.Model):
     user_id = models.OneToOneField(User,on_delete=CASCADE)
     major_id = models.ForeignKey("Courses.Major",on_delete=SET_NULL,null=True)
+    class_id = models.ManyToManyField("Courses.Class")
 
     def __str__(self):
         return User.objects.get(pk=self.user_id.pk).email

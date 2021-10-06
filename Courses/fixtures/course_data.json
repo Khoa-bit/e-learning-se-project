@@ -54,5 +54,29 @@
       "name": "Principles of Database Management",
       "major": [1, 2, 3, 4]
     }
+  },
+  {
+    "model": "Courses.Course",
+    "pk": 8,
+    "fields": {
+      "name": "History of Vietnamese Communist Party",
+      "major": [1, 2, 3, 4]
+    }
+  },
+  {
+    "model": "Courses.Course",
+    "pk": 9,
+    "fields": {
+      "name": "Political Economics",
+      "major": [1, 2, 3, 4]
+    }
+  },
+  {
+    "model": "Courses.Course",
+    "pk": 10,
+    "fields": {
+      "name": "Ho Chi Minh's Thoughts",
+      "major": [1, 2, 3, 4]
+    }
   }
 ]
