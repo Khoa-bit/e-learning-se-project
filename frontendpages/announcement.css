@@ -3,7 +3,7 @@ article.panel > * {
 }
 
 article.panel h2 {
-  font-weight: bold;
+  font-weight: 600;
   font-size: 1.8rem;
   line-height: 2.1rem;
   color: var(--gray-default);
@@ -70,7 +70,7 @@ article.panel > footer .view-all-btn:hover {
 
 .courses-announcements > article .heading h3  {
   /* color: var(--iu-primary-default); */
-  font-weight: bold;
+  font-weight: 700;
   font-size: 2.2rem;
   line-height: 2.6rem;
 }

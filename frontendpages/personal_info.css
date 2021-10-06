@@ -29,11 +29,12 @@ section.panel h2 {
 }
 
 .change-password-btn {
-    padding: 1rem;
+    padding: 1.5rem;
     padding-left: 5rem;
     padding-right: 5rem;
     border-radius: 6px;
     border: 1px solid; 
+    color: var(--iu-primary-default);
     border-color: var(--gray-light);
     font-weight: bold;
     margin: 0;
