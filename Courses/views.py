@@ -4,8 +4,6 @@ from .models import *
 from User.models import Student
 
 # Create your views here.
-def lmao(request):
-    return HttpResponse("<h1>ay lmao you're in courses</h1>")
 
 '''dummy thoi tu tu them forms and ish do
 def ClassRegistration(request):
@@ -14,7 +12,6 @@ def ClassRegistration(request):
     return render(request, 'Courses/registration.html', context)
 '''
 
-# gonna have reference to registered classes later
 def StudentSchedule(request, id):
     user = Student.objects.get(id=id)
     registered_classes = []
@@ -30,3 +27,6 @@ def ClassesPage(request, id):
         registered_classes.append(i)
     context = {'registered_classes': registered_classes}
     return render(request, 'Courses/registered_classes.html', context)
+
+#def SpecificClass(request, student_id, class_id):
+#    return HttpResponse('<h1>ay lmao waddup homie</h1>')
