@@ -22,14 +22,14 @@ article.panel > footer {
 article.panel > footer .view-all-btn {
   padding: 1rem;
   border-radius: 6px;
-  
+  color: var(--iu-secondary-default);
   font-weight: bold;
   margin: 0;
   transition: background-color var(--hover-transition);
 }
 
 article.panel > footer .view-all-btn:hover {
-  background-color: var(--iu-secondary-light);
+  color: var(--iu-secondary-dark);
 }
 
 
@@ -42,7 +42,12 @@ article.panel > footer .view-all-btn:hover {
 }
 
 .announcement > article .heading  {
+  color: var(--iu-primary-default);
   width: 76.6%;
+}
+
+.announcement > article .heading h3:hover {
+  color: var(--iu-primary-dark);
 }
 
 .announcement > article footer {
@@ -89,8 +94,11 @@ article.panel > footer .view-all-btn:hover {
 }
 
 .courses-announcements > article .heading h3  {
-  /* color: var(--iu-primary-default); */
+  color: var(--iu-primary-default);
   font-weight: 700;
   font-size: 2.2rem;
   line-height: 2.6rem;
+}
+.courses-announcements > article .heading h3:hover  {
+  color: var(--iu-primary-dark);
 }
