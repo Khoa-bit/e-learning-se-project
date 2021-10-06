@@ -103,7 +103,7 @@ class Student(models.Model):
 
 
 class Lecturer(models.Model):
-    user_id= models.OneToOneField(User,on_delete=CASCADE,null=True)
+    user_id= models.OneToOneField(User,on_delete=CASCADE)
 
     def __str__(self):
         return User.objects.get(pk=self.user_id.pk).email

@@ -7,6 +7,8 @@ from User.models import Lecturer
 # Create your models here.
 class Major(models.Model):
     name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.name
 
 
 class Course(models.Model):
@@ -49,8 +51,11 @@ class Timetable(models.Model):
 class Class(models.Model):
     course = models.ForeignKey(Course, on_delete=CASCADE)
     lecturer = models.ForeignKey(Lecturer, on_delete=CASCADE)
-    schedule = models.ForeignKey(Timetable, on_delete=SET_NULL, null=True)
+    schedule = models.ForeignKey(Timetable, on_delete=SET_NULL, null=True,blank=True)
 
     def __str__(self):
-        return self.course + " - " + self.schedule + " - " + self.lecturer.full_name
+        if self.schedule:
+            return self.course.name + " - " + self.schedule + " - " + self.lecturer.user_id.full_name
+        else:
+            return self.course.name + "-" +self.lecturer.user_id.full_name
 
