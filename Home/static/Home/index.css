@@ -133,7 +133,7 @@ body > footer {
   top: 0;
   max-height: 100vh;
   padding-block-end: calc(
-    var(--header-height) + var(--spacing)
+          var(--header-height) + var(--spacing)
   ); /* var(--gap) = Section title padding top */
   overflow-y: auto;
   scrollbar-width: thin;
@@ -213,8 +213,9 @@ body > footer {
 
 /* 980px / 16px = 61.25em */
 @media (max-width: 61.25em) {
-/* TODO:Hamburger Menu + JS */
+  /* TODO:Hamburger Menu + JS */
 }
+
 
 /* Footer */
 .footer-top-container {
@@ -235,7 +236,7 @@ body > footer {
 }
 
 .footer-top-container a {
-  color: var(--iu-color);
+  color: var(--body-color);
   transition: color var(--hover-transition);
 }
 

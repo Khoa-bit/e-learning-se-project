@@ -5,13 +5,13 @@ article.panel > * {
 }
 
 article.panel h2 {
-  font-weight: 600;
+  font-weight: bold;
   font-size: 1.8rem;
   line-height: 2.1rem;
   color: var(--gray-default);
   text-align: unset;
 
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
   border-bottom: 1px solid var(--gray-light);
 }
 
@@ -90,7 +90,7 @@ article.panel > footer .view-all-btn:hover {
 
 .courses-announcements > article .heading h3  {
   /* color: var(--iu-primary-default); */
-  font-weight: 700;
+  font-weight: bold;
   font-size: 2.2rem;
   line-height: 2.6rem;
 }

@@ -1,0 +1,10 @@
+{%extends 'User/base.html'%}
+{%block body%}
+USER PAGE (NO ROLE)
+{%if user.first_name%}
+<p>This page is {{user.first_name}}'s home page</p>
+<p>Your Email: {{user.email}}</p>
+<p>First Name: {{user.first_name}}</p>
+{%else%}
+{%endif%}
+{%endblock%}
