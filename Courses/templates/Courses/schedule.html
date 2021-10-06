@@ -1,0 +1,22 @@
+{% extends 'Courses/base.html' %}
+
+
+{% block column_names %}
+    <th scope="col">#</th>
+    <th scope="col">Weekday</th>
+    <th scope="col">Class</th>
+    <th scope="col">Start time</th>
+    <th scope="col">Duration</th>
+{% endblock column_names %}
+
+{% block content %}
+    {% for i in registered_classes %}
+        <tr>
+            <th scope="row">{{ i.id }}</th>
+                <td>{{ i.schedule.day_of_the_week }}</td>
+                <td>{{ i }}</td>
+                <td>{{ i.schedule.start_time }}</td>
+                <td>{{ i.schedule.duration }}</td>
+        </tr>
+    {% endfor %}
+{% endblock content %}

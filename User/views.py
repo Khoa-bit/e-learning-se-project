@@ -64,5 +64,5 @@ def PasswordChangeView(request):
 def UserAnnouncement(request):
   return render(request, "User/user-announcement.html")
 
-def ActiveCourses(request):
-  return render(request, "User/active-courses.html")
+#def ActiveCourses(request):
+ # return render(request, "User/active-courses.html")

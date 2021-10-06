@@ -17,18 +17,16 @@ def ClassRegistration(request):
 # gonna have reference to registered classes later
 def StudentSchedule(request, id):
     user = Student.objects.get(id=id)
-    schedules = Timetable.objects.all()
-    context = {'schedules': schedules, 'title': 'Student Schedule'}
-    return render(request, 'Courses/timetable.html', context)
-
-def CoursesPage(request, id):
-    #try:
-    #except Student.DoesNotExist:
-    #    user = None
-
-    user = Student.objects.get(id=id)
-    courses = []
+    registered_classes = []
     for i in user.class_id.all():
-        courses.append(i)
-    context = {'courses': courses}
-    return render(request, 'Courses/courses.html', context)
+        registered_classes.append(i)
+    context = {'registered_classes': registered_classes, 'title': 'Student Schedule'}
+    return render(request, 'Courses/schedule.html', context)
+
+def ClassesPage(request, id):
+    user = Student.objects.get(id=id)
+    registered_classes = []
+    for i in user.class_id.all():
+        registered_classes.append(i)
+    context = {'registered_classes': registered_classes}
+    return render(request, 'Courses/registered_classes.html', context)

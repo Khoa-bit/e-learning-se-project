@@ -19,7 +19,7 @@ class Course(models.Model):
         return self.name
 
 
-class Timetable(models.Model):
+class Schedule(models.Model):
     DAYS_OF_WEEK = [
         ('MON', 'Monday'),
         ('TUE', 'Tuesday'),
@@ -51,11 +51,11 @@ class Timetable(models.Model):
 class Class(models.Model):
     course = models.ForeignKey(Course, on_delete=CASCADE)
     lecturer = models.ForeignKey(Lecturer, on_delete=CASCADE)
-    schedule = models.ForeignKey(Timetable, on_delete=SET_NULL, null=True,blank=True)
+    schedule = models.ForeignKey(Schedule, on_delete=SET_NULL, null=True,blank=True)
 
     def __str__(self):
         if self.schedule:
-            return self.course.name + " - " + self.schedule + " - " + self.lecturer.user_id.full_name
+            return self.course.name + " - " + str(self.schedule) + " - " + self.lecturer.user_id.full_name
         else:
-            return self.course.name + "-" +self.lecturer.user_id.full_name
+            return self.course.name + "-" + self.lecturer.user_id.full_name
 

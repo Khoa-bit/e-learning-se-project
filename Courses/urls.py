@@ -5,6 +5,6 @@ from . import views
 urlpatterns = [
     path('', views.lmao, name='lmao'),
     #path('registration', views.ClassRegistration, name='class-registration'),
-    path('<int:id>/timetable', views.StudentSchedule, name='student-timetable'),
-    path('<int:id>/classes', views.CoursesPage, name='student-classes')
+    path('<int:id>/schedule', views.StudentSchedule, name='student-timetable'),
+    path('<int:id>/classes', views.ClassesPage, name='student-classes')
 ]

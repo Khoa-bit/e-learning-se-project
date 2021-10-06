@@ -8,7 +8,7 @@
 {% endblock column_names %}
 
 {% block content %}
-    {% for i in courses %}
+    {% for i in registered_classes %}
         <tr>
             <th scope="row">{{ i.pk }}</th>
                 <td>{{ i.course.name }}</td>
