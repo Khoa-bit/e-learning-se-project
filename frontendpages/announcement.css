@@ -21,11 +21,9 @@ article.panel > footer {
 
 article.panel > footer .view-all-btn {
   padding: 1rem;
-  border-radius: 6px;
   color: var(--iu-secondary-default);
   font-weight: bold;
   margin: 0;
-  transition: background-color var(--hover-transition);
 }
 
 article.panel > footer .view-all-btn:hover {
