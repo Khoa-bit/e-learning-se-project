@@ -30,3 +30,13 @@ def ClassesPage(request, id):
 
 #def SpecificClass(request, student_id, class_id):
 #    return HttpResponse('<h1>ay lmao waddup homie</h1>')
+
+
+def ActiveCourses(request, id):
+    user = Student.objects.get(id=id)
+    registered_classes = []
+
+    for i in user.class_id.all():
+        registered_classes.append(i)
+    context = {'registered_classes': registered_classes}
+    return render(request, "Courses/active-courses.html", context)
