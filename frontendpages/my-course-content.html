@@ -10,7 +10,8 @@
   <link rel="stylesheet" href="index.css">
 
   <!-- !Create a {stylesheets} Block here to add stylesheet -->
-  <link rel="stylesheet" href="active-courses.css">
+  <link rel="stylesheet" href="my-course.css">
+  <link rel="stylesheet" href="my-course-content.css">
 </head>
 
 <body class="page-grid">
@@ -119,82 +120,47 @@
 <main>
   <!-- !Create a {main-content} Block here -->
   <article class="panel">
-    <h2>My Active Courses</h2>
-    <div class="courses-grid">
-      <!-- !Add inline style ordering for these cards -->
-      <a class="card" style="--order: 1" href="#">
-        <img class="cover" src="images/class-image-png.png" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="icons/small-avatar-icon-svg.svg" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 2" href="#">
-        <img class="cover" src="images/class-image-png.png" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="icons/small-avatar-icon-svg.svg" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 3" href="#">
-        <img class="cover" src="images/class-image-png.png" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="icons/small-avatar-icon-svg.svg" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 4" href="#">
-        <img class="cover" src="images/class-image-png.png" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="icons/small-avatar-icon-svg.svg" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 5" href="#">
-        <img class="cover" src="images/class-image-png.png" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="icons/small-avatar-icon-svg.svg" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 6" href="#">
-        <img class="cover" src="images/class-image-png.png" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="icons/small-avatar-icon-svg.svg" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 7" href="#">
-        <img class="cover" src="images/class-image-png.png" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="icons/small-avatar-icon-svg.svg" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 8" href="#">
-        <img class="cover" src="images/class-image-png.png" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="icons/small-avatar-icon-svg.svg" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-    </div>
+    <header>
+      <h2>Software Engineering_S1_2021-22_G02</h2>
+      <p>Instructor: Nguyen Thi Thuy Loan</p>
+      <ul class="flex-tabs">
+        <li><a class="tab" href="#">Announcements</a></li>
+        <li><a class="tab active" href="#">Content</a></li>
+        <li><a class="tab" href="#">My grades</a></li>
+        <li><a class="tab" href="#">Assignment</a></li>
+        <li><a class="tab" href="#">Staff contacts</a></li>
+      </ul>
+    </header>
+    <article>
+      <div class="heading">
+        <img class="icon" src="icons/file-icon-svg.svg" alt="file icon">
+        <h3>Chapter 2</h3>
+        <footer>
+          <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
+        </footer>
+      </div>
+      <p>Attached Files: <a href="#">Chapter_2_v8.1.pptx</a> (4.114 MB)</p>
+      <p>Group Assignment: <br><br>
+
+        - List all contemporary systems you can think of on the Internet. Give a brief intro: features, usages of those
+        items that make use of network capability. Example: Laptop – online study, web browsing
+      </p>
+    </article>
+    <article>
+      <div class="heading">
+        <img class="icon" src="icons/file-icon-svg.svg" alt="file icon">
+        <h3>Chapter 2</h3>
+        <footer>
+          <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
+        </footer>
+      </div>
+      <p>Attached Files: <a href="#">Chapter_2_v8.1.pptx</a> (4.114 MB)</p>
+      <p>Group Assignment: <br><br>
+
+        - List all contemporary systems you can think of on the Internet. Give a brief intro: features, usages of those
+        items that make use of network capability. Example: Laptop – online study, web browsing
+      </p>
+    </article>
   </article>
 </main>
 <!-- !Create a {condition} Block here for when user logins to add class "user-login" -->
