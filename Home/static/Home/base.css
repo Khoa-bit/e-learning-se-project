@@ -3,7 +3,7 @@
 /* Custom properties/variables  */
 
 :root {
-  --white-default: #f6f7f8;
+  --white-default: #ffffff;
   --gray-lighter: #dce2e4;
   --gray-light: #bac5ca;
   --gray-default: #6a818a;
@@ -18,7 +18,7 @@
   --iu-secondary-default: #1c9acc;
   --iu-secondary-dark: #115f7e;
 
-  --body-font-family: Iter, sans-serif;
+  --body-font-family: Inter, sans-serif;
   --body-font-size: 1.6rem;
   --body-font-weight: 400;
   --body-line-height: 1.5;
