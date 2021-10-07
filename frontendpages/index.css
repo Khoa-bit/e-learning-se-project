@@ -235,7 +235,7 @@ body > footer {
 }
 
 .footer-top-container a {
-  color: var(--iu-color);
+  color: var(--body-color);
   transition: color var(--hover-transition);
 }
 
