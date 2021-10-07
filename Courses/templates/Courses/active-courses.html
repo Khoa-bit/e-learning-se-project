@@ -16,78 +16,17 @@
     <h2>My Active Courses</h2>
     <div class="courses-grid">
       <!-- !Add inline style ordering for these cards -->
-      <a class="card" style="--order: 1" href="#">
+      {% for i in registered_classes %}
+        <a class="card" style="--order: {{ forloop.counter }}" href="#">
         <img class="cover" src="{% static 'images/class-image-png.png' %}" alt="Course Cover">
         <div class="teacher-profile">
           <img src="{% static 'icons/small-avatar-icon-svg.svg' %}" alt="My avatar">
           <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
+            <b>{{ i.lecturer.user_id.full_name }}</b></p>
         </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
+        <h3 class="course-name">{{ i.course.name }}</h3>
       </a>
-      <a class="card" style="--order: 2" href="#">
-        <img class="cover" src="{% static 'images/class-image-png.png' %}" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="{% static 'icons/small-avatar-icon-svg.svg' %}" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 3" href="#">
-        <img class="cover" src="{% static 'images/class-image-png.png' %}" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="{% static 'icons/small-avatar-icon-svg.svg' %}" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 4" href="#">
-        <img class="cover" src="{% static 'images/class-image-png.png' %}" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="{% static 'icons/small-avatar-icon-svg.svg' %}" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 5" href="#">
-        <img class="cover" src="{% static 'images/class-image-png.png' %}" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="{% static 'icons/small-avatar-icon-svg.svg' %}" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 6" href="#">
-        <img class="cover" src="{% static 'images/class-image-png.png' %}" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="{% static 'icons/small-avatar-icon-svg.svg' %}" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 7" href="#">
-        <img class="cover" src="{% static 'images/class-image-png.png' %}" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="{% static 'icons/small-avatar-icon-svg.svg' %}" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
-      <a class="card" style="--order: 8" href="#">
-        <img class="cover" src="{% static 'images/class-image-png.png' %}" alt="Course Cover">
-        <div class="teacher-profile">
-          <img src="{% static 'icons/small-avatar-icon-svg.svg' %}" alt="My avatar">
-          <p>Instructor<br>
-            <b>Nguyen Thi Thuy Loan</b></p>
-        </div>
-        <h3 class="course-name">Software Engineering_S1_2021-22_G02</h3>
-      </a>
+      {% endfor %}
     </div>
   </article>
 {% endblock %}
