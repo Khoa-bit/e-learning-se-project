@@ -20,29 +20,34 @@ def LoginView(request):
       elif user.is_lecturer():
         return HttpResponseRedirect(reverse("lecturerinfo",args=[user.lecturer.id]))
       elif user.is_student():
-        return HttpResponseRedirect(reverse("studentinfo",args=[user.student.id]))
+        # return HttpResponseRedirect(reverse("studentinfo",args=[user.student.id]))
+        return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
       else: return HttpResponseRedirect(reverse("userinfo",args=[user.id]))
   else:
     form = AuthenticationForm()
   return render(request,"User/login.html",{"form":form})
 
+def LogoutView(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("guest-announcement-page"))
+
 def UserInfoView(request,id):
   user = User.objects.get(id=id)
   if not (request.user.is_authenticated and request.user==user):
-    return HttpResponseRedirect(reverse("home"))
+    return HttpResponseRedirect(reverse("guest-announcement-page"))
   return render(request,"User/userinfo.html")
 
 def LecturerInfoView(request,id):
   user = Lecturer.objects.get(id=id)
   if not (request.user.is_authenticated and request.user==user.user_id):
-    return HttpResponseRedirect(reverse("home"))
+    return HttpResponseRedirect(reverse("guest-announcement-page"))
   return render(request, "User/lecturerinfo.html")
-  
+
 def StudentInfoView(request,id):
   user = Student.objects.get(id=id)
   context={"student":user}
   if not (request.user.is_authenticated and request.user==user.user_id):
-    return HttpResponseRedirect(reverse("home"))
+    return HttpResponseRedirect(reverse("guest-announcement-page"))
   return render(request, "User/studentinfo.html",context)
 
 def PasswordChangeView(request):
@@ -52,7 +57,7 @@ def PasswordChangeView(request):
       data = form.cleaned_data
       if User.objects.filter(email = data["email"]):
         user = User.objects.get(email=data['email'])
-        if user.first_name == data['first_name']: 
+        if user.first_name == data['first_name']:
           user.set_password(data["password"])
           user.save()
           messages.success(request, 'Form submission successful')
@@ -61,8 +66,11 @@ def PasswordChangeView(request):
     form = PasswordResetForm()
   return render(request,"User/resetpassword.html",{"form":form})
 
-def UserAnnouncement(request):
-  return render(request, "User/user-announcement.html")
+def StudentAnnouncement(request, id):
+  user = Student.objects.get(id=id)
+  if not (request.user.is_authenticated and request.user==user.user_id):
+    return HttpResponseRedirect(reverse("guest-announcement-page"))
+  return render(request, "User/student-announcement.html")
 
 #def ActiveCourses(request):
- # return render(request, "User/active-courses.html")
+ # return render(request, "User/active-student-courses.html")

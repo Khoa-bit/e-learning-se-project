@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http.response import HttpResponseRedirect
+from django.urls import reverse
 from .models import *
 from User.models import Student
 
@@ -33,11 +34,15 @@ def StudentSchedule(request, id):
 #    return HttpResponse('<h1>ay lmao waddup homie</h1>')
 
 
-def ActiveCourses(request, id):
+def ActiveStudentCourses(request, id):
     user = Student.objects.get(id=id)
     registered_classes = []
+
+    user = Student.objects.get(id=id)
+    if not (request.user.is_authenticated and request.user == user.user_id):
+        return HttpResponseRedirect(reverse("guest-announcement-page"))
 
     for i in user.class_id.all():
         registered_classes.append(i)
     context = {'registered_classes': registered_classes}
-    return render(request, "Courses/active-courses.html", context)
+    return render(request, "Courses/active-student-courses.html", context)

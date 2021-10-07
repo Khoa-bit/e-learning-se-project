@@ -34,7 +34,7 @@
                       fill="currentColor"/>
             </svg>
             <ul class="drop-down-menu">
-              <li><a class="info btn" href="#">
+              <li><a class="info btn" href="{% if user.user_type == 'Student' %}{% url 'studentinfo' user.student.id %}{% elif user.user_type == 'Lecturer' %}{% url 'lecturerinfo' user.lecturer.id %}{% endif %}">
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd"
@@ -42,7 +42,7 @@
                         fill="currentColor"/>
                 </svg>
                 Personal Information</a></li>
-              <li><a class="log-out btn" href="#">
+              <li><a class="log-out btn" href="{% url 'logout' %}">
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg">
                   <g id="logout-icon-svg">
@@ -64,7 +64,7 @@
         <li>
           <div class="guest btn">Viewing as guest</div>
         </li>
-        <li><a class="sign-in btn" href="#">
+        <li><a class="sign-in btn" href="{% url 'login' %}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
                   d="M13.5 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H13.5C13.2239 21 13 20.7761 13 20.5V19.5C13 19.2239 13.2239 19 13.5 19H19V5H13.5C13.2239 5 13 4.77614 13 4.5V3.5C13 3.22386 13.2239 3 13.5 3ZM17 11.81V12.19C16.9998 12.3888 16.9207 12.5795 16.78 12.72L11.64 17.85C11.5461 17.9447 11.4183 17.9979 11.285 17.9979C11.1517 17.9979 11.0239 17.9447 10.93 17.85L10.22 17.15C10.1253 17.0561 10.0721 16.9283 10.0721 16.795C10.0721 16.6617 10.1253 16.5339 10.22 16.44L13.67 13H3.5C3.22386 13 3 12.7761 3 12.5V11.5C3 11.2239 3.22386 11 3.5 11H13.67L10.22 7.56C10.1259 7.46784 10.0729 7.34169 10.0729 7.21C10.0729 7.07831 10.1259 6.95216 10.22 6.86L10.93 6.15C11.0239 6.05534 11.1517 6.0021 11.285 6.0021C11.4183 6.0021 11.5461 6.05534 11.64 6.15L16.78 11.28C16.9189 11.4217 16.9977 11.6116 17 11.81Z"
@@ -81,7 +81,7 @@
   <nav class="sidebar-nav">
     <ul>
       <p class="section-title">Home</p>
-      <li><a class="btn {% block announcements-active %}{% endblock announcements-active %}" href="#">
+      <li><a class="btn {% block announcements-active %}{% endblock announcements-active %}" href="{% if user.user_type == 'Student' %}{% url 'student-announcement-page' user.student.id %}{% elif user.user_type == 'Lecturer' %}#{% else %}#{% endif %}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M18 19V3C18 2.44772 17.5523 2 17 2H16.46C16.1977 2.0011 15.9463 2.10526 15.76 2.29L12.76 5.24C11.6334 6.36799 10.1042 7.00125 8.51 7H5C3.34315 7 2 8.34315 2 10V12C2 13.6569 3.34315 15 5 15H8.51C10.0869 15.0119 11.5957 15.6442 12.71 16.76L15.71 19.71C15.8963 19.8947 16.1477 19.9989 16.41 20H17C17.5523 20 18 19.5523 18 19ZM22 11C22 11.8655 21.7193 12.7076 21.2 13.4C21.1034 13.5048 20.9675 13.5643 20.825 13.5643C20.6825 13.5643 20.5466 13.5048 20.45 13.4L19.73 12.68C19.5627 12.511 19.5376 12.2476 19.67 12.05C20.1096 11.3825 20.1096 10.5175 19.67 9.85C19.5376 9.65245 19.5627 9.38902 19.73 9.22L20.45 8.5C20.5526 8.3966 20.6945 8.34201 20.84 8.35C20.9817 8.36649 21.1111 8.4384 21.2 8.55C21.7297 9.25604 22.0109 10.1174 22 11ZM12 20.92V21.5C12 21.7761 11.7761 22 11.5 22H9.57C9.21693 21.9999 8.89006 21.8137 8.71 21.51L6.43 17.71C6.24541 17.4036 6.12308 17.0638 6.07 16.71H8.51C9.04785 16.7071 9.58112 16.809 10.08 17.01L10.5 19.76C10.6392 20.0632 10.9206 20.277 11.25 20.33L11.58 20.39C11.8364 20.4309 12.0188 20.6611 12 20.92Z"
@@ -99,7 +99,7 @@
     </ul>
     <ul>
       <p class="section-title">Course</p>
-      <li><a class="btn {% block my-courses-active %}{% endblock my-courses-active %}" href="#">
+      <li><a class="btn {% block my-courses-active %}{% endblock my-courses-active %}" href="{% if user.user_type == 'Student' %}{% url 'active-student-courses-page' user.student.id %}{% elif user.user_type == 'Lecturer' %}#{% else %}{% url 'login' %}{% endif %}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
              xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
