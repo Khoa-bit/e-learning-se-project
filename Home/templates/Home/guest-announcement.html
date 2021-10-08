@@ -14,14 +14,16 @@
 {% block main-content %}
     <article class="panel announcement general-information">
         <h2>General Information</h2>
+        {% for announcement in announcements %}
         <article style="--order: 1">
-            <a class="heading" href="#"><h3>THÔNG BÁO VỀ KHẢO SÁT SINH VIÊN TỐT NGHIỆP_HỌC KỲ 1 NĂM HỌC 2020-2021</h3>
+            <a class="heading" href="#"><h3><!--THÔNG BÁO VỀ KHẢO SÁT SINH VIÊN TỐT NGHIỆP_HỌC KỲ 1 NĂM HỌC 2020-2021-->announcement.title</h3>
             </a>
             <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
+                <time datetime=<!--"2021-05-16 19:00">16/05/2021-->announcement.time_announced>announcement.time_announced</time>
             </footer>
         </article>
-        <article style="--order: 2">
+        {% endfor %}
+        <!--<article style="--order: 2">
             <a class="heading" href="#"><h3>THÔNG BÁO VỀ VIỆC TỔ CHỨC DẠY VÀ HỌC TRỰC TUYẾN MÔN GIÁO DỤC THỂ CHẤT CỦA
                 HỌC KỲ 2, NĂM HỌC
                 2020-2021</h3></a>
@@ -42,7 +44,7 @@
             <footer>
                 <time datetime="2021-05-16 19:00">16/05/2021</time>
             </footer>
-        </article>
+        </article>-->
         <footer>
             <a class="view-all-btn" href="#">View All</a>
         </footer>
