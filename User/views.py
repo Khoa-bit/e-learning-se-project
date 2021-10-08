@@ -43,12 +43,13 @@ def LecturerInfoView(request,id):
     return HttpResponseRedirect(reverse("guest-announcement-page"))
   return render(request, "User/lecturerinfo.html")
 
-def StudentInfoView(request,id):
+def StudentAboutView(request, id):
   user = Student.objects.get(id=id)
+  # user.major_id.name
   context={"student":user}
   if not (request.user.is_authenticated and request.user==user.user_id):
     return HttpResponseRedirect(reverse("guest-announcement-page"))
-  return render(request, "User/personal-info.html",context)
+  return render(request, "User/student-about.html", context)
 
 def PasswordChangeView(request):
   if request.method == "POST":
