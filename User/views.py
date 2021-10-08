@@ -48,7 +48,7 @@ def StudentInfoView(request,id):
   context={"student":user}
   if not (request.user.is_authenticated and request.user==user.user_id):
     return HttpResponseRedirect(reverse("guest-announcement-page"))
-  return render(request, "User/studentinfo.html",context)
+  return render(request, "User/personal-info.html",context)
 
 def PasswordChangeView(request):
   if request.method == "POST":
