@@ -1,0 +1,37 @@
+{% extends 'Home/index.html' %}
+{% load static %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" href="{% static 'Courses/base-student-class.css' %}">
+{% endblock %}
+
+{% block my-courses-active %}active{% endblock %}
+
+{% block main-content %}
+  <article class="panel">
+    <header>
+      <h2>{{ student_class.course.name }}</h2>
+      <p>Instructor: {{ student_class.lecturer.user_id.full_name }}</p>
+      <ul class="flex-tabs">
+        <li><a class="tab {% block class-announcements-active %}{% endblock %}"
+               href="{% url 'student-class-announcement-page' user.student.id student_class.id %}">Announcements</a>
+        </li>
+        <li><a class="tab {% block class-content-active %}{% endblock %}"
+               href="{% url 'student-class-content-page' user.student.id student_class.id %}">Content</a>
+        </li>
+        <li><a class="tab {% block class-my-grades-active %}{% endblock %}"
+               href="#">My grades</a>
+        </li>
+        <li><a class="tab {% block class-assignment-active %}{% endblock %}"
+               href="#">Assignment</a>
+        </li>
+        <li><a class="tab {% block class-staff-contacts-active %}{% endblock %}"
+               href="#">Staff contacts</a>
+        </li>
+      </ul>
+    </header>
+
+    {% block panel-content %}{% endblock panel-content %}
+  </article>
+{% endblock %}
+

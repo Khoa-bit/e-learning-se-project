@@ -1,0 +1,64 @@
+{% extends 'Courses/base-class-course.html' %}
+{% load static %}
+
+{% block title %}
+  <title>{{ student_class.course.name }}</title>
+{% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'Courses/student-class-announcement.css' %}">
+{% endblock %}
+
+{% block class-announcements-active %}active{% endblock %}
+
+{% block panel-content %}
+  <article>
+    <div class="heading">
+      <h3>How to write a project proposal?</h3>
+      <footer>
+        <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
+      </footer>
+    </div>
+    <p>Dear Students,<br><br>
+      Please refer the information in the links below to write a project proposal.<br>
+      https://www.fool.com/the-blueprint/project-proposal/<br>
+      https://www.mavenlink.com/resources/project-proposal<br>
+      The project proposal will be completed in four weeks.<br><br>
+      Thanks and good luck.<br>
+      Loan Nguyen
+    </p>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>How to write a project proposal?</h3>
+      <footer>
+        <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
+      </footer>
+    </div>
+    <p>Dear Students,<br><br>
+      Please refer the information in the links below to write a project proposal.<br>
+      https://www.fool.com/the-blueprint/project-proposal/<br>
+      https://www.mavenlink.com/resources/project-proposal<br>
+      The project proposal will be completed in four weeks.<br><br>
+      Thanks and good luck.<br>
+      Loan Nguyen
+    </p>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>How to write a project proposal?</h3>
+      <footer>
+        <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
+      </footer>
+    </div>
+    <p>Dear Students,<br><br>
+      Please refer the information in the links below to write a project proposal.<br>
+      https://www.fool.com/the-blueprint/project-proposal/<br>
+      https://www.mavenlink.com/resources/project-proposal<br>
+      The project proposal will be completed in four weeks.<br><br>
+      Thanks and good luck.<br>
+      Loan Nguyen
+    </p>
+  </article>
+{% endblock %}

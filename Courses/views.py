@@ -13,6 +13,7 @@ def ClassRegistration(request):
     return render(request, 'Courses/registration.html', context)
 '''
 
+
 def StudentSchedule(request, id):
     user = Student.objects.get(id=id)
     registered_classes = []
@@ -27,7 +28,7 @@ def StudentSchedule(request, id):
     return render(request, 'Courses/schedule.html', context)
 
 
-def ActiveStudentCourses(request, id):
+def ActiveStudentClasses(request, id):
     user = Student.objects.get(id=id)
     registered_classes = []
 
@@ -39,3 +40,25 @@ def ActiveStudentCourses(request, id):
 
     context = {'registered_classes': registered_classes}
     return render(request, "Courses/active-student-courses.html", context)
+
+
+def StudentClassAnnouncement(request, id, class_id):
+    user = Student.objects.get(id=id)
+
+    if not (request.user.is_authenticated and request.user == user.user_id):
+        return HttpResponseRedirect(reverse("guest-announcement-page"))
+
+    student_class = Class.objects.get(id=class_id)
+    content = {'student_class': student_class}
+    return render(request, "Courses/student-class-announcement.html", content)
+
+
+def StudentClassContent(request, id, class_id):
+    user = Student.objects.get(id=id)
+
+    if not (request.user.is_authenticated and request.user == user.user_id):
+        return HttpResponseRedirect(reverse("guest-announcement-page"))
+
+    student_class = Class.objects.get(id=class_id)
+    content = {'student_class': student_class}
+    return render(request, "Courses/student-class-content.html", content)
