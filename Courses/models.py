@@ -1,5 +1,4 @@
 import datetime
-
 from django.db import models
 from django.db.models import CASCADE, SET_NULL
 from User.models import Lecturer
@@ -59,3 +58,36 @@ class Class(models.Model):
         else:
             return self.course.name + "-" + self.lecturer.user_id.full_name
 
+
+class ClassAnnouncement(models.Model):
+    class_id = models.ForeignKey(Class, on_delete=CASCADE)
+    title = models.CharField(max_length=255)
+    time_created = models.DateTimeField(editable=False)
+    time_modified = models.DateTimeField(editable=False)
+    content = models.TextField()
+
+    class Meta:
+        ordering = ["time_created", "time_modified"]
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.time_created = datetime.timezone.now()
+        self.modified = datetime.timezone.now()
+        return self.save(*args, **kwargs)
+
+class ClassContent(models.Model):
+    class_id = models.ForeignKey(Class, on_delete=CASCADE)
+    title = models.CharField(max_length=255)
+    time_created = models.DateTimeField(editable=False)
+    time_modified = models.DateTimeField(editable=False)
+    attached_file = models.FileField(upload_to='documents/%class_id')
+    content = models.TextField()
+
+    class Meta:
+        ordering = ["time_created", "time_modified"]
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.time_created = datetime.timezone.now()
+        self.modified = datetime.timezone.now()
+        return self.save(*args, **kwargs)

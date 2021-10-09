@@ -6,12 +6,8 @@ from User.models import Student
 
 # Create your views here.
 
-'''dummy thoi tu tu them forms and ish do
 def ClassRegistration(request):
-    classes = Class.objects.all()
-    context = {'classes': classes, 'title': 'Class Registration'}
-    return render(request, 'Courses/registration.html', context)
-'''
+    pass
 
 
 def StudentSchedule(request, id):
@@ -39,7 +35,22 @@ def ActiveStudentClasses(request, id):
         registered_classes.append(i)
 
     context = {'registered_classes': registered_classes}
-    return render(request, "Courses/active-student-courses.html", context)
+    return render(request, "Courses/active-student-classes.html", context)
+
+def ActiveLecturerClasses(request, id):
+    all_classes = Class.objects.all()
+    user = Lecturer.objects.get(id=id)
+    classes = []
+
+    if not (request.user.is_authenticated and request.user == user.user_id):
+        return HttpResponseRedirect(reverse("guest-announcement-page"))
+
+    for i in all_classes:
+        if (i.lecturer.user_id == user.user_id):
+            classes.append(i)
+
+    context = {'classes': classes}
+    return render(request, "Courses/active-lecturer-classes.html", context)
 
 
 def StudentClassAnnouncement(request, id, class_id):

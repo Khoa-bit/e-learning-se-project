@@ -1,5 +1,5 @@
 from django import forms
-
+from Courses.models import ClassAnnouncement
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField()
@@ -18,3 +18,11 @@ class PasswordResetForm(forms.Form):
                 "password and confirm_password does not match"
             )
         return cleaned_data
+
+class AnnouncementForm(forms.ModelForm):
+    class Meta:
+        model = ClassAnnouncement
+        fields = [
+            'title',
+            'content'
+        ]

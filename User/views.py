@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate,login,logout
 from .models import *
 from django.contrib.auth.forms import AuthenticationForm
-from .forms import PasswordResetForm
+from .forms import *
 from django.urls import reverse
 from django.contrib import messages
 
@@ -18,9 +18,8 @@ def LoginView(request):
       if user.is_staff:
         return HttpResponseRedirect(reverse("admin:index"))
       elif user.is_lecturer():
-        return HttpResponseRedirect(reverse("lecturerinfo",args=[user.lecturer.id]))
+        return HttpResponseRedirect(reverse("student-announcement-page", args=[user.lecturer.id]))
       elif user.is_student():
-        # return HttpResponseRedirect(reverse("studentinfo",args=[user.student.id]))
         return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
       else: return HttpResponseRedirect(reverse("userinfo",args=[user.id]))
   else:
@@ -41,7 +40,7 @@ def LecturerInfoView(request,id):
   user = Lecturer.objects.get(id=id)
   if not (request.user.is_authenticated and request.user==user.user_id):
     return HttpResponseRedirect(reverse("guest-announcement-page"))
-  return render(request, "User/lecturerinfo.html")
+  return render(request, "User/lecturer-about.html")
 
 def StudentAboutView(request, id):
   user = Student.objects.get(id=id)
@@ -73,5 +72,33 @@ def StudentAnnouncement(request, id):
     return HttpResponseRedirect(reverse("guest-announcement-page"))
   return render(request, "User/student-announcement.html")
 
-#def ActiveCourses(request):
- # return render(request, "User/active-student-courses.html")
+
+def ClassAnnouncement(request):
+  form = AnnouncementForm(request.POST)
+  if form.is_valid():
+    form.save()
+
+  context = {'form': form}
+  return render(request,'User/createannouncement.html',context)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
