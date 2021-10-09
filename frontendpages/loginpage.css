@@ -1,5 +1,5 @@
 body{
-    background-image: url(../images/login_background.jpg);
+    background-image: url(images/login_background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -40,6 +40,7 @@ div.part1{
     font-size: 1.2em;
     font-style:inherit;
     font: bold;
+    /*text-wrap: none;*/
 }
 
 div.logo{
