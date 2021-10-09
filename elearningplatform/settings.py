@@ -135,6 +135,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'User.User'
 
+LOGIN_URL = '/user/login'
+
 LOGIN_REDIRECT_URL = '/User/UserInfoView'
 
 AUTH_PASSWORD_VALIDATORS = []

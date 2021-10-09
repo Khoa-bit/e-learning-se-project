@@ -100,8 +100,6 @@ class Student(models.Model):
         super().save(*args,**kwargs)
 
 
-
-
 class Lecturer(models.Model):
     user_id= models.OneToOneField(User,on_delete=CASCADE)
 
@@ -114,4 +112,3 @@ class Lecturer(models.Model):
         if Student.objects.filter(user_id=self.user_id):
             Student.objects.get(user_id=self.user_id).delete()
         super().save(*args,**kwargs)    
-    

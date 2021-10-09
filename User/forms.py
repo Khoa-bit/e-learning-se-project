@@ -1,5 +1,6 @@
 from django import forms
 from Courses.models import ClassAnnouncement
+from django.contrib.auth.forms import AuthenticationForm
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField()
@@ -26,3 +27,6 @@ class AnnouncementForm(forms.ModelForm):
             'title',
             'content'
         ]
+
+class LoginForm(AuthenticationForm):
+    pass
