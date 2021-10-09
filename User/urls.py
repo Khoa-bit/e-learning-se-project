@@ -16,5 +16,5 @@ urlpatterns = [
     path('student/<int:id>/registration/', coursesViews.ClassRegistration, name="class-registration-page"),
     path('lecturer/<int:id>/create-class-announcement/', views.ClassAnnouncement, name = 'class-announcement-creation'),
     #path('', include("Courses.urls")),
-    path('class/<int:class_id', include("Courses.urls")),
+    path('class/<int:class_id/', include("Courses.urls")),
 ]
