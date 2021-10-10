@@ -3,6 +3,7 @@ from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from .models import *
 from User.models import Student
+from Courses import forms
 
 # Create your views here.
 
@@ -70,8 +71,7 @@ def ActiveLecturerClasses(request, id):
 def LecturerClassAnnouncement(request, id, class_id):
     user = Lecturer.objects.get(id=id)
     if not (request.user.is_authenticated and request.user == user.user_id):
-        #return HttpResponseRedirect(reverse("guest-announcement-page"))
-        return HttpResponseRedirect(reverse("about-page"))
+        return HttpResponseRedirect(reverse("guest-announcement-page"))
 
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class}
@@ -109,3 +109,11 @@ def LecturerClassContent(request, id, class_id):
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class}
     return render(request, "Courses/lecturer-class-content.html", content)
+
+
+def UploadClassAnnouncement(request):
+    form = forms.UploadClassAnnouncementForm(request.POST)
+    if form.is_valid():
+        form.save()
+    context = {'form': form}
+    return render(request, 'User/upload-announcement.html', context)

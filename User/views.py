@@ -39,9 +39,9 @@ def LoginView(request):
             if user.is_staff:
                 return HttpResponseRedirect(reverse("admin:index"))
             elif user.is_lecturer():
-                return HttpResponseRedirect(reverse("student-announcement-page", args=[user.lecturer.id]))
+                return HttpResponseRedirect(reverse("user-announcement-page", args=[user.lecturer.id]))
             elif user.is_student():
-                return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
+                return HttpResponseRedirect(reverse("user-announcement-page", args=[user.student.id]))
             else:
                 return HttpResponseRedirect(reverse("userinfo", args=[user.id]))
     else:
@@ -81,19 +81,19 @@ def StudentAboutView(request, id):
 
 
 @CheckValidUser
-def StudentAnnouncement(request, id):
+def UserAnnouncement(request, id):
     # user = Student.objects.get(id=id)
     # if not (request.user.is_authenticated and request.user == user.user_id):
     #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-    return render(request, "User/student-announcement.html")
+    return render(request, "User/user-announcement.html")
 
 
-@CheckValidUser
-def LecturerAnnouncement(request, id):
+#@CheckValidUser
+#def LecturerAnnouncement(request, id):
     # user = Student.objects.get(id=id)
     # if not (request.user.is_authenticated and request.user == user.user_id):
     #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-    return render(request, "User/lecturer-announcement.html")
+    #return render(request, "User/lecturer-announcement.html")
 
 
 def PasswordChangeView(request):
@@ -112,11 +112,4 @@ def PasswordChangeView(request):
         form = PasswordResetForm()
     return render(request, "User/resetpassword.html", {"form": form})
 
-
-def ClassAnnouncement(request):
-    form = AnnouncementForm(request.POST)
-    if form.is_valid():
-        form.save()
-    context = {'form': form}
-    return render(request, 'User/createannouncement.html', context)
 

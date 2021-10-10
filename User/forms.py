@@ -1,5 +1,4 @@
 from django import forms
-from Courses.models import ClassAnnouncement
 from django.contrib.auth.forms import AuthenticationForm, UsernameField
 
 class PasswordResetForm(forms.Form):
@@ -20,13 +19,6 @@ class PasswordResetForm(forms.Form):
             )
         return cleaned_data
 
-class AnnouncementForm(forms.ModelForm):
-    class Meta:
-        model = ClassAnnouncement
-        fields = [
-            'title',
-            'content'
-        ]
 
 class LoginForm(AuthenticationForm):
     class Meta:
