@@ -140,3 +140,5 @@ LOGIN_URL = '/user/login'
 LOGIN_REDIRECT_URL = '/User/UserInfoView'
 
 AUTH_PASSWORD_VALIDATORS = []
+
+STATIC_URL='/static/'
