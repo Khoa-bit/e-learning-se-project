@@ -13,9 +13,9 @@ def CheckValidUser(func):
   def decorate(*args, **kwargs):
     userID=kwargs['id']
     request = args[0]
-    if(request.user.is_student):
+    if request.user.is_student():
       user = Student.objects.get(id=userID).user_id
-    elif request.user.is_lecturer:
+    elif request.user.is_lecturer():
       user = Lecturer.objects.get(id=userID).user_id
     else: 
       user = User.objects.get(id=userID)
