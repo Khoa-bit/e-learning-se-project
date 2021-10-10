@@ -68,8 +68,7 @@ def ActiveLecturerClasses(request, id):
     return render(request, "Courses/active-lecturer-classes.html", context)
 
 def LecturerClassAnnouncement(request, id, class_id):
-    user = Student.objects.get(id=id)
-
+    user = Lecturer.objects.get(id=id)
     if not (request.user.is_authenticated and request.user == user.user_id):
         #return HttpResponseRedirect(reverse("guest-announcement-page"))
         return HttpResponseRedirect(reverse("about-page"))
