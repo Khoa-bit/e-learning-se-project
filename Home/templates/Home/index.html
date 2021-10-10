@@ -88,7 +88,7 @@
                 fill="currentColor"/>
         </svg>
         Announcements</a></li>
-      <li><a class="btn {% block calendar-active %}{% endblock calendar-active %}" href="{% if user.user_type == 'Student' %}{% url 'student-schedule-page' user.student.id %}{% elif user.user_type == 'Lecturer' %}#{% else %}#{% endif %}">
+      <li><a class="btn {% block calendar-active %}{% endblock calendar-active %}" href="{% if user.user_type == 'Student' %}{% url 'student-schedule-page' user.student.id %}{% elif user.user_type == 'Lecturer' %}{% url 'lecturer-schedule-page' user.lecturer.id %}#{% else %}#{% endif %}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
              xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"

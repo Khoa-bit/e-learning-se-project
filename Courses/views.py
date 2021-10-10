@@ -9,6 +9,21 @@ from User.models import Student
 def ClassRegistration(request):
     pass
 
+def LecturerSchedule(request, id):
+    user = Lecturer.objects.get(id=id)
+    all_classes = Class.objects.all()
+    classes = []
+
+    if not (request.user.is_authenticated and request.user == user.user_id):
+        return HttpResponseRedirect(reverse("guest-announcement-page"))
+
+    for i in all_classes:
+        if (i.lecturer.user_id == user.user_id):
+            classes.append(i)
+
+    context = {'classes': classes, 'title': 'Lecturer Schedule'}
+    return render(request, 'Courses/lecturer-schedule.html', context)
+
 
 def StudentSchedule(request, id):
     user = Student.objects.get(id=id)
@@ -21,7 +36,7 @@ def StudentSchedule(request, id):
         classes.append(i)
 
     context = {'classes': classes, 'title': 'Student Schedule'}
-    return render(request, 'Courses/schedule.html', context)
+    return render(request, 'Courses/student-schedule.html', context)
 
 
 def ActiveStudentClasses(request, id):
@@ -56,7 +71,8 @@ def LecturerClassAnnouncement(request, id, class_id):
     user = Student.objects.get(id=id)
 
     if not (request.user.is_authenticated and request.user == user.user_id):
-        return HttpResponseRedirect(reverse("guest-announcement-page"))
+        #return HttpResponseRedirect(reverse("guest-announcement-page"))
+        return HttpResponseRedirect(reverse("about-page"))
 
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class}
@@ -80,6 +96,17 @@ def StudentClassContent(request, id, class_id):
     if not (request.user.is_authenticated and request.user == user.user_id):
         return HttpResponseRedirect(reverse("guest-announcement-page"))
 
-    classes = Class.objects.get(id=class_id)
-    content = {'classes': classes}
+    student_class = Class.objects.get(id=class_id)
+    content = {'student_class': student_class}
     return render(request, "Courses/student-class-content.html", content)
+
+
+def LecturerClassContent(request, id, class_id):
+    user = Student.objects.get(id=id)
+
+    if not (request.user.is_authenticated and request.user == user.user_id):
+        return HttpResponseRedirect(reverse("guest-announcement-page"))
+
+    lecturer_class = Class.objects.get(id=class_id)
+    content = {'lecturer_class': lecturer_class}
+    return render(request, "Courses/lecturer-class-content.html", content)
