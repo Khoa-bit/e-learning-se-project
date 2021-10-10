@@ -10,7 +10,7 @@
 {% endblock column_names %}
 
 {% block content %}
-    {% for i in registered_classes %}
+    {% for i in classes %}
         <tr>
             <th scope="row">{{ i.id }}</th>
                 <td>{{ i.schedule.day_of_the_week }}</td>

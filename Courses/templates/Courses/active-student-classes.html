@@ -16,7 +16,7 @@
     <h2>My Active Classes</h2>
     <div class="courses-grid">
       <!-- !Add inline style ordering for these cards -->
-      {% for class in registered_classes %}
+      {% for class in classes %}
         <a class="card" style="--order: {{ forloop.counter }}" href="{% url 'student-class-announcement-page' user.student.id class.id %}">
         <img class="cover" src="{% static 'images/class-image-png.png' %}" alt="Course Cover">
         <div class="teacher-profile">
@@ -24,7 +24,7 @@
           <p>Instructor<br>
             <b>{{ class.lecturer.user_id.full_name }}</b></p>
         </div>
-        <h3 class="course-name">{{ class.course.name }}</h3>
+        <h3 class="course-name">{{ class.course.name }} - {{ class.schedule }}</h3>
       </a>
       {% endfor %}
     </div>

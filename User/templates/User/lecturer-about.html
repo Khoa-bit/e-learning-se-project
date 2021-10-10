@@ -1,8 +1,9 @@
 {%extends 'User/base.html'%}
+
 {%block body%}
     <h1>Welcome, {{ user.first_name }}</h1>
     <p>This page is {{user.first_name}}'s home page</p>
     <p>Your Email: {{user.email}}</p>
     <p>First Name: {{user.first_name}}</p>
-    <p> <a href="{% url 'active-lecturer-classes-page' user.lecturer.id %}">View Courses</a></p>
+    <p>View Courses</p>
 {%endblock%}

@@ -57,7 +57,7 @@ def UserInfoView(request, id):
     return render(request, "User/userinfo.html")
 
 @CheckValidUser
-def LecturerInfoView(request, id):
+def LecturerAboutView(request, id):
     # user = Lecturer.objects.get(id=id)
     # if not (request.user.is_authenticated and request.user == user.user_id):
     #     return HttpResponseRedirect(reverse("guest-announcement-page"))

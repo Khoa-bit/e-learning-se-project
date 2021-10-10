@@ -99,7 +99,7 @@
     </ul>
     <ul>
       <p class="section-title">Course</p>
-      <li><a class="btn {% block my-courses-active %}{% endblock my-courses-active %}" href="{% if user.user_type == 'Student' %}{% url 'active-student-classes-page' user.student.id %}{% elif user.user_type == 'Lecturer' %}#{% else %}{% url 'login' %}{% endif %}">
+      <li><a class="btn {% block my-courses-active %}{% endblock my-courses-active %}" href="{% if user.user_type == 'Student' %}{% url 'active-student-classes-page' user.student.id %}{% elif user.user_type == 'Lecturer' %}{% url 'active-lecturer-classes-page' user.lecturer.id %}#{% else %}{% url 'login' %}{% endif %}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
              xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
