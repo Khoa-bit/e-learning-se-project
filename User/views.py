@@ -88,6 +88,14 @@ def StudentAnnouncement(request, id):
     return render(request, "User/student-announcement.html")
 
 
+@CheckValidUser
+def LecturerAnnouncement(request, id):
+    # user = Student.objects.get(id=id)
+    # if not (request.user.is_authenticated and request.user == user.user_id):
+    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
+    return render(request, "User/lecturer-announcement.html")
+
+
 def PasswordChangeView(request):
     if request.method == "POST":
         form = PasswordResetForm(data=request.POST)
