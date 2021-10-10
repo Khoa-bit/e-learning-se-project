@@ -1,6 +1,6 @@
 from django import forms
 from Courses.models import ClassAnnouncement
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField()
@@ -29,4 +29,7 @@ class AnnouncementForm(forms.ModelForm):
         ]
 
 class LoginForm(AuthenticationForm):
-    pass
+    class Meta:
+        widgets = {
+            'id_username': forms.TextInput(attrs={'placeholder':'username','class':'user','size':25,'maxlength':50,'autocomplete':'off','required':'required'})
+        }
