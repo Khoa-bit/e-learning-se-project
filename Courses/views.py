@@ -58,8 +58,8 @@ def LecturerClassAnnouncement(request, id, class_id):
     if not (request.user.is_authenticated and request.user == user.user_id):
         return HttpResponseRedirect(reverse("guest-announcement-page"))
 
-    class_id = Class.objects.get(id=class_id)
-    content = {'class_id': class_id}
+    lecturer_class = Class.objects.get(id=class_id)
+    content = {'lecturer_class': lecturer_class}
     return render(request, "Courses/lecturer-class-announcement.html", content)
 
 
@@ -69,8 +69,8 @@ def StudentClassAnnouncement(request, id, class_id):
     if not (request.user.is_authenticated and request.user == user.user_id):
         return HttpResponseRedirect(reverse("guest-announcement-page"))
 
-    class_id = Class.objects.get(id=class_id)
-    content = {'class_id': class_id}
+    student_class = Class.objects.get(id=class_id)
+    content = {'student_class': student_class}
     return render(request, "Courses/student-class-announcement.html", content)
 
 
