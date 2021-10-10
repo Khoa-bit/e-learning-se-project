@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from .models import *
 from User.models import Student
@@ -54,24 +54,22 @@ def ActiveLecturerClasses(request, id):
 
 def LecturerClassAnnouncement(request, id, class_id):
     user = Student.objects.get(id=id)
-
     if not (request.user.is_authenticated and request.user == user.user_id):
         return HttpResponseRedirect(reverse("guest-announcement-page"))
 
     class_id = Class.objects.get(id=class_id)
     content = {'class_id': class_id}
-    return render(request, "Courses/lecturer-class-announcement.html", content)
-
+    #return render(request, "Courses/lecturer-class-announcement.html", content)
+    return render(request, "Courses/test.html",content)
 
 def StudentClassAnnouncement(request, id, class_id):
     user = Student.objects.get(id=id)
-
     if not (request.user.is_authenticated and request.user == user.user_id):
         return HttpResponseRedirect(reverse("guest-announcement-page"))
-
     class_id = Class.objects.get(id=class_id)
     content = {'class_id': class_id}
-    return render(request, "Courses/student-class-announcement.html", content)
+    #return render(request, "Courses/student-class-announcement.html", content)
+    return render(request, "Courses/test.html",content)
 
 
 def StudentClassContent(request, id, class_id):

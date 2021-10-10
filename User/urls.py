@@ -3,6 +3,7 @@ from . import views
 from Courses import views as coursesViews
 
 urlpatterns = [
+    path('logintest/',views.LoginTest,name='logintest'),
     path('login/',views.LoginView,name="login"),
     path('logout/',views.LogoutView,name="logout"),
     path('<int:id>/about/',views.UserInfoView,name="userinfo"),

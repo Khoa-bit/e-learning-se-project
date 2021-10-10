@@ -102,3 +102,21 @@ def ClassAnnouncement(request):
         form.save()
     context = {'form': form}
     return render(request, 'User/createannouncement.html', context)
+
+def LoginTest(request):
+    if request.method == "POST":
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            if user.is_staff:
+                return HttpResponseRedirect(reverse("admin:index"))
+            elif user.is_lecturer():
+                return HttpResponseRedirect(reverse("student-announcement-page", args=[user.lecturer.id]))
+            elif user.is_student():
+                return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
+            else:
+                return HttpResponseRedirect(reverse("userinfo", args=[user.id]))
+    else:
+        form = LoginForm()
+    return render(request, "User/loginpage.html", {"form": form})

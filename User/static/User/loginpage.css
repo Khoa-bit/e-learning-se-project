@@ -1,0 +1,105 @@
+body{
+    background-image: url(images/login_background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+div.mainpanel{
+    width: 680px;
+    height: 792px;
+    border: 0.1em solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    padding: 1em;
+    border-radius: 25px;
+    background-color: white;
+}
+
+div.innerpanel{
+    width: 480px;
+    height: 692px;
+    
+    padding: 0.1em;
+    margin-left: 87.5px;
+    margin-top: 50px;
+}
+
+div.part1{
+    width: 305px;
+    height: 208px;
+    
+    padding: 0.1em;
+    margin: auto;
+}
+
+.projectname{
+    text-align: center;
+    font-size: 1.2em;
+    font-style:inherit;
+    font: bold;
+    /*text-wrap: none;*/
+}
+
+div.logo{
+    width: 164px;
+    height: 162px;
+    margin:auto;
+    
+    padding: 0.1em;
+}
+
+div.part2{
+    width: 408px;
+    height: 434px;
+    margin: auto;
+    
+    padding: 0.1em;
+}
+
+.loginas{
+
+}
+
+.loginpanel{
+
+}
+
+input[type = text], input[type = password]{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.forgotusernorpass{
+    margin-left: 40%;
+}
+
+.or{
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 1px solid #000; 
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+
+}
+
+.or span{
+    background:#fff; 
+    padding:0 10px; 
+}
+
+.button {
+    background-color: var(--iu-primary-default);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
