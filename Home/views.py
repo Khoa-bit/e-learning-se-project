@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from User.models import User
+from User.views import CheckValidUser
 from .models import Announcement
 
 # Create your views here.

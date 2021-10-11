@@ -39,9 +39,9 @@ def LoginView(request):
             if user.is_staff:
                 return HttpResponseRedirect(reverse("admin:index"))
             elif user.is_lecturer():
-                return HttpResponseRedirect(reverse("user-announcement-page", args=[user.lecturer.id]))
+                return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
             elif user.is_student():
-                return HttpResponseRedirect(reverse("user-announcement-page", args=[user.student.id]))
+                return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
             else:
                 return HttpResponseRedirect(reverse("userinfo", args=[user.id]))
     else:
