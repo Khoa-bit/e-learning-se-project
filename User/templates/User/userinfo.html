@@ -1,12 +1,10 @@
 {%extends 'User/base.html'%}
 {%block body%}
-YOU LOGGED IN GOOD JOB <3
+USER PAGE (NO ROLE)
 {%if user.first_name%}
 <p>This page is {{user.first_name}}'s home page</p>
 <p>Your Email: {{user.email}}</p>
 <p>First Name: {{user.first_name}}</p>
-<p>You are a {{role}}</p>
 {%else%}
-This user's home page
 {%endif%}
 {%endblock%}

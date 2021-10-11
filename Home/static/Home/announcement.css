@@ -1,0 +1,96 @@
+@import url(base.css);
+
+article.panel > * {
+  margin-bottom: 3rem;
+}
+
+article.panel h2 {
+  font-weight: bold;
+  font-size: 1.8rem;
+  line-height: 2.1rem;
+  color: var(--gray-default);
+  text-align: unset;
+
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--gray-light);
+}
+
+article.panel > footer {
+  text-align: right;
+}
+
+article.panel > footer .view-all-btn {
+  padding: 1rem;
+  border-radius: 6px;
+  
+  font-weight: bold;
+  margin: 0;
+  transition: background-color var(--hover-transition);
+}
+
+article.panel > footer .view-all-btn:hover {
+  background-color: var(--iu-secondary-light);
+}
+
+
+/* Announcement List */
+.announcement > article {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.announcement > article .heading  {
+  width: 76.6%;
+}
+
+.announcement > article footer {
+  width: 15.5rem;
+  padding-block: 1rem;
+  margin-inline-start: auto;
+  
+  color: var(--gray-default);
+  text-align: right;
+}
+
+.announcement > article {
+  opacity: 0;
+  animation: riseUpAnimation 8s ease forwards;
+  animation-delay: calc(var(--order) * 200ms);
+}
+
+@keyframes riseUpAnimation {
+  20% {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+
+  30%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* General information panel */
+
+
+
+/* Courses Announcements panel */
+.courses-announcements > article .heading p  {
+  margin-bottom: 0.4rem;
+  color: var(--gray-default);
+  font-weight: 500;
+}
+
+.courses-announcements > article .heading p:hover  {
+  color: var(--gray-dark);
+}
+
+.courses-announcements > article .heading h3  {
+  /* color: var(--iu-primary-default); */
+  font-weight: bold;
+  font-size: 2.2rem;
+  line-height: 2.6rem;
+}
