@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block upload %}
-  <li><a href="{% url 'upload-class-announcement-page' %}">Upload</a>
+  <li><a href="{% url 'upload-class-announcement-page' user.lecturer.id lecturer_class.id %}">Upload</a>
   </li>
 {% endblock upload %}
 

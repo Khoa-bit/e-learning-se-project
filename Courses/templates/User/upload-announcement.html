@@ -1,8 +1,9 @@
-{%extends 'User/base.html'%}
-
-{%block body%}
+{%extends 'User/base.html'%} {%block body%}
+<h1>Post new announcement</h1>
+<p>Author: {{lecturer.user_id.full_name|title}}</p>
+<p>Class: {{class}}</p>
 <form>
-    {{ form.as_p }}
-    <input type = 'Submit' value = 'Save'/>
+  {{ form.as_p }}
+  <input type="Submit" value="Save" />
 </form>
 {%endblock%}
