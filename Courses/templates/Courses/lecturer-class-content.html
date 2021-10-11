@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="{% static 'Courses/student-class-content.css' %}">
 {% endblock %}
 
+{% block upload %}
+  <li><a href="{% url 'upload-class-content-page' user.lecturer.id lecturer_class.id %}">Upload</a>
+  </li>
+{% endblock upload %}
+
 {% block class-content-active %}active{% endblock %}
 
 {% block panel-content %}

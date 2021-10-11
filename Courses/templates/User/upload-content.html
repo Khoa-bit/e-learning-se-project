@@ -1,8 +1,8 @@
 {%extends 'User/base.html'%}
 
 {%block body%}
-<h1>Post new announcement</h1>
-<p>Author: {{ lecturer.user_id.full_name | title}}</p>
+<h1>Post new content</h1>
+<p>Author: {{ lecturer.user_id.full_name | title }}</p>
 <p>Class: {{ class.course }} - {{ class.schedule }}</p>
 <form>
   {{ form.as_p }}

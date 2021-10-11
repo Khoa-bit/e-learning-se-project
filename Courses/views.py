@@ -111,9 +111,17 @@ def LecturerClassContent(request, id, class_id):
     return render(request, "Courses/lecturer-class-content.html", content)
 
 
-def UploadClassAnnouncement(request,id,class_id):
+def UploadClassAnnouncement(request,id, class_id):
     form = forms.UploadClassAnnouncementForm(request.POST)
     if form.is_valid():
         form.save()
     context = {'form': form,"lecturer":Lecturer.objects.get(id=id),"class":Class.objects.get(id=class_id)}
     return render(request, 'User/upload-announcement.html', context)
+
+
+def UploadClassContent(request,id, class_id):
+    form = forms.UploadClassContentForm(request.POST)
+    if form.is_valid():
+        form.save()
+    context = {'form': form,"lecturer":Lecturer.objects.get(id=id),"class":Class.objects.get(id=class_id)}
+    return render(request, 'User/upload-content.html', context)
