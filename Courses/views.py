@@ -75,9 +75,11 @@ def LecturerClassAnnouncement(request, id, class_id):
     # user = Lecturer.objects.get(id=id)
     # if not (request.user.is_authenticated and request.user == user.user_id):
     #     return HttpResponseRedirect(reverse("guest-announcement-page"))
+    #announcements = ClassAnnouncement.objects.filter(class_id=class_id)
+    announcement = ClassAnnouncement.objects.get(class_id=class_id)
 
     lecturer_class = Class.objects.get(id=class_id)
-    content = {'lecturer_class': lecturer_class}
+    content = {'lecturer_class': lecturer_class, 'announcement': announcement}
     return render(request, "Courses/lecturer-class-announcement.html", content)
 
 @CheckValidUser

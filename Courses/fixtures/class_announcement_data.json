@@ -1,0 +1,13 @@
+[
+  {
+    "model": "Courses.ClassAnnouncement",
+    "pk": 1,
+    "fields": {
+      "class_id": 1,
+      "title": "How to write a project proposal?",
+      "time_created": "2021-10-11T07:57:26.296Z",
+      "time_modified": "2021-10-11T07:57:26.296Z",
+      "content": "Dear Students,\nPlease refer the information in the links below to write a project proposal.\nhttps://www.fool.com/the-blueprint/project-proposal\nhttps://www.mavenlink.com/resources/project-proposal\nThe project proposal will be completed in four weeks.\nThanks and good luck.\nLoan Nguyen",
+    }
+  }
+]

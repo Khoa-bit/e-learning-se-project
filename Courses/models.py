@@ -62,32 +62,22 @@ class Class(models.Model):
 class ClassAnnouncement(models.Model):
     class_id = models.ForeignKey(Class, on_delete=CASCADE)
     title = models.CharField(max_length=255)
-    time_created = models.DateTimeField(editable=False)
-    time_modified = models.DateTimeField(editable=False)
+    time_created = models.DateTimeField(auto_now_add=True)
+    time_modified = models.DateTimeField(auto_now=True)
     content = models.TextField()
 
     class Meta:
         ordering = ["time_created", "time_modified"]
 
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.time_created = datetime.timezone.now()
-        self.modified = datetime.timezone.now()
-        return self.save(*args, **kwargs)
 
 class ClassContent(models.Model):
     class_id = models.ForeignKey(Class, on_delete=CASCADE)
     title = models.CharField(max_length=255)
-    time_created = models.DateTimeField(editable=False)
-    time_modified = models.DateTimeField(editable=False)
+    time_created = models.DateTimeField(auto_now_add=True)
+    time_modified = models.DateTimeField(auto_now=True)
     attached_file = models.FileField(upload_to='documents/%class_id')
     content = models.TextField()
 
     class Meta:
         ordering = ["time_created", "time_modified"]
 
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.time_created = datetime.timezone.now()
-        self.modified = datetime.timezone.now()
-        return self.save(*args, **kwargs)
