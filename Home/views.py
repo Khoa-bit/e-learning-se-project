@@ -23,6 +23,8 @@ def GuestAnnouncement(request):
         user = User.objects.get(id=request.user.id)
         if user.is_student():
             return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
+        if user.is_lecturer():
+            return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
     return render(request, "Home/guest-announcement.html", context)
 
 def GuestAnnouncementPage(request, id):

@@ -10,14 +10,13 @@ from User.views import CheckValidUser
 
 def ClassRegistration(request):
     pass
+
+
 @CheckValidUser
 def LecturerSchedule(request, id):
     user = Lecturer.objects.get(id=id)
     all_classes = Class.objects.all()
     classes = []
-
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
 
     for i in all_classes:
         if (i.lecturer.user_id == user.user_id):
@@ -26,13 +25,11 @@ def LecturerSchedule(request, id):
     context = {'classes': classes, 'title': 'Lecturer Schedule'}
     return render(request, 'Courses/lecturer-schedule.html', context)
 
+
 @CheckValidUser
 def StudentSchedule(request, id):
     user = Student.objects.get(id=id)
     classes = []
-
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
 
     for i in user.class_id.all():
         classes.append(i)
@@ -40,13 +37,11 @@ def StudentSchedule(request, id):
     context = {'classes': classes, 'title': 'Student Schedule'}
     return render(request, 'Courses/student-schedule.html', context)
 
+
 @CheckValidUser
 def ActiveStudentClasses(request, id):
     user = Student.objects.get(id=id)
     classes = []
-
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
 
     for i in user.class_id.all():
         classes.append(i)
@@ -54,14 +49,12 @@ def ActiveStudentClasses(request, id):
     context = {'classes': classes}
     return render(request, "Courses/active-student-classes.html", context)
 
+
 @CheckValidUser
 def ActiveLecturerClasses(request, id):
     all_classes = Class.objects.all()
     user = Lecturer.objects.get(id=id)
     classes = []
-
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
 
     for i in all_classes:
         if (i.lecturer.user_id == user.user_id):
@@ -70,63 +63,64 @@ def ActiveLecturerClasses(request, id):
     context = {'classes': classes}
     return render(request, "Courses/active-lecturer-classes.html", context)
 
+
 @CheckValidUser
 def LecturerClassAnnouncement(request, id, class_id):
-    # user = Lecturer.objects.get(id=id)
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-    #announcements = ClassAnnouncement.objects.filter(class_id=class_id)
-    announcement = ClassAnnouncement.objects.get(class_id=class_id)
-
+    announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
     lecturer_class = Class.objects.get(id=class_id)
-    content = {'lecturer_class': lecturer_class, 'announcement': announcement}
+    content = {'lecturer_class': lecturer_class, 'announcements': announcements}
     return render(request, "Courses/lecturer-class-announcement.html", content)
+
 
 @CheckValidUser
 def StudentClassAnnouncement(request, id, class_id):
-    # user = Student.objects.get(id=id)
-
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-
+    announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
     student_class = Class.objects.get(id=class_id)
-    content = {'student_class': student_class}
+    content = {'student_class': student_class, 'announcements': announcements}
     return render(request, "Courses/student-class-announcement.html", content)
+
 
 @CheckValidUser
 def StudentClassContent(request, id, class_id):
-    # user = Student.objects.get(id=id)
-
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-
+    content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
     student_class = Class.objects.get(id=class_id)
-    content = {'student_class': student_class}
+    content = {'student_class': student_class, 'content_posts': content_posts}
     return render(request, "Courses/student-class-content.html", content)
+
 
 @CheckValidUser
 def LecturerClassContent(request, id, class_id):
-    # user = Lecturer.objects.get(id=id)
-
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-
+    content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
     lecturer_class = Class.objects.get(id=class_id)
-    content = {'lecturer_class': lecturer_class}
+    content = {'lecturer_class': lecturer_class, 'content_posts': content_posts}
     return render(request, "Courses/lecturer-class-content.html", content)
 
 
-def UploadClassAnnouncement(request,id, class_id):
-    form = forms.UploadClassAnnouncementForm(request.POST)
-    if form.is_valid():
-        form.save()
-    context = {'form': form,"lecturer":Lecturer.objects.get(id=id),"class":Class.objects.get(id=class_id)}
+def UploadClassAnnouncement(request, id, class_id):
+    if request.method == 'POST':
+        form = forms.UploadClassAnnouncementForm(request.POST)
+        if form.is_valid():
+            announcement = form.save(commit=False)
+            announcement.class_id_id = class_id
+            announcement.save()
+            form.save()
+            return HttpResponseRedirect(reverse("lecturer-class-announcement-page", args=[id, class_id]))
+    else:
+        form = forms.UploadClassAnnouncementForm()
+    context = {'form': form, "lecturer": Lecturer.objects.get(id=id), "class": Class.objects.get(id=class_id)}
     return render(request, 'User/upload-announcement.html', context)
 
 
-def UploadClassContent(request,id, class_id):
-    form = forms.UploadClassContentForm(request.POST)
-    if form.is_valid():
-        form.save()
-    context = {'form': form,"lecturer":Lecturer.objects.get(id=id),"class":Class.objects.get(id=class_id)}
+def UploadClassContent(request, id, class_id):
+    if request.method == 'POST':
+        form = forms.UploadClassContentForm(request.POST)
+        if form.is_valid():
+            content = form.save(commit=False)
+            content.class_id_id = class_id
+            content.save()
+            form.save()
+            return HttpResponseRedirect(reverse("lecturer-class-content-page", args=[id, class_id]))
+    else:
+        form = forms.UploadClassContentForm()
+    context = {'form': form, "lecturer": Lecturer.objects.get(id=id), "class": Class.objects.get(id=class_id)}
     return render(request, 'User/upload-content.html', context)

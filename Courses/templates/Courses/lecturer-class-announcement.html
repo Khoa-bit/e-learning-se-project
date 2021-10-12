@@ -18,14 +18,15 @@
 {% block class-announcements-active %}active{% endblock %}
 
 {% block panel-content %}
-
-  <article>
-    <div class="heading">
-      <h3>{{ announcement.title }}</h3>
-      <footer>
-        <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
-      </footer>
-    </div>
-    <p>{{ announcement.content }}</p>
-  </article>
+  {% for announcement in announcements %}
+    <article>
+      <div class="heading">
+        <h3>{{ announcement.title }}</h3>
+        <footer>
+          <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
+        </footer>
+      </div>
+      <p>{{ announcement.content | linebreaks }}</p>
+    </article>
+  {% endfor %}
 {% endblock %}

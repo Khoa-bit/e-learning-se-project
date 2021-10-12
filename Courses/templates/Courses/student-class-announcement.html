@@ -13,52 +13,15 @@
 {% block class-announcements-active %}active{% endblock %}
 
 {% block panel-content %}
-  <article>
-    <div class="heading">
-      <h3>How to write a project proposal?</h3>
-      <footer>
-        <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
-      </footer>
-    </div>
-    <p>Dear Students,<br><br>
-      Please refer the information in the links below to write a project proposal.<br>
-      https://www.fool.com/the-blueprint/project-proposal/<br>
-      https://www.mavenlink.com/resources/project-proposal<br>
-      The project proposal will be completed in four weeks.<br><br>
-      Thanks and good luck.<br>
-      Loan Nguyen
-    </p>
-  </article>
-  <article>
-    <div class="heading">
-      <h3>How to write a project proposal?</h3>
-      <footer>
-        <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
-      </footer>
-    </div>
-    <p>Dear Students,<br><br>
-      Please refer the information in the links below to write a project proposal.<br>
-      https://www.fool.com/the-blueprint/project-proposal/<br>
-      https://www.mavenlink.com/resources/project-proposal<br>
-      The project proposal will be completed in four weeks.<br><br>
-      Thanks and good luck.<br>
-      Loan Nguyen
-    </p>
-  </article>
-  <article>
-    <div class="heading">
-      <h3>How to write a project proposal?</h3>
-      <footer>
-        <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
-      </footer>
-    </div>
-    <p>Dear Students,<br><br>
-      Please refer the information in the links below to write a project proposal.<br>
-      https://www.fool.com/the-blueprint/project-proposal/<br>
-      https://www.mavenlink.com/resources/project-proposal<br>
-      The project proposal will be completed in four weeks.<br><br>
-      Thanks and good luck.<br>
-      Loan Nguyen
-    </p>
-  </article>
+  {% for announcement in announcements %}
+    <article>
+      <div class="heading">
+        <h3>{{ announcement.title }}</h3>
+        <footer>
+          <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
+        </footer>
+      </div>
+      <p>{{ announcement.content | linebreaks }}</p>
+    </article>
+  {% endfor %}
 {% endblock %}

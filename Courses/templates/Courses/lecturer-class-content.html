@@ -18,34 +18,17 @@
 {% block class-content-active %}active{% endblock %}
 
 {% block panel-content %}
-  <article>
+  {% for content_post in content_posts %}
+    <article>
     <div class="heading">
       <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
-      <h3>Chapter 2</h3>
+      <h3>{{ content_post.title }}</h3>
       <footer>
-        <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
+        <time>{{ content_post.time_created.date }}<br>{{ content_post.time_created.time | time:"g:iA" }}</time>
       </footer>
     </div>
-    <p>Attached Files: <a href="#">Chapter_2_v8.1.pptx</a> (4.114 MB)</p>
-    <p>Group Assignment: <br><br>
-
-      - List all contemporary systems you can think of on the Internet. Give a brief intro: features, usages of those
-      items that make use of network capability. Example: Laptop – online study, web browsing
-    </p>
+    <p>Attached Files: Chapter 2 (4.114 MB)</p>
+    <p>{{ content_post.content | linebreaks }}</p>
   </article>
-  <article>
-    <div class="heading">
-      <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
-      <h3>Chapter 2</h3>
-      <footer>
-        <time datetime="2021-09-08 19:00">Wednesday, September 8, 2021<br>8:23:03 PM</time>
-      </footer>
-    </div>
-    <p>Attached Files: <a href="#">Chapter_2_v8.1.pptx</a> (4.114 MB)</p>
-    <p>Group Assignment: <br><br>
-
-      - List all contemporary systems you can think of on the Internet. Give a brief intro: features, usages of those
-      items that make use of network capability. Example: Laptop – online study, web browsing
-    </p>
-  </article>
+  {% endfor %}
 {% endblock %}

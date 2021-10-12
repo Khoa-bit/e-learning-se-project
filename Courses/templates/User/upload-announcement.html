@@ -1,11 +1,15 @@
 {%extends 'User/base.html'%}
 
+{% block title %}
+<title>Upload announcement</title>
+{% endblock title %}
+
 {%block body%}
-<h1>Post new announcement</h1>
-<p>Author: {{ lecturer.user_id.full_name | title}}</p>
-<p>Class: {{ class.course }} - {{ class.schedule }}</p>
-<form>
-  {{ form.as_p }}
-  <input type="Submit" value="Save" />
-</form>
+  <h1>Post new announcement</h1>
+  <p> </p>
+  <form action="." method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="Submit" value="Save" />
+  </form>
 {%endblock%}
