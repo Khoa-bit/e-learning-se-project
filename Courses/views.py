@@ -124,3 +124,10 @@ def UploadClassContent(request, id, class_id):
         form = forms.UploadClassContentForm()
     context = {'form': form, "lecturer": Lecturer.objects.get(id=id), "class": Class.objects.get(id=class_id)}
     return render(request, 'User/upload-content.html', context)
+
+
+def ClassRegistration(request):
+    form = forms.ClassRegistrationForm(request.POST or None)
+    available_classes = Class.objects.all()
+    context = {'form': form, 'available_classes': available_classes}
+    return render(request, 'User/class-registration.html', context)

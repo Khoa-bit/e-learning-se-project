@@ -1,4 +1,4 @@
-from Courses.models import ClassAnnouncement, ClassContent
+from Courses.models import ClassAnnouncement, ClassContent, Class
 from django import forms
 
 class UploadClassAnnouncementForm(forms.ModelForm):
@@ -23,3 +23,15 @@ class UploadClassContentForm(forms.ModelForm):
             'content',
             'attached_file'
         ]
+
+
+def ClassChoices():
+    list = []
+    for x in Class.objects.all():
+        list.append((x.id, x.id))
+    return list
+
+CLASS_CHOICES = ClassChoices()
+
+class ClassRegistrationForm(forms.Form):
+    registration_choice = forms.ChoiceField(choices=CLASS_CHOICES, widget=forms.RadioSelect)

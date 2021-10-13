@@ -78,5 +78,29 @@
       "name": "Ho Chi Minh's Thoughts",
       "major": [1, 2, 3, 4]
     }
+  },
+  {
+    "model": "Courses.Course",
+    "pk": 11,
+    "fields": {
+      "name": "Web Application Development",
+      "major": [1, 4]
+    }
+  },
+  {
+    "model": "Courses.Course",
+    "pk": 12,
+    "fields": {
+      "name": "Principles of Programming Languages",
+      "major": [1, 4]
+    }
+  },
+  {
+    "model": "Courses.Course",
+    "pk": 13,
+    "fields": {
+      "name": "Introduction to Artificial Intelligence",
+      "major": [1, 2, 4]
+    }
   }
 ]

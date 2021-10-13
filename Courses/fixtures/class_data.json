@@ -115,5 +115,41 @@
       "lecturer": 5,
       "schedule": 4
     }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 14,
+    "fields": {
+      "course": 11,
+      "lecturer": 4,
+      "schedule": 12
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 15,
+    "fields": {
+      "course": 11,
+      "lecturer": 4,
+      "schedule": 10
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 16,
+    "fields": {
+      "course": 12,
+      "lecturer": 7,
+      "schedule": 9
+    }
+  },
+  {
+    "model": "Courses.Class",
+    "pk": 17,
+    "fields": {
+      "course": 13,
+      "lecturer": 7,
+      "schedule": 2
+    }
   }
 ]

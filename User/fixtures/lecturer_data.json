@@ -1,8 +1,10 @@
 [
-  {"model": "User.lecturer",
+  {
+    "model": "User.lecturer",
     "pk": 1,
     "fields": {
-      "user_id": 1}
+      "user_id": 1
+    }
   },
   {
     "model": "User.lecturer",
@@ -37,6 +39,13 @@
     "pk": 6,
     "fields": {
       "user_id": 2
+    }
+  },
+  {
+    "model": "User.lecturer",
+    "pk": 7,
+    "fields": {
+      "user_id": 18
     }
   }
 ]
