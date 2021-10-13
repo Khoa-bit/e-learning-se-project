@@ -23,7 +23,7 @@ def LecturerSchedule(request, id):
             classes.append(i)
 
     context = {'classes': classes, 'title': 'Lecturer Schedule'}
-    return render(request, 'Courses/lecturer-schedule.html', context)
+    return render(request, 'Courses/schedule.html', context)
 
 
 @CheckValidUser
@@ -35,7 +35,7 @@ def StudentSchedule(request, id):
         classes.append(i)
 
     context = {'classes': classes, 'title': 'Student Schedule'}
-    return render(request, 'Courses/student-schedule.html', context)
+    return render(request, 'Courses/schedule.html', context)
 
 
 @CheckValidUser
@@ -47,7 +47,7 @@ def ActiveStudentClasses(request, id):
         classes.append(i)
 
     context = {'classes': classes}
-    return render(request, "Courses/active-student-classes.html", context)
+    return render(request, "Courses/active-classes.html", context)
 
 
 @CheckValidUser
@@ -61,7 +61,7 @@ def ActiveLecturerClasses(request, id):
             classes.append(i)
 
     context = {'classes': classes}
-    return render(request, "Courses/active-lecturer-classes.html", context)
+    return render(request, "Courses/active-classes.html", context)
 
 
 @CheckValidUser
@@ -69,7 +69,7 @@ def LecturerClassAnnouncement(request, id, class_id):
     announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class, 'announcements': announcements}
-    return render(request, "Courses/lecturer-class-announcement.html", content)
+    return render(request, "Courses/class-announcement.html", content)
 
 
 @CheckValidUser
@@ -77,7 +77,7 @@ def StudentClassAnnouncement(request, id, class_id):
     announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
     student_class = Class.objects.get(id=class_id)
     content = {'student_class': student_class, 'announcements': announcements}
-    return render(request, "Courses/student-class-announcement.html", content)
+    return render(request, "Courses/class-announcement.html", content)
 
 
 @CheckValidUser
@@ -85,7 +85,7 @@ def StudentClassContent(request, id, class_id):
     content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
     student_class = Class.objects.get(id=class_id)
     content = {'student_class': student_class, 'content_posts': content_posts}
-    return render(request, "Courses/student-class-content.html", content)
+    return render(request, "Courses/class-content.html", content)
 
 
 @CheckValidUser
@@ -93,7 +93,7 @@ def LecturerClassContent(request, id, class_id):
     content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class, 'content_posts': content_posts}
-    return render(request, "Courses/lecturer-class-content.html", content)
+    return render(request, "Courses/class-content.html", content)
 
 
 def UploadClassAnnouncement(request, id, class_id):
@@ -113,7 +113,7 @@ def UploadClassAnnouncement(request, id, class_id):
 
 def UploadClassContent(request, id, class_id):
     if request.method == 'POST':
-        form = forms.UploadClassContentForm(request.POST)
+        form = forms.UploadClassContentForm(request.POST, request.FILES or None)
         if form.is_valid():
             content = form.save(commit=False)
             content.class_id_id = class_id

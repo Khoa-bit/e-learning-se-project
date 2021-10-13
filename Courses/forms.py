@@ -21,5 +21,5 @@ class UploadClassContentForm(forms.ModelForm):
         fields = [
             'title',
             'content',
-            #'attached_file'
+            'attached_file'
         ]

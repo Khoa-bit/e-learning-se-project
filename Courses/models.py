@@ -70,12 +70,16 @@ class ClassAnnouncement(models.Model):
         ordering = ["time_created", "time_modified"]
 
 
+def class_content_location(instance, filename):
+    return 'class_content/{0}/{1}'.format(instance.class_id.id, filename)
+
+
 class ClassContent(models.Model):
     class_id = models.ForeignKey(Class, on_delete=CASCADE)
     title = models.CharField(max_length=255)
     time_created = models.DateTimeField(auto_now_add=True)
     time_modified = models.DateTimeField(auto_now=True)
-    attached_file = models.FileField(upload_to='documents/%class_id')
+    attached_file = models.FileField(upload_to=class_content_location, blank=True)
     content = models.TextField()
 
     class Meta:
