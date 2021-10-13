@@ -5,6 +5,7 @@ from django.db import models
 
 class Announcement(models.Model):
   author_id = models.ForeignKey("User.Lecturer",on_delete=CASCADE)
+  title = models.CharField()
   content = models.TextField()
   time_announced = models.DateTimeField()
   #course=models.ForeignKey("Courses.Course",on_delete=CASCADE,null=True)
