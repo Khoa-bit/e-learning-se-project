@@ -94,6 +94,9 @@ input[type = text], input[type = password]{
 }
 
 .loginbutton {
+    font-size: medium;
+    font-weight: bold;
+    color: var(--iu-white-default);
     background-color: var(--iu-primary-default);
     color: white;
     padding: 1.4rem 2rem;
@@ -120,9 +123,10 @@ input[type = text], input[type = password]{
 .or{
     width: 100%; 
     text-align: center; 
-    border-bottom: 0.1rem solid #000; 
+    color: var(--gray-default);
+    border-bottom: 0.1rem solid var(--gray-default); 
     line-height: 0.16rem;
-    margin: 1rem 0 2rem;
+    margin: 3rem 0 3rem;
 
 }
 
@@ -133,7 +137,9 @@ input[type = text], input[type = password]{
 
 .loginasguessbutton{
     background-color: var(--iu-white-default);
-    color: black;
+    font-size: medium;
+    font-weight: bold;
+    color: var(--iu-primary-default);
     padding: 1.4rem 2rem;
     margin: 0.8rem 0;
     border: 0.1rem solid #DCE2E4;
