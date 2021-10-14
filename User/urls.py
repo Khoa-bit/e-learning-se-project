@@ -5,7 +5,6 @@ from Courses import views as coursesViews
 urlpatterns = [
     path('login/',views.LoginView,name="login"),
     path('logout/',views.LogoutView,name="logout"),
-    path('<int:id>/about/',views.UserInfoView,name="userinfo"),
     path('lecturer/<int:id>/about/', views.LecturerAboutView, name="lecturer-about"),
     path('lecturer/<int:id>/announcement/', views.UserAnnouncement, name="lecturer-announcement-page"),
     path('lecturer/<int:id>/active-classes/', coursesViews.ActiveLecturerClasses, name="active-lecturer-classes-page"),
