@@ -133,7 +133,7 @@ body > footer {
   top: 0;
   max-height: 100vh;
   padding-block-end: calc(
-    var(--header-height) + var(--spacing)
+          var(--header-height) + var(--spacing)
   ); /* var(--gap) = Section title padding top */
   overflow-y: auto;
   scrollbar-width: thin;
@@ -169,7 +169,7 @@ body > footer {
   align-items: center;
   height: 5rem;
 
-  padding-inline: 2rem 5rem;
+  padding-inline: 1rem 5rem;
   border-radius: 6px;
   transition: background-color var(--hover-transition);
 
@@ -182,9 +182,16 @@ body > footer {
 }
 
 .sidebar-nav .btn svg {
-  width: 2.4rem;
+  min-width: 2.4rem;
   height: 2.4rem;
+}
+
+.sidebar-nav .btn > svg {
   margin-inline-end: 2rem;
+}
+
+.sidebar-nav .btn > svg:first-child {
+  margin-inline-start: 3.5rem;
 }
 
 .sidebar-nav .active,
@@ -213,7 +220,7 @@ body > footer {
 
 /* 980px / 16px = 61.25em */
 @media (max-width: 61.25em) {
-/* TODO:Hamburger Menu + JS */
+  /* TODO:Hamburger Menu + JS */
 }
 
 /* Footer */
@@ -434,3 +441,40 @@ article.panel {
   padding: 2rem 3rem;
   margin-bottom: 2rem;
 }
+
+
+/* Page Sidebar When user login */
+.sidebar-nav .drop-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar-nav .drop-btn > svg {
+  margin-inline-end: 1rem;
+  transform: rotateZ(-90deg);
+  transition: transform var(--hover-transition);
+}
+
+.sidebar-nav .drop-btn.clicked > svg {
+  transform: rotateZ(0deg);
+}
+
+.sidebar-nav .drop-down-menu {
+  padding: 0;
+  background-color: #F6F7F8;
+  transition: max-height 0.5s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.sidebar-nav .drop-down-menu.expand {
+  max-height: 0;
+}
+
+.sidebar-nav .drop-down-menu .btn {
+  height: 3.7rem;
+  font-size: 1.4rem;
+
+  white-space: nowrap;
+}
+
