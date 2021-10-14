@@ -16,7 +16,9 @@
 
 {% block upload %}
 {% if user.is_lecturer %}
-  <li><a href="{% url 'upload-class-announcement-page' user.lecturer.id lecturer_class.id %}">Upload</a>
+  <li><a class="tab" href="{% url 'upload-class-announcement-page' user.lecturer.id lecturer_class.id %}">Upload</a>
+  </li>
+  <li><a class="tab" href="{% url 'classwork-view' user.lecturer.id lecturer_class.id %}">Classwork</a>
   </li>
 {% else %}
 {% endif %}

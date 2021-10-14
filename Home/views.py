@@ -10,13 +10,6 @@ from .models import Announcement
 def HomeView(request):
   return render(request, "Home/home.html")
 
-def AboutView(request):
-  context={"pageinfo":["DBDUY","SE GROUP","2021"]}
-  return render(request, "Home/about.html",context)
-
-def IndexView(request):
-  return render(request, "Home/index.html")
-
 def GuestAnnouncement(request):
     context = {'announcements' : Announcement.objects.order_by("-time_announced")[:5]}
     if request.user.is_authenticated:

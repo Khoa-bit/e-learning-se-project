@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    {% for test in tests %}
+    <h3>{{test.test_name}}</h3>
+    {% for question in test.question_set.all%}
+    <p>{{forloop.counter}}.{{question.question}}</p>
+    {% if question.is_written %}
+    {% else %}
+    {% for option in question.multiplechoiceoption_set.all %}
+    <ul>
+    {%if option.is_true%}
+      <li><strong>{{option.option}}</strong></li>
+    {%else%}
+      <li>{{option.option}}</li>
+    {%endif%}
+    </ul>
+    {%endfor%}
+    {%endif%}
+    {%endfor%}
+    {%endfor%}
+</body>
+</html>
