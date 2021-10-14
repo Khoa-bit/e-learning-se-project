@@ -37,6 +37,7 @@ article.panel .card {
 article.panel .card .cover {
   border-radius: 6px 6px 0 0;
   object-fit: cover;
+  height: 17.5rem;
 
   filter: blur(0px) brightness(50%);
   transition: filter var(--hover-transition);

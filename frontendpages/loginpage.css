@@ -1,105 +1,156 @@
+@import url(../CSS/base.css);
+
 body{
-    background-image: url(images/login_background.jpg);
+    /* background-image: url(../images//signin-background-image-png.png);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
+    width: 144rem;
+    height: 102.4rem;
 }
 
-div.mainpanel{
-    width: 680px;
-    height: 792px;
-    border: 0.1em solid black;
+#background img{
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.mainpanel{
+    width: 68rem;
+    height: 79.2rem;
     position: absolute;
     top: 50%;
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    padding: 1em;
-    border-radius: 25px;
-    background-color: white;
+    background-color: #FFFFFF;
+    box-shadow: 0rem 0rem 5rem 1rem rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
 }
 
-div.innerpanel{
-    width: 480px;
-    height: 692px;
-    
-    padding: 0.1em;
-    margin-left: 87.5px;
-    margin-top: 50px;
+.innerpanel{
+    position: absolute;
+    width: 48rem;
+    height: 64.6rem;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
 }
 
-div.part1{
-    width: 305px;
-    height: 208px;
-    
-    padding: 0.1em;
+.part1{
+    width: 30.5rem;
+    height: 20.8rem;
+    position: static;
     margin: auto;
 }
 
 .projectname{
+    position: static;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.92rem;
     font-style:inherit;
     font: bold;
-    /*text-wrap: none;*/
 }
 
-div.logo{
-    width: 164px;
-    height: 162px;
+.iulogo{
+    position: static;
+    width: 16.4rem;
+    height: 16.2rem;
     margin:auto;
-    
-    padding: 0.1em;
 }
 
-div.part2{
-    width: 408px;
-    height: 434px;
+.logo img{
+    width: 16.4rem;
+    height: 16.2rem;
+}
+
+.part2{
+    position: static;
+    width: 48rem;
+    height: 38.8rem;
     margin: auto;
-    
-    padding: 0.1em;
-}
-
-.loginas{
-
 }
 
 .loginpanel{
-
+    width: 48rem;
+    height: 17.9rem;
 }
 
 input[type = text], input[type = password]{
+    position: static;
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 1.2rem 2rem;
+    margin: 0.8rem 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 0.1rem solid #ccc;
     box-sizing: border-box;
+    border-radius: 0.6rem;
 }
 
-.forgotusernorpass{
-    margin-left: 40%;
+.forgotpass{
+    position: static;
+    text-align: right;
+}
+
+.loginbutton {
+    background-color: var(--iu-primary-default);
+    color: white;
+    padding: 1.4rem 2rem;
+    margin: 0.8rem 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.6rem;
+}
+
+.loginbutton:hover{
+    background-color: var(--iu-secondary-light);
+    color: var(--iu-primary-dark);
+}
+
+.loginbutton:active{
+    background-color: var(--iu-secondary-light);
+    color: var(--iu-primary-dark);
+    box-shadow: 0rem 0.5rem #666;
+    transform: translateY(0.4rem);
 }
 
 .or{
     width: 100%; 
     text-align: center; 
-    border-bottom: 1px solid #000; 
-    line-height: 0.1em;
-    margin: 10px 0 20px;
+    border-bottom: 0.1rem solid #000; 
+    line-height: 0.16rem;
+    margin: 1rem 0 2rem;
 
 }
 
 .or span{
     background:#fff; 
-    padding:0 10px; 
+    padding:0 1rem; 
 }
 
-.button {
-    background-color: var(--iu-primary-default);
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
+.loginasguessbutton{
+    background-color: var(--iu-white-default);
+    color: black;
+    padding: 1.4rem 2rem;
+    margin: 0.8rem 0;
+    border: 0.1rem solid #DCE2E4;
     cursor: pointer;
     width: 100%;
+    box-sizing: border-box;
+    border-radius: 0.6rem;
+}
+
+.loginasguessbutton:hover{
+    background-color: var(--iu-secondary-light);
+    color: var(--iu-primary-dark);
+}
+
+.loginasguessbutton:active{
+    background-color: var(--iu-secondary-light);
+    color: var(--iu-primary-dark);
+    box-shadow: 0rem 0.5rem #666;
+    transform: translateY(0.4rem);
 }

@@ -1,0 +1,39 @@
+{% extends 'Courses/base-class-course.html' %}
+{% load static %}
+
+{% block title %}
+  {% if user.is_lecturer %}
+  <title>{{ lecturer_class.course.name }}</title>
+  {% else %}
+  <title>{{ student_class.course.name }}</title>
+  {% endif %}
+{% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'Courses/student-class-announcement.css' %}">
+{% endblock %}
+
+{% block upload %}
+{% if user.is_lecturer %}
+  <li><a href="{% url 'upload-class-announcement-page' user.lecturer.id lecturer_class.id %}">Upload</a>
+  </li>
+{% else %}
+{% endif %}
+{% endblock upload %}
+
+{% block class-announcements-active %}active{% endblock %}
+
+{% block panel-content %}
+  {% for announcement in announcements %}
+    <article>
+      <div class="heading">
+        <h3>{{ announcement.title }}</h3>
+        <footer>
+          <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
+        </footer>
+      </div>
+      <p>{{ announcement.content | linebreaks }}</p>
+    </article>
+  {% endfor %}
+{% endblock %}

@@ -8,7 +8,7 @@ article.panel h2 {
   color: var(--gray-default);
   text-align: unset;
 
-  padding-bottom: 3rem;
+  padding-bottom: 2rem;
   margin-bottom: 2rem;
   border-bottom: 1px solid var(--gray-light);
 }
@@ -37,6 +37,7 @@ article.panel .card {
 article.panel .card .cover {
   border-radius: 6px 6px 0 0;
   object-fit: cover;
+  height: 17.5rem;
 
   filter: blur(0px) brightness(50%);
   transition: filter var(--hover-transition);
