@@ -33,5 +33,11 @@ def ClassChoices():
 
 CLASS_CHOICES = ClassChoices()
 
-class ClassRegistrationForm(forms.Form):
-    registration_choice = forms.ChoiceField(choices=CLASS_CHOICES, widget=forms.RadioSelect)
+class ClassRegistrationForm(forms.ModelForm):
+    course = forms.ChoiceField(widget=forms.CheckboxSelectMultiple, required=True)
+    class Meta:
+        model = Class
+        fields = [
+            'course',
+        ]
+    #registration_choice = forms.ChoiceField(choices=CLASS_CHOICES, widget=forms.RadioSelect)
