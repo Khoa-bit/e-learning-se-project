@@ -1,0 +1,41 @@
+{% extends 'Courses/base-class-course.html' %}
+{% load static %}
+
+{% block title %}
+  {% if user.is_lecturer %}
+  <title>{{ lecturer_class.course.name }}</title>
+  {% else %}
+  <title>{{ student_class.course.name }}</title>
+  {% endif %}
+{% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'Courses/student-class-content.css' %}">
+{% endblock %}
+
+{% block upload %}
+{% if user.is_lecturer %}
+  <li><a href="{% url 'upload-class-content-page' user.lecturer.id lecturer_class.id %}">Upload</a>
+  </li>
+{% else %}
+{% endif %}
+{% endblock upload %}
+
+{% block class-content-active %}active{% endblock %}
+
+{% block panel-content %}
+  {% for content_post in content_posts %}
+    <article>
+    <div class="heading">
+      <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
+      <h3>{{ content_post.title }}</h3>
+      <footer>
+        <time>{{ content_post.time_created.date }}<br>{{ content_post.time_created.time | time:"g:iA" }}</time>
+      </footer>
+    </div>
+    <p>Attached Files: {{ content_post.attached_file.name }}</p>
+    <p>{{ content_post.content | linebreaks }}</p>
+  </article>
+  {% endfor %}
+{% endblock %}

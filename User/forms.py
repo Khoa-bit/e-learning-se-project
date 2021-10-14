@@ -1,5 +1,5 @@
 from django import forms
-
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField()
@@ -18,3 +18,10 @@ class PasswordResetForm(forms.Form):
                 "password and confirm_password does not match"
             )
         return cleaned_data
+
+
+class LoginForm(AuthenticationForm):
+    class Meta:
+        widgets = {
+            'id_username': forms.TextInput(attrs={'placeholder':'username','class':'user','size':25,'maxlength':50,'autocomplete':'off','required':'required'})
+        }
