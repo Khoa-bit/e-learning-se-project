@@ -4,6 +4,8 @@
 
 :root {
   --white-default: #ffffff;
+  --black-default: #000000;
+  --background-default: #f6f7f8;
   --gray-lighter: #dce2e4;
   --gray-light: #bac5ca;
   --gray-default: #6a818a;
@@ -18,7 +20,7 @@
   --iu-secondary-default: #1c9acc;
   --iu-secondary-dark: #115f7e;
 
-  --body-font-family: Inter, sans-serif;
+  --body-font-family: SVN-Gilroy, sans-serif;
   --body-font-size: 1.6rem;
   --body-font-weight: 400;
   --body-line-height: 1.5;
