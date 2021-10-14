@@ -1,9 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("../fonts/stylesheet.css");
 
 /* Custom properties/variables  */
 
 :root {
   --white-default: #ffffff;
+  --black-default: #000000;
+  --background-default: #f6f7f8;
   --gray-lighter: #dce2e4;
   --gray-light: #bac5ca;
   --gray-default: #6a818a;
@@ -18,7 +20,7 @@
   --iu-secondary-default: #1c9acc;
   --iu-secondary-dark: #115f7e;
 
-  --body-font-family: Inter, sans-serif;
+  --body-font-family: SVN-Gilroy, serif;
   --body-font-size: 1.6rem;
   --body-font-weight: 400;
   --body-line-height: 1.5;
@@ -126,6 +128,7 @@ h1,
 .h1 {
   font-size: calc(2.2rem + 1.5vw);
 }
+
 @media (min-width: 1200px) {
   h1,
   .h1 {
@@ -137,6 +140,7 @@ h2,
 .h2 {
   font-size: calc(2.12rem + 0.9vw);
 }
+
 @media (min-width: 1200px) {
   h2,
   .h2 {
@@ -148,6 +152,7 @@ h3,
 .h3 {
   font-size: calc(2.08rem + 0.6vw);
 }
+
 @media (min-width: 1200px) {
   h3,
   .h3 {
@@ -159,6 +164,7 @@ h4,
 .h4 {
   font-size: calc(2.04rem + 0.3vw);
 }
+
 @media (min-width: 1200px) {
   h4,
   .h4 {
