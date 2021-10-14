@@ -3,6 +3,7 @@
 body {
   --header-height: 10rem;
   --hover-transition: 0.25s ease-out;
+  --dropdown-transition: 0.5s ease-in-out;
   --spacing: 1rem;
 }
 
@@ -173,6 +174,10 @@ body > footer {
 .sidebar-nav .btn {
   border-radius: 6px;
   transition: background-color var(--hover-transition);
+}
+
+.sidebar-nav .btn.expand {
+  background-color: var(--gray-lighter);
 }
 
 .sidebar-nav .btn:hover {
@@ -455,19 +460,23 @@ article.panel {
   width: 4.5rem;
 }
 
+.sidebar-nav .btn.active .drop-btn {
+  color: var(--white-default);
+}
+
 .sidebar-nav .btn .drop-btn.disabled svg {
   display: none;
 }
 
-/*.sidebar-nav .btn .drop-btn > svg {*/
-/*  margin-inline-end: 1rem;*/
-/*  transform: rotateZ(-90deg);*/
-/*  transition: transform var(--hover-transition);*/
-/*}*/
+.sidebar-nav .btn .drop-btn > svg {
+  margin-inline-end: 1rem;
+  transform: rotateZ(-90deg);
+  transition: transform var(--hover-transition);
+}
 
-/*.sidebar-nav .btn .drop-btn.clicked > svg {*/
-/*  transform: rotateZ(0deg);*/
-/*}*/
+.sidebar-nav .btn .drop-btn.clicked > svg {
+  transform: rotateZ(0deg);
+}
 
 .sidebar-nav .btn .drop-down-menu {
   grid-column: span 2;
@@ -476,15 +485,14 @@ article.panel {
   background-color: #F6F7F8;
   border-radius: 0 0 6px 6px;
 
-  /*max-height: 0;*/
   overflow: hidden;
 
-  transition: max-height 0.5s ease;
+  transition: max-height var(--dropdown-transition);
 }
 
-/*.sidebar-nav .btn .drop-down-menu.expand {*/
-/*  max-height: 0;*/
-/*}*/
+.sidebar-nav .btn .drop-down-menu.collapse {
+  max-height: 0;
+}
 
 .sidebar-nav .btn.small > a {
   min-height: 3.7rem;
