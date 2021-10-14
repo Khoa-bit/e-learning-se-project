@@ -18,8 +18,11 @@
 
 <body class="page-grid">
 <header class="header-bar {% if user.is_authenticated %}user-login{% endif %}">
-  <a class="logo" href="#"><img src="{% static 'images/iu-image-png.png' %}"
-                                alt="International University's Learning Management System">
+  <a class="logo"
+     href="{% if user.user_type == 'Student' %}{% url 'student-announcement-page' user.student.id %}
+            {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-announcement-page' user.lecturer.id %}
+            {% else %}#{% endif %}">
+    <img src="{% static 'images/iu-image-png.png' %}" alt="International University's Learning Management System">
     <h1><b>Learning Management System</b><br>
       International University</h1>
   </a>
@@ -35,9 +38,10 @@
                       fill="currentColor"/>
             </svg>
             <ul class="drop-down-menu">
-              <li><a class="info btn" href="
-
-                      {% if user.user_type == 'Student' %}{% url 'student-about' user.student.id %}{% elif user.user_type == 'Lecturer' %}{% url 'lecturer-about' user.lecturer.id %}{% endif %}">
+              <li><a class="info btn"
+                     href="{% if user.user_type == 'Student' %}{% url 'student-about' user.student.id %}
+                            {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-about' user.lecturer.id %}
+                            {% else %}#{% endif %}">
                 <svg width="25" height="24" viewBox="0 0 25 24" fill="currentColor"
                      xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd"
