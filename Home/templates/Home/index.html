@@ -145,6 +145,23 @@
           </svg>
           My Classes</a>
         <ul class="drop-down-menu collapse">
+          {% if user.user_type == 'Student' %}
+            {% for class in user.student.class_id.all %}
+              <li class="btn small">
+                <a href="{% url 'student-class-announcement-page' user.student.id class.id %}">
+                  {{ class.course.name }}
+                </a>
+              </li>
+            {% endfor %}
+          {% elif user.user_type == 'Lecturer' %}
+            {% for class in user.lecturer.class_id.all %}
+              <li class="btn small">
+                <a href="{% url 'lecturer-class-announcement-page' user.lecturer.id class.id %}">
+                  {{ class.course.name }}
+                </a>
+              </li>
+            {% endfor %}
+          {% else %}#{% endif %}
           <li class="btn small"><a href="#">Software Engineering</a></li>
           <li class="btn small"><a href="#">Operating System</a></li>
           <li class="btn small"><a href="#">Engineering Ethics & Professional Skills</a></li>
