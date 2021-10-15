@@ -2,7 +2,7 @@
 
 body {
   --header-height: 10rem;
-  --dropdown-transition: 0.5s ease-in-out;
+  --dropdown-transition: 0.3s ease-in-out;
   --spacing: 1rem;
 }
 
