@@ -24,20 +24,3 @@ class UploadClassContentForm(forms.ModelForm):
             'attached_file'
         ]
 
-
-def ClassChoices():
-    list = []
-    for x in Class.objects.all():
-        list.append((x.id, x.id))
-    return list
-
-CLASS_CHOICES = ClassChoices()
-
-class ClassRegistrationForm(forms.ModelForm):
-    course = forms.ChoiceField(widget=forms.CheckboxSelectMultiple, required=True)
-    class Meta:
-        model = Class
-        fields = [
-            'course',
-        ]
-    #registration_choice = forms.ChoiceField(choices=CLASS_CHOICES, widget=forms.RadioSelect)

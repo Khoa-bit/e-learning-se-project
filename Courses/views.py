@@ -96,7 +96,6 @@ def LecturerClassContent(request, id, class_id):
     return render(request, "Courses/class-content.html", content)
 
 
-@CheckValidUser
 def UploadClassAnnouncement(request, id, class_id):
     if request.method == 'POST':
         form = forms.UploadClassAnnouncementForm(request.POST)
@@ -112,7 +111,6 @@ def UploadClassAnnouncement(request, id, class_id):
     return render(request, 'User/upload-announcement.html', context)
 
 
-@CheckValidUser
 def UploadClassContent(request, id, class_id):
     if request.method == 'POST':
         form = forms.UploadClassContentForm(request.POST, request.FILES or None)
@@ -128,16 +126,12 @@ def UploadClassContent(request, id, class_id):
     return render(request, 'User/upload-content.html', context)
 
 
-
 def ClassRegistration(request):
-    #form = forms.ClassRegistrationForm(request.POST or None)
+    selected_classes_id = []
+    if request.method == 'POST':
+        selected_classes_id = list(request.POST.keys())[1:]
+        selected_classes_id = [int(x) for x in selected_classes_id] # convert to int
+    # Selected classes id are in the selected_classes_id list
     available_classes = Class.objects.all()
     context = {'available_classes': available_classes}
     return render(request, 'User/class-registration.html', context)
-    def post(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            class_ids = request.POST.getlist('class_id[]')
-            print(class_ids)
-            return HttpResponseRedirect(reverse('class-registration-page'))
-        else:
-            return render(request, 'User/class-registration.html', context)
