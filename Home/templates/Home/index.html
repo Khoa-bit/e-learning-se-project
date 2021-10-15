@@ -149,27 +149,19 @@
             {% for class in user.student.class_id.all %}
               <li class="btn small">
                 <a href="{% url 'student-class-announcement-page' user.student.id class.id %}">
-                  {{ class.course.name }}
+                  {{ class.course.name }} - {{ class.schedule }}
                 </a>
               </li>
             {% endfor %}
           {% elif user.user_type == 'Lecturer' %}
-            {% for class in user.lecturer.class_id.all %}
+            {% for class in user.lecturer.class_set.all %}
               <li class="btn small">
                 <a href="{% url 'lecturer-class-announcement-page' user.lecturer.id class.id %}">
-                  {{ class.course.name }}
+                  {{ class.course.name }} - {{ class.schedule }}
                 </a>
               </li>
             {% endfor %}
-          {% else %}#{% endif %}
-          <li class="btn small"><a href="#">Software Engineering</a></li>
-          <li class="btn small"><a href="#">Operating System</a></li>
-          <li class="btn small"><a href="#">Engineering Ethics & Professional Skills</a></li>
-          <li class="btn small"><a href="#">Computer Networks</a></li>
-          <li class="btn small"><a href="#">Probability</a></li>
-          <li class="btn small"><a href="#">Probability</a></li>
-          <li class="btn small"><a href="#">Probability</a></li>
-          <li class="btn small"><a href="#">Probability</a></li>
+          {% endif %}
         </ul>
       </li>
       <li class="btn btn-grid {% block assignment-active %}{% endblock assignment-active %}">
