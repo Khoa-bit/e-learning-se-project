@@ -127,7 +127,11 @@ def UploadClassContent(request, id, class_id):
 
 
 def ClassRegistration(request):
-    form = forms.ClassRegistrationForm(request.POST or None)
+    selected_classes_id = []
+    if request.method == 'POST':
+        selected_classes_id = list(request.POST.keys())[1:]
+        selected_classes_id = [int(x) for x in selected_classes_id] # convert to int
+    # Selected classes id are in the selected_classes_id list
     available_classes = Class.objects.all()
-    context = {'form': form, 'available_classes': available_classes}
+    context = {'available_classes': available_classes}
     return render(request, 'User/class-registration.html', context)

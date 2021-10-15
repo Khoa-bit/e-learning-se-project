@@ -9,10 +9,9 @@
   <p> </p>
   <form action="." method="POST">
     {% csrf_token %}
-    {{ form }}
     {% for available_class in available_classes %}
-      <p> <input type="radio" id="choice" name="choice">
-        {{ available_class.course.name }} - {{ available_class.lecturer.user_id.full_name }} - {{ available_class.schedule.day_of_the_week }} - {{ available_class.schedule.start_time }} - {{ available_class.schedule.duration }}
+      <p> <input type="radio" id="{{available_class.id}}" name="{{available_class.id}}">
+        {{forloop.counter}}.{{ available_class.course.name }} - {{ available_class.lecturer.user_id.full_name }} - {{ available_class.schedule.day_of_the_week }} - {{ available_class.schedule.start_time }} - {{ available_class.schedule.duration }}
       </p>
     {% endfor %}
     <input type="Submit" value="Save" />
