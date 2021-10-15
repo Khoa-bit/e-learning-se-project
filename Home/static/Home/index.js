@@ -5,17 +5,16 @@ for (const sidebarDropBtnElement of sidebarDropBtnList) {
     const btn = sidebarDropBtnElement.parentElement;
     const dropDownMenuChildren = dropDownMenu.children;
 
-    let dropDownMenuHeight = 0;
-    for (const dropDownMenuChild of dropDownMenuChildren) {
-        dropDownMenuHeight += dropDownMenuChild.clientHeight;
-    }
-
     function toggleDropDown() {
         sidebarDropBtnElement.classList.toggle("clicked");
         btn.classList.toggle("expand");
         if (dropDownMenu.style.maxHeight) {
             dropDownMenu.style.maxHeight = null;
         } else {
+            let dropDownMenuHeight = 0.0;
+            for (const dropDownMenuChild of dropDownMenuChildren) {
+                dropDownMenuHeight += dropDownMenuChild.offsetHeight + 0.4;
+            }
             dropDownMenu.style.maxHeight = (dropDownMenuHeight / 10) + "rem";
         }
     }
@@ -23,6 +22,6 @@ for (const sidebarDropBtnElement of sidebarDropBtnList) {
     sidebarDropBtnElement.addEventListener('click', toggleDropDown);
 
     for (const dropDownMenuChild of dropDownMenuChildren) {
-            dropDownMenuChild.addEventListener('click', toggleDropDown);
+        dropDownMenuChild.addEventListener('click', toggleDropDown);
     }
 }
