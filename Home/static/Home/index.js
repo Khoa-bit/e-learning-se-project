@@ -15,7 +15,7 @@ for (const sidebarDropBtnElement of sidebarDropBtnList) {
             for (const dropDownMenuChild of dropDownMenuChildren) {
                 dropDownMenuHeight += dropDownMenuChild.offsetHeight + 0.4;
             }
-            dropDownMenu.style.maxHeight = (dropDownMenuHeight / 10) + "rem";
+            dropDownMenu.style.maxHeight = dropDownMenuHeight + "px";
         }
     }
 
