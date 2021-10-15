@@ -10,8 +10,6 @@
 
 /* Panel header */
 .panel > header {
-  --hover-transition: 0.25s ease-out;
-
   padding-block-end: 2rem;
 }
 

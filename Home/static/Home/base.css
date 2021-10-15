@@ -26,6 +26,8 @@
   --body-line-height: 1.5;
   --body-color: #000810;
   --body-bg: var(--white-default);
+
+  --hover-transition: 0.25s ease-out;
 }
 
 /* Base reset */

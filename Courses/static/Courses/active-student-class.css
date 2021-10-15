@@ -20,7 +20,6 @@ article.panel .courses-grid {
 }
 
 article.panel .card {
-  --hover-transition: 0.25s ease-out;
   --spacing: 1rem;
 
   position: relative;

@@ -14,7 +14,7 @@
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    background-color: #FFFFFF;
+    background-color: var(--white-default);
     box-shadow: 0 0 5rem 1rem rgba(0, 0, 0, 0.15);
     border-radius: 10px;
 }
@@ -74,7 +74,7 @@ input[type = text], input[type = password]{
     padding: 1.2rem 2rem;
     margin: 0.8rem 0;
     display: inline-block;
-    border: 0.1rem solid #ccc;
+    border: 0.1rem solid var(--gray-lighter);
     box-sizing: border-box;
     border-radius: 0.6rem;
 }
@@ -96,33 +96,27 @@ input[type = text], input[type = password]{
     width: 100%;
     box-sizing: border-box;
     border-radius: 0.6rem;
+
+    transition: background-color var(--hover-transition);
 }
 
 .loginbutton:hover{
-    background-color: var(--iu-secondary-light);
-    color: var(--iu-primary-dark);
-}
-
-.loginbutton:active{
-    background-color: var(--iu-secondary-light);
-    color: var(--iu-primary-dark);
-    box-shadow: 0 0.5rem #666;
-    transform: translateY(0.4rem);
+    background-color: var(--iu-secondary-default);
 }
 
 .or{
-    width: 100%; 
-    text-align: center; 
+    width: 100%;
+    text-align: center;
     color: var(--gray-default);
-    border-bottom: 0.1rem solid var(--gray-default); 
-    line-height: 0.16rem;
+    border-bottom: 0.1rem solid var(--gray-lighter);
     margin: 3rem 0 3rem;
-
+    font-size: 1.8rem;
+    line-height: 0;
 }
 
 .or span{
-    background:#fff; 
-    padding:0 1rem; 
+    background:#fff;
+    padding:0 1rem;
 }
 
 .loginasguessbutton{
@@ -132,21 +126,17 @@ input[type = text], input[type = password]{
     color: var(--iu-primary-default);
     padding: 1.4rem 2rem;
     margin: 0.8rem 0;
-    border: 0.1rem solid #DCE2E4;
+    border: 0.1rem solid var(--gray-lighter);
     cursor: pointer;
     width: 100%;
+    height: 5rem;
     box-sizing: border-box;
     border-radius: 0.6rem;
+
+    transition: all var(--hover-transition);
 }
 
 .loginasguessbutton:hover{
     background-color: var(--iu-secondary-light);
-    color: var(--iu-primary-dark);
-}
-
-.loginasguessbutton:active{
-    background-color: var(--iu-secondary-light);
-    color: var(--iu-primary-dark);
-    box-shadow: 0 0.5rem #666;
-    transform: translateY(0.4rem);
+    border-width: 0;
 }
