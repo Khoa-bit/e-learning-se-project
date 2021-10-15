@@ -1,14 +1,7 @@
-@import url(../CSS/base.css);
-
-body{
-    /* background-image: url(../images//signin-background-image-png.png);
-    background-repeat: no-repeat;
-    background-size: cover; */
-    width: 144rem;
-    height: 102.4rem;
-}
+@import url('base.css');
 
 #background img{
+    position: absolute;
     display: block;
     width: 100vw;
     height: 100vh;
@@ -50,7 +43,7 @@ body{
     text-align: center;
     font-size: 1.92rem;
     font-style:inherit;
-    font: bold;
+    font-weight: bold;
 }
 
 .iulogo{
@@ -96,9 +89,8 @@ input[type = text], input[type = password]{
 .loginbutton {
     font-size: medium;
     font-weight: bold;
-    color: var(--iu-white-default);
+    color: var(--white-default);
     background-color: var(--iu-primary-default);
-    color: white;
     padding: 1.4rem 2rem;
     margin: 0.8rem 0;
     border: none;
@@ -136,7 +128,7 @@ input[type = text], input[type = password]{
 }
 
 .loginasguessbutton{
-    background-color: var(--iu-white-default);
+    background-color: var(--white-default);
     font-size: medium;
     font-weight: bold;
     color: var(--iu-primary-default);
