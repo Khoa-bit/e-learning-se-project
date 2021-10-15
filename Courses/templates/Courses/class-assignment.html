@@ -3,23 +3,23 @@
 
 {% block title %}
   {% if user.is_lecturer %}
-    <title>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} Content</title>
+    <title>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} Assignment</title>
   {% else %}
-    <title>{{ student_class.course.name }} - {{ student_class.schedule }} Content</title>
+    <title>{{ student_class.course.name }} - {{ student_class.schedule }} Assignment</title>
   {% endif %}
 {% endblock title %}
 
 {% block stylesheets %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static 'Courses/student-class-content.css' %}">
+  <link rel="stylesheet" href="{% static 'Courses/student-class-announcement.css' %}">
 {% endblock %}
 
-{% block class-content-active %}active{% endblock %}
+{% block class-assignment-active %}active{% endblock %}
 
 {% block panel-content %}
   {% if user.is_lecturer %}
     <a class="upload-button"
-       href="{% url 'upload-class-content-page' user.lecturer.id lecturer_class.id %}">
+       href="#">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <g id="Property 1=ico, Property 2=24, Property 3=ui, Property 4=new_message">
           <path id="Icon color" fill-rule="evenodd" clip-rule="evenodd"
@@ -27,21 +27,19 @@
                 fill="currentColor"></path>
         </g>
       </svg>
-      Upload Content
+      NOOO not more Assignments! 🥲
     </a>
   {% endif %}
 
-  {% for content_post in content_posts %}
-    <article>
-      <div class="heading">
-        <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
-        <h3>{{ content_post.title }}</h3>
-        <footer>
-          <time>{{ content_post.time_created.date }}<br>{{ content_post.time_created.time | time:"g:iA" }}</time>
-        </footer>
-      </div>
-      <p>Attached Files: {{ content_post.attached_file.name }}</p>
-      <p>{{ content_post.content | linebreaks }}</p>
-    </article>
-  {% endfor %}
+{#  {% for announcement in announcements %}#}
+{#    <article>#}
+{#      <div class="heading">#}
+{#        <h3>{{ announcement.title }}</h3>#}
+{#        <footer>#}
+{#          <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>#}
+{#        </footer>#}
+{#      </div>#}
+{#      <p>{{ announcement.content | linebreaks }}</p>#}
+{#    </article>#}
+{#  {% endfor %}#}
 {% endblock %}

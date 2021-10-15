@@ -96,6 +96,34 @@ def LecturerClassContent(request, id, class_id):
     return render(request, "Courses/class-content.html", content)
 
 
+@CheckValidUser
+def StudentClassAssignment(request, id, class_id):
+    student_class = Class.objects.get(id=class_id)
+    content = {'student_class': student_class}
+    return render(request, "Courses/class-assignment.html", content)
+
+
+@CheckValidUser
+def LecturerClassAssignment(request, id, class_id):
+    lecturer_class = Class.objects.get(id=class_id)
+    content = {'lecturer_class': lecturer_class}
+    return render(request, "Courses/class-assignment.html", content)
+
+
+@CheckValidUser
+def StudentClassGrade(request, id, class_id):
+    student_class = Class.objects.get(id=class_id)
+    content = {'student_class': student_class}
+    return render(request, "Courses/class-grade.html", content)
+
+
+@CheckValidUser
+def LecturerClassGrade(request, id, class_id):
+    lecturer_class = Class.objects.get(id=class_id)
+    content = {'lecturer_class': lecturer_class}
+    return render(request, "Courses/class-grade.html", content)
+
+
 def UploadClassAnnouncement(request, id, class_id):
     if request.method == 'POST':
         form = forms.UploadClassAnnouncementForm(request.POST)
