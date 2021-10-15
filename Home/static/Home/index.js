@@ -10,7 +10,7 @@ for (const sidebarDropBtnElement of sidebarDropBtnList) {
         dropDownMenuHeight += dropDownMenuChild.clientHeight;
     }
 
-    sidebarDropBtnElement.onclick = () => {
+    function toggleDropDown() {
         sidebarDropBtnElement.classList.toggle("clicked");
         btn.classList.toggle("expand");
         if (dropDownMenu.style.maxHeight) {
@@ -18,5 +18,11 @@ for (const sidebarDropBtnElement of sidebarDropBtnList) {
         } else {
             dropDownMenu.style.maxHeight = (dropDownMenuHeight / 10) + "rem";
         }
+    }
+
+    sidebarDropBtnElement.addEventListener('click', toggleDropDown);
+
+    for (const dropDownMenuChild of dropDownMenuChildren) {
+            dropDownMenuChild.addEventListener('click', toggleDropDown);
     }
 }
