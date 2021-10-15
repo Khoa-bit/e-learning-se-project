@@ -120,6 +120,7 @@ input[type = text], input[type = password]{
 }
 
 .loginasguessbutton{
+    display: block;
     background-color: var(--white-default);
     font-size: medium;
     font-weight: bold;
@@ -127,16 +128,15 @@ input[type = text], input[type = password]{
     padding: 1.4rem 2rem;
     margin: 0.8rem 0;
     border: 0.1rem solid var(--gray-lighter);
-    cursor: pointer;
     width: 100%;
     height: 5rem;
-    box-sizing: border-box;
     border-radius: 0.6rem;
+    text-align: center;
 
     transition: all var(--hover-transition);
 }
 
 .loginasguessbutton:hover{
     background-color: var(--iu-secondary-light);
-    border-width: 0;
+    border-color: transparent;
 }
