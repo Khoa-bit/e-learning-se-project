@@ -3,9 +3,9 @@
 
 {% block title %}
   {% if user.is_lecturer %}
-    <title>{{ lecturer_class.course.name }}</title>
+    <title>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} Announcement</title>
   {% else %}
-    <title>{{ student_class.course.name }}</title>
+    <title>{{ student_class.course.name }} - {{ student_class.schedule }} Announcement</title>
   {% endif %}
 {% endblock title %}
 

@@ -10,8 +10,20 @@
 {% block main-content %}
   <article class="panel">
     <header>
-      <h2>{{ student_class.course.name }}</h2>
-      <p>Instructor: {{ student_class.lecturer.user_id.full_name }}</p>
+      <h2>
+        {% if user.user_type == 'Student' %}
+          {{ student_class.course.name }} - {{ student_class.schedule }}
+        {% elif user.user_type == 'Lecturer' %}
+          {{ lecturer_class.course.name }} - {{ lecturer_class.schedule }}
+        {% endif %}
+      </h2>
+      <p>
+        {% if user.user_type == 'Student' %}
+          Instructor: {{ student_class.lecturer.user_id.full_name }}
+        {% elif user.user_type == 'Lecturer' %}
+          Instructor: {{ lecturer_class.lecturer.user_id.full_name }}
+        {% endif %}
+      </p>
       <ul class="flex-tabs">
         <li>
           <a class="tab {% block class-announcements-active %}{% endblock %}"
@@ -33,11 +45,25 @@
             Content
           </a>
         </li>
-        <li><a class="tab {% block class-my-grades-active %}{% endblock %}"
-               href="#">My grades</a>
+        <li>
+          <a class="tab {% block class-my-grades-active %}{% endblock %}"
+             href="{% if user.user_type == 'Student' %}
+                      {% url 'student-class-grade-page' user.student.id student_class.id %}
+                      {% elif user.user_type == 'Lecturer' %}
+                      {% url 'lecturer-class-grade-page' user.lecturer.id lecturer_class.id %}
+                      {% endif %}">
+            Grade
+          </a>
         </li>
-        <li><a class="tab {% block class-assignment-active %}{% endblock %}"
-               href="#">Assignment</a>
+        <li>
+          <a class="tab {% block class-assignment-active %}{% endblock %}"
+             href="{% if user.user_type == 'Student' %}
+                      {% url 'student-class-assignment-page' user.student.id student_class.id %}
+                      {% elif user.user_type == 'Lecturer' %}
+                      {% url 'lecturer-class-assignment-page' user.lecturer.id lecturer_class.id %}
+                      {% endif %}">
+            Assignment
+          </a>
         </li>
         <li><a class="tab {% block class-staff-contacts-active %}{% endblock %}"
                href="#">Staff contacts</a>
