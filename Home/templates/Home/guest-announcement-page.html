@@ -13,12 +13,14 @@
 
 {% block main-content %}
     <article class="panel announcement general-information">
+      <div class="heading">
         <h2>{{announcement_1.title}}</h2>
-        <article>
-            <p>{{announcement_1.content}}</p>
-            <footer>
-                <time datetime=<!--"2021-05-16 19:00">16/05/2021-->announcement.time_announced>{{announcement_1.time_announced}}<!--</time>-->
-            </footer>
-        </article>
+        <footer>
+            {{announcement_1.time_announced}}
+        </footer>
+      </div>
+        <!--<article>-->
+            <p>{{announcement_1.content | linebreaks}}</p>
+        <!--</article>-->
     </article>
 {% endblock %}
