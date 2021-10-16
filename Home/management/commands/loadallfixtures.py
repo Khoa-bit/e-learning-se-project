@@ -11,6 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         fixtures = [BASE_DIR / 'User/fixtures/user_data.json', BASE_DIR / 'User/fixtures/lecturer_data.json']
 
+        fixtures.append(BASE_DIR / 'Courses/fixtures/major_data.json')
         fixtures.extend(BASE_DIR.glob('Courses/fixtures/*.json'))
         fixtures.extend(BASE_DIR.glob('Home/fixtures/*.json'))
         fixtures.extend(BASE_DIR.glob('Classwork/fixtures/*.json'))
