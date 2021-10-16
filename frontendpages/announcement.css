@@ -8,10 +8,10 @@ article.panel h2 {
   font-weight: 600;
   font-size: 1.8rem;
   line-height: 2.1rem;
-  color: var(--gray-default);
+  color: var(--gray-dark);
   text-align: unset;
 
-  padding-bottom: 2rem;
+  padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--gray-light);
 }
 

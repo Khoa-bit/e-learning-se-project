@@ -10,8 +10,6 @@
 
 /* Panel header */
 .panel > header {
-  --hover-transition: 0.25s ease-out;
-
   padding-block-end: 2rem;
 }
 
@@ -69,4 +67,33 @@
 
 .panel > header .active {
   background: var(--gray-lighter);
+}
+
+/* Upload Button */
+.panel .upload-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+
+  padding: 1.3rem 2.1rem;
+
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 1.9rem;
+
+  color: var(--white-default);
+  background-color: var(--iu-primary-default);
+
+  border-radius: 6px;
+  transition: background-color var(--hover-transition);
+}
+
+.panel .upload-button > svg {
+  width: 2.4rem;
+  margin-inline-end: 1rem;
+}
+
+.panel .upload-button:hover {
+  background-color: var(--iu-secondary-default);
 }
