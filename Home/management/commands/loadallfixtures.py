@@ -9,14 +9,17 @@ class Command(BaseCommand):
     help = "Load all fixtures automatically from all apps"
 
     def handle(self, *args, **options):
-        fixtures = [BASE_DIR / 'User/fixtures/user_data.json', BASE_DIR / 'User/fixtures/lecturer_data.json',
-                    BASE_DIR / 'Courses/fixtures/major_data.json']
-
-        fixtures.extend(BASE_DIR.glob('Courses/fixtures/*.json'))
-        fixtures.extend(BASE_DIR.glob('Home/fixtures/*.json'))
-        fixtures.extend(BASE_DIR.glob('Classwork/fixtures/*.json'))
-
-        fixtures.append(BASE_DIR / 'User/fixtures/student_data.json')
+        fixtures = [
+            'user_data.json',
+            'user_data.json',
+            'lecturer_data.json',
+            'major_data.json',
+            'course_data.json',
+            'schedule_data.json',
+            'class_data.json',
+            'student_data.json',
+            'class_announcement_data.json',
+        ]
 
         management.call_command('makemigrations')
         management.call_command('migrate')
