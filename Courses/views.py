@@ -135,7 +135,7 @@ def UploadClassAnnouncement(request, id, class_id):
             return HttpResponseRedirect(reverse("lecturer-class-announcement-page", args=[id, class_id]))
     else:
         form = forms.UploadClassAnnouncementForm()
-    context = {'form': form, "lecturer": Lecturer.objects.get(id=id), "class": Class.objects.get(id=class_id)}
+    context = {'form': form, "lecturer": Lecturer.objects.get(id=id), "lecturer_class": Class.objects.get(id=class_id)}
     return render(request, 'User/upload-announcement.html', context)
 
 
@@ -150,7 +150,7 @@ def UploadClassContent(request, id, class_id):
             return HttpResponseRedirect(reverse("lecturer-class-content-page", args=[id, class_id]))
     else:
         form = forms.UploadClassContentForm()
-    context = {'form': form, "lecturer": Lecturer.objects.get(id=id), "class": Class.objects.get(id=class_id)}
+    context = {'form': form, "lecturer": Lecturer.objects.get(id=id), "lecturer_class": Class.objects.get(id=class_id)}
     return render(request, 'User/upload-content.html', context)
 
 
