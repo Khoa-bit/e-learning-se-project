@@ -30,16 +30,15 @@
       NOOO not more Assignments! 🥲
     </a>
   {% endif %}
-
-{#  {% for announcement in announcements %}#}
-{#    <article>#}
-{#      <div class="heading">#}
-{#        <h3>{{ announcement.title }}</h3>#}
-{#        <footer>#}
-{#          <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>#}
-{#        </footer>#}
-{#      </div>#}
-{#      <p>{{ announcement.content | linebreaks }}</p>#}
-{#    </article>#}
-{#  {% endfor %}#}
+  {% for test in tests %}
+  <article>
+    <div class="heading">
+      <h3>{{ test.test_name }}</h3>
+      <footer>
+        <time>Publish date: {{ test.publish_time }}<br />Deadline: {{ test.end_time }}</time>
+      </footer>
+    </div>
+    <p>{{ test.test_description | linebreaks }}</p>
+  </article>
+  {% endfor %}
 {% endblock %}

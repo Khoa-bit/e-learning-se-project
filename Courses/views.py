@@ -3,6 +3,7 @@ from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from .models import *
 from User.models import Student
+from Classwork.models import *
 from Courses import forms
 from User.views import CheckValidUser
 
@@ -99,14 +100,16 @@ def LecturerClassContent(request, id, class_id):
 @CheckValidUser
 def StudentClassAssignment(request, id, class_id):
     student_class = Class.objects.get(id=class_id)
-    content = {'student_class': student_class}
+    test = student_class.test_set.all()     # add filter here (check if test is in the time window because students can only see those tests)
+    content = {'student_class': student_class,'tests':test}
     return render(request, "Courses/class-assignment.html", content)
 
 
 @CheckValidUser
 def LecturerClassAssignment(request, id, class_id):
     lecturer_class = Class.objects.get(id=class_id)
-    content = {'lecturer_class': lecturer_class}
+    tests = lecturer_class.test_set.all()   # lecturers can see all tests
+    content = {'lecturer_class': lecturer_class, 'tests':tests}
     return render(request, "Courses/class-assignment.html", content)
 
 
