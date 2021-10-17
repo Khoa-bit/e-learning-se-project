@@ -451,10 +451,6 @@ article.panel {
   margin-bottom: 2rem;
 }
 
-article.panel:last-child {
-  margin-bottom: 0;
-}
-
 /* Page Sidebar When user login */
 .sidebar-nav .btn .drop-btn {
   display: flex;
