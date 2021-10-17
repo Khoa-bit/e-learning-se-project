@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>Guest Announcements - {{announcement_1.title}}</title>
+    <title>About</title>
 {% endblock title %}
 
 {% block stylesheets %}
@@ -13,14 +13,7 @@
 
 {% block main-content %}
     <article class="panel announcement general-information">
-      <div class="heading">
-        <h2>{{announcement_1.title}}</h2>
-        <footer>
-            {{announcement_1.time_announced}}
-        </footer>
-      </div>
-        <!--<article>-->
-            <p>{{announcement_1.content | linebreaks}}</p>
-        <!--</article>-->
+        <h2>About IU</h2>
+            <p> IU is a university</p>
     </article>
 {% endblock %}

@@ -24,3 +24,6 @@ def GuestAnnouncementPage(request, id):
     #announcement = Announcement.objects.filter(id=id)
     context = {'announcement_1': Announcement.objects.filter(id=id)}
     return render(request, "Home/guest-announcement-page.html", context)
+
+def GuestAbout(request):
+    return render(request, "Home/about.html")
