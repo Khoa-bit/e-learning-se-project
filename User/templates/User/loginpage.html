@@ -30,15 +30,15 @@
         {% csrf_token %}
         <div class="loginpanel">
           <div>{{ form.as_p }}</div>
+          <div class="forgotusernorpass"><a href="{% url 'passwordreset' %}" target="_blank"><i><u>Forgot username or password?</u></i></a>
         </div>
-        <div class="forgotusernorpass"><a href="{% url 'passwordreset' %}" target="_blank"><i><u>Forgot username or
-          password?</u></i></a></div>
         <input class="loginbutton" type="submit" value="Login" name="login"/>
       </form>
       <p class="or"><span><b>or</b></span></p>
       <a class="loginasguessbutton" href="{% url 'logout' %}">Login as Guest</a>
     </div>
   </div>
+</div>
 </div>
 </body>
 </html>
