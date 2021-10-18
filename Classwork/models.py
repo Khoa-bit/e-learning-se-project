@@ -28,7 +28,6 @@ class MultipleChoiceOption(models.Model):
   def __str__(self):
       return self.option
   
-
 class StudentTest(models.Model):
   student_id = models.ForeignKey("User.student",on_delete=CASCADE)
   test_id = models.ForeignKey(Test,on_delete=CASCADE)
