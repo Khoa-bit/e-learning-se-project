@@ -42,7 +42,7 @@ body > footer {
 }
 
 .logo img {
-  max-width: 8rem;
+  max-width: 7rem;
   height: auto;
 }
 
@@ -61,6 +61,7 @@ body > footer {
   text-align: unset;
   margin: 0;
   margin-inline-start: var(--spacing);
+  
 }
 
 .header-bar nav {
@@ -132,7 +133,8 @@ body > footer {
   position: sticky;
   top: 0;
   max-height: 100vh;
-  max-width: 25vw;
+  max-width: 20vw;
+  
   padding-block-end: calc(
           var(--header-height) + var(--spacing)
   ); /* var(--gap) = Section title padding top */
@@ -190,7 +192,7 @@ body > footer {
 
   padding-inline-end: 5rem;
 
-  font-weight: 700;
+  font-weight: 500;
   color: var(--gray-dark);
 }
 
@@ -208,6 +210,7 @@ body > footer {
 .sidebar-nav .btn.active > a,
 .sidebar-nav .btn.active > a:hover {
   color: var(--white-default);
+  font-weight: 600;
 }
 
 /* 1200px / 16px = 75em */
@@ -407,14 +410,22 @@ body > footer {
 
 .my-profile > .drop-down-menu .log-out.btn {
   color: var(--alert-primary);
+  font-weight: 700;
+}
+
+.my-profile > .drop-down-menu .info.btn {
+  color: var(--black-default);
+  font-weight: 500;
 }
 
 .my-profile > .drop-down-menu .log-out.btn:hover {
-  background-color: var(--alert-secondary);
+  color: var(--white-default);
+  background-color: var(--alert-primary);
 }
 
 .my-profile > .drop-down-menu .info.btn:hover {
-  background-color: var(--white-default);
+  background-color: var(--iu-primary-default);
+  color: var(--white-default);
 }
 
 /* Page Footer When user login */
@@ -430,7 +441,7 @@ body > footer {
 
 .user-login .footer-top-container a {
   font-weight: 500;
-  color: var(--gray-lighter);
+  color: var(--white-default);
   transition: color var(--hover-transition);
 }
 
@@ -449,10 +460,6 @@ article.panel {
   border-radius: 6px;
   padding: 2rem 3rem;
   margin-bottom: 2rem;
-}
-
-article.panel:last-child {
-  margin-bottom: 0;
 }
 
 /* Page Sidebar When user login */

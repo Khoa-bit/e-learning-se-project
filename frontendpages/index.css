@@ -159,7 +159,7 @@ body > footer {
 
 .sidebar-nav .section-title {
   color: var(--gray-default);
-  font-weight: bold;
+  font-weight: 200;
   margin: 0;
   padding-block: var(--spacing);
 }
