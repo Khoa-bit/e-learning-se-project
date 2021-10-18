@@ -2,11 +2,7 @@
 {% load static %}
 
 {% block title %}
-  {% if user.is_lecturer %}
-    <title>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} Assignment</title>
-  {% else %}
-    <title>{{ student_class.course.name }} - {{ student_class.schedule }} Assignment</title>
-  {% endif %}
+  <title>{{ user_class.course.name }} - {{ user_class.schedule }} Assignment</title>
 {% endblock title %}
 
 {% block stylesheets %}
