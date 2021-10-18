@@ -162,7 +162,8 @@ body > footer {
 
 .sidebar-nav .section-title {
   color: var(--gray-default);
-  font-weight: bold;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
   margin: 0;
   padding-block: var(--spacing);
 }
@@ -427,6 +428,11 @@ body > footer {
   background-color: var(--iu-primary-default);
   color: var(--white-default);
 }
+
+article.panel:last-child {
+  margin-bottom: 0;
+}
+
 
 /* Page Footer When user login */
 .user-login .footer-bottom-container ul > li a {
