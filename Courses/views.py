@@ -7,21 +7,14 @@ from Classwork.models import *
 from Courses import forms
 from User.views import CheckValidUser
 
-# Create your views here.
-
-def ClassRegistration(request):
-    pass
-
 
 @CheckValidUser
 def LecturerSchedule(request, id):
     user = Lecturer.objects.get(id=id)
-    all_classes = Class.objects.all()
     classes = []
 
-    for i in all_classes:
-        if (i.lecturer.user_id == user.user_id):
-            classes.append(i)
+    for i in user.class_set.all():
+        classes.append(i)
 
     context = {'classes': classes, 'title': 'Lecturer Schedule'}
     return render(request, 'Courses/schedule.html', context)
@@ -53,13 +46,11 @@ def ActiveStudentClasses(request, id):
 
 @CheckValidUser
 def ActiveLecturerClasses(request, id):
-    all_classes = Class.objects.all()
     user = Lecturer.objects.get(id=id)
     classes = []
 
-    for i in all_classes:
-        if (i.lecturer.user_id == user.user_id):
-            classes.append(i)
+    for i in user.class_set.all():
+        classes.append(i)
 
     context = {'classes': classes}
     return render(request, "Courses/active-classes.html", context)
@@ -67,10 +58,12 @@ def ActiveLecturerClasses(request, id):
 
 @CheckValidUser
 def LecturerClassAnnouncement(request, id, class_id):
+    user = Lecturer.objects.get(id=id)
+    if (class_id not in user.class_set.all().values_list('id', flat=True)):
+        return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[id]))
     announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class, 'announcements': announcements}
-    content['is_lecturer']=(id == lecturer_class.lecturer.id)
     return render(request, "Courses/class-announcement.html", content)
 
 
@@ -92,6 +85,9 @@ def StudentClassContent(request, id, class_id):
 
 @CheckValidUser
 def LecturerClassContent(request, id, class_id):
+    user = Lecturer.objects.get(id=id)
+    if (class_id not in user.class_set.all().values_list('id', flat=True)):
+        return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[id]))
     content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class, 'content_posts': content_posts}
@@ -108,6 +104,9 @@ def StudentClassAssignment(request, id, class_id):
 
 @CheckValidUser
 def LecturerClassAssignment(request, id, class_id):
+    user = Lecturer.objects.get(id=id)
+    if (class_id not in user.class_set.all().values_list('id', flat=True)):
+        return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[id]))
     lecturer_class = Class.objects.get(id=class_id)
     tests = lecturer_class.test_set.all()   # lecturers can see all tests
     content = {'lecturer_class': lecturer_class, 'tests':tests}
@@ -123,6 +122,9 @@ def StudentClassGrade(request, id, class_id):
 
 @CheckValidUser
 def LecturerClassGrade(request, id, class_id):
+    user = Lecturer.objects.get(id=id)
+    if (class_id not in user.class_set.all().values_list('id', flat=True)):
+        return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[id]))
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class}
     return render(request, "Courses/class-grade.html", content)
