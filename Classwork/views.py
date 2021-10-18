@@ -3,7 +3,7 @@ from User.views import CheckValidUser
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from Courses.models import Class
-from User.models import Lecturer, Student
+from User.models import Lecturer, Student, User
 from .models import *
 from .forms import *
 # Create your views here.
@@ -33,6 +33,15 @@ def EditClassworkView(request, id, class_id , test_id):
 
   context = {"test":test}
   return render(request,'Classwork/edit-classwork.html',context)
+
+def DoTestView(request,id,class_id,test_id):
+  if request.method == 'POST':
+    print(request.POST)
+  # student = User.objects.get(id=id).student
+  class_id = Class.objects.get(id=test_id)
+  test = Test.objects.get(id=test_id)
+  context={'test':test,}
+  return render(request,"Classwork/do-test.html",context)
 
 def written_question_form(request,id,class_id):
   context={'form':WrittenQuestionForm()}
