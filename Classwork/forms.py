@@ -9,4 +9,4 @@ class MultipleChoiceQuestionForm(forms.Form):
 
 class MultipleChoiceOptionForm(forms.Form):
   option = forms.CharField()
-  is_true = forms.BooleanField(label = "Is true")
+  is_true = forms.BooleanField(label = "Is true",required=False,initial=False)

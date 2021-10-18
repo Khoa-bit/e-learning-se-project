@@ -70,6 +70,7 @@ def LecturerClassAnnouncement(request, id, class_id):
     announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class, 'announcements': announcements}
+    content['is_lecturer']=(id == lecturer_class.lecturer.id)
     return render(request, "Courses/class-announcement.html", content)
 
 

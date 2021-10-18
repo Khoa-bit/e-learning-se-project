@@ -17,7 +17,7 @@
 {% block class-announcements-active %}active{% endblock %}
 
 {% block panel-content %}
-  {% if user.is_lecturer %}
+  {% if user.is_lecturer and is_lecturer%}
     <a class="upload-button"
        href="{% url 'upload-class-announcement-page' user.lecturer.id lecturer_class.id %}">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
