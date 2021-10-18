@@ -1,10 +1,10 @@
-{%extends 'Home/base.html'%}
+<!DOCTYPE html>
 
-{% block title %}
-<title>Upload content</title>
-{% endblock title %}
-
-{%block body%}
+<html>
+<head>
+  <title>Upload content</title>
+</head>
+<body>
   <h1>Post new content</h1>
   <p> </p>
   <form action="." method="POST" enctype="multipart/form-data">
@@ -12,4 +12,5 @@
     {{ form.as_p }}
     <input type="Submit" value="Save" />
   </form>
-{%endblock%}
+</body>
+</html>

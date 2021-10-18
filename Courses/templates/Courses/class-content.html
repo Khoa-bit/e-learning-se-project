@@ -2,11 +2,7 @@
 {% load static %}
 
 {% block title %}
-  {% if user.is_lecturer %}
-    <title>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} Content</title>
-  {% else %}
-    <title>{{ student_class.course.name }} - {{ student_class.schedule }} Content</title>
-  {% endif %}
+  <title>{{ user_class.course.name }} - {{ user_class.schedule }} Content</title>
 {% endblock title %}
 
 {% block stylesheets %}
@@ -19,7 +15,7 @@
 {% block panel-content %}
   {% if user.is_lecturer %}
     <a class="upload-button"
-       href="{% url 'upload-class-content-page' user.lecturer.id lecturer_class.id %}">
+       href="{% url 'upload-class-content-page' user.lecturer.id user_class.id %}">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <g id="Property 1=ico, Property 2=24, Property 3=ui, Property 4=new_message">
           <path id="Icon color" fill-rule="evenodd" clip-rule="evenodd"

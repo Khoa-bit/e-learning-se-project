@@ -17,7 +17,7 @@
     <div class="courses-grid">
       <!-- !Add inline style ordering for these cards -->
       {% for class in classes %}
-        <a class="card" style="--order: {{ forloop.counter }}" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-page' user.student.id class.id %}{% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-page' user.lecturer.id class.id %}#{% else %}#{% endif %}">
+        <a class="card" style="--order: {{ forloop.counter }}" href="{% if user.user_type == 'Student' %}{% url 'user-class-announcement-page' user.student.id class.id %}{% elif user.user_type == 'Lecturer' %}{% url 'user-class-announcement-page' user.lecturer.id class.id %}#{% else %}#{% endif %}">
         <img class="cover" src="{% static 'images/class-image-png.png' %}" alt="Course Cover">
         <div class="teacher-profile">
           <img src="{% static 'icons/small-avatar-icon-svg.svg' %}" alt="My avatar">

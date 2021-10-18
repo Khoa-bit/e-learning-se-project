@@ -19,8 +19,8 @@
 <body class="page-grid">
 <header class="header-bar {% if user.is_authenticated %}user-login{% endif %}">
   <a class="logo"
-     href="{% if user.user_type == 'Student' %}{% url 'student-announcement-page' user.student.id %}
-            {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-announcement-page' user.lecturer.id %}
+     href="{% if user.user_type == 'Student' %}{% url 'user-announcement-page' user.student.id %}
+            {% elif user.user_type == 'Lecturer' %}{% url 'user-announcement-page' user.lecturer.id %}
             {% else %}#{% endif %}">
     <img src="{% static 'images/iu-image-png.png' %}" alt="International University's Learning Management System">
     <h1><b>Learning Management System</b><br>
@@ -96,8 +96,8 @@
                     fill="currentColor"/>
           </svg>
         </div>
-        <a href="{% if user.user_type == 'Student' %}{% url 'student-announcement-page' user.student.id %}
-                  {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-announcement-page' user.lecturer.id %}
+        <a href="{% if user.user_type == 'Student' %}{% url 'user-announcement-page' user.student.id %}
+                  {% elif user.user_type == 'Lecturer' %}{% url 'user-announcement-page' user.lecturer.id %}
                   {% else %}#{% endif %}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -113,8 +113,8 @@
                     fill="currentColor"/>
           </svg>
         </div>
-        <a href="{% if user.user_type == 'Student' %}{% url 'student-schedule-page' user.student.id %}
-                  {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-schedule-page' user.lecturer.id %}#
+        <a href="{% if user.user_type == 'Student' %}{% url 'user-schedule-page' user.student.id %}
+                  {% elif user.user_type == 'Lecturer' %}{% url 'user-schedule-page' user.lecturer.id %}#
                   {% else %}#{% endif %}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
                xmlns="http://www.w3.org/2000/svg">
@@ -134,8 +134,8 @@
                     fill="currentColor"/>
           </svg>
         </div>
-        <a href="{% if user.user_type == 'Student' %}{% url 'active-student-classes-page' user.student.id %}
-                  {% elif user.user_type == 'Lecturer' %}{% url 'active-lecturer-classes-page' user.lecturer.id %}
+        <a href="{% if user.user_type == 'Student' %}{% url 'active-user-classes-page' user.student.id %}
+                  {% elif user.user_type == 'Lecturer' %}{% url 'active-user-classes-page' user.lecturer.id %}
                   {% else %}{% url 'login' %}{% endif %}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
                xmlns="http://www.w3.org/2000/svg">
@@ -148,7 +148,7 @@
           {% if user.user_type == 'Student' %}
             {% for class in user.student.class_id.all %}
               <li class="btn small">
-                <a href="{% url 'student-class-announcement-page' user.student.id class.id %}">
+                <a href="{% url 'user-class-announcement-page' user.student.id class.id %}">
                   {{ class.course.name }} - {{ class.schedule }}
                 </a>
               </li>
@@ -156,7 +156,7 @@
           {% elif user.user_type == 'Lecturer' %}
             {% for class in user.lecturer.class_set.all %}
               <li class="btn small">
-                <a href="{% url 'lecturer-class-announcement-page' user.lecturer.id class.id %}">
+                <a href="{% url 'user-class-announcement-page' user.lecturer.id class.id %}">
                   {{ class.course.name }} - {{ class.schedule }}
                 </a>
               </li>

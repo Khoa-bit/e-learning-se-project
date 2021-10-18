@@ -2,49 +2,38 @@ from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from .models import *
-from User.models import Student
+from User.models import User, Lecturer, Student
 from Classwork.models import *
 from Courses import forms
 from User.views import CheckValidUser
 
-# Create your views here.
-
-def ClassRegistration(request):
-    pass
-
 
 @CheckValidUser
-def LecturerSchedule(request, id):
-    user = Lecturer.objects.get(id=id)
-    all_classes = Class.objects.all()
+def UserSchedule(request, id):
+    if (request.user.is_lecturer):
+        user = Lecturer.objects.get(id=id)
+    elif (request.user.is_student):
+        user = Student.objects.get(id=id)
+
     classes = []
 
-    for i in all_classes:
-        if (i.lecturer.user_id == user.user_id):
-            classes.append(i)
+    for i in user.class_set.all():
+        classes.append(i)
 
     context = {'classes': classes, 'title': 'Lecturer Schedule'}
     return render(request, 'Courses/schedule.html', context)
 
 
 @CheckValidUser
-def StudentSchedule(request, id):
-    user = Student.objects.get(id=id)
+def ActiveUserClasses(request, id):
+    if (request.user.is_lecturer):
+        user = Lecturer.objects.get(id=id)
+    elif (request.user.is_student):
+        user = Student.objects.get(id=id)
+
     classes = []
 
-    for i in user.class_id.all():
-        classes.append(i)
-
-    context = {'classes': classes, 'title': 'Student Schedule'}
-    return render(request, 'Courses/schedule.html', context)
-
-
-@CheckValidUser
-def ActiveStudentClasses(request, id):
-    user = Student.objects.get(id=id)
-    classes = []
-
-    for i in user.class_id.all():
+    for i in user.class_set.all():
         classes.append(i)
 
     context = {'classes': classes}
@@ -52,79 +41,34 @@ def ActiveStudentClasses(request, id):
 
 
 @CheckValidUser
-def ActiveLecturerClasses(request, id):
-    all_classes = Class.objects.all()
-    user = Lecturer.objects.get(id=id)
-    classes = []
-
-    for i in all_classes:
-        if (i.lecturer.user_id == user.user_id):
-            classes.append(i)
-
-    context = {'classes': classes}
-    return render(request, "Courses/active-classes.html", context)
-
-
-@CheckValidUser
-def LecturerClassAnnouncement(request, id, class_id):
+def UserClassAnnouncement(request, id, class_id):
     announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
-    lecturer_class = Class.objects.get(id=class_id)
-    content = {'lecturer_class': lecturer_class, 'announcements': announcements}
+    user_class = Class.objects.get(id=class_id)
+    content = {'user_class': user_class, 'announcements': announcements}
     return render(request, "Courses/class-announcement.html", content)
 
 
 @CheckValidUser
-def StudentClassAnnouncement(request, id, class_id):
-    announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
-    student_class = Class.objects.get(id=class_id)
-    content = {'student_class': student_class, 'announcements': announcements}
-    return render(request, "Courses/class-announcement.html", content)
-
-
-@CheckValidUser
-def StudentClassContent(request, id, class_id):
+def UserClassContent(request, id, class_id):
     content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
-    student_class = Class.objects.get(id=class_id)
-    content = {'student_class': student_class, 'content_posts': content_posts}
+    user_class = Class.objects.get(id=class_id)
+    content = {'user_class': user_class, 'content_posts': content_posts}
     return render(request, "Courses/class-content.html", content)
 
 
 @CheckValidUser
-def LecturerClassContent(request, id, class_id):
-    content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
-    lecturer_class = Class.objects.get(id=class_id)
-    content = {'lecturer_class': lecturer_class, 'content_posts': content_posts}
-    return render(request, "Courses/class-content.html", content)
-
-
-@CheckValidUser
-def StudentClassAssignment(request, id, class_id):
-    student_class = Class.objects.get(id=class_id)
-    test = student_class.test_set.all()     # add filter here (check if test is in the time window because students can only see those tests)
-    content = {'student_class': student_class,'tests':test}
-    return render(request, "Courses/class-assignment.html", content)
-
-
-@CheckValidUser
-def LecturerClassAssignment(request, id, class_id):
-    lecturer_class = Class.objects.get(id=class_id)
-    tests = lecturer_class.test_set.all()   # lecturers can see all tests
-    content = {'lecturer_class': lecturer_class, 'tests':tests}
-    return render(request, "Courses/class-assignment.html", content)
-
-
-@CheckValidUser
-def StudentClassGrade(request, id, class_id):
-    student_class = Class.objects.get(id=class_id)
-    content = {'student_class': student_class}
+def UserClassGrade(request, id, class_id):
+    user_class = Class.objects.get(id=class_id)
+    content = {'user_class': user_class}
     return render(request, "Courses/class-grade.html", content)
 
 
 @CheckValidUser
-def LecturerClassGrade(request, id, class_id):
-    lecturer_class = Class.objects.get(id=class_id)
-    content = {'lecturer_class': lecturer_class}
-    return render(request, "Courses/class-grade.html", content)
+def UserClassAssignment(request, id, class_id):
+    user_class = Class.objects.get(id=class_id)
+    tests = user_class.test_set.all()  # lecturers can see all tests
+    content = {'user_class': user_class, 'tests': tests}
+    return render(request, "Courses/class-assignment.html", content)
 
 
 def UploadClassAnnouncement(request, id, class_id):
@@ -135,7 +79,7 @@ def UploadClassAnnouncement(request, id, class_id):
             announcement.class_id_id = class_id
             announcement.save()
             form.save()
-            return HttpResponseRedirect(reverse("lecturer-class-announcement-page", args=[id, class_id]))
+            return HttpResponseRedirect(reverse("user-class-announcement-page", args=[id, class_id]))
     else:
         form = forms.UploadClassAnnouncementForm()
     context = {'form': form, "lecturer": Lecturer.objects.get(id=id), "class": Class.objects.get(id=class_id)}
