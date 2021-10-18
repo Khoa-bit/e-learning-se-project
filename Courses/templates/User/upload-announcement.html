@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+{%extends 'Home/base.html'%}
 
-<html>
-<head>
-  <title>Upload announcement</title>
-</head>
-<body>
+{% block title %}
+<title>Upload announcement</title>
+{% endblock title %}
+
+{%block body%}
   <h1>Post new announcement</h1>
   <p> </p>
   <form action="." method="POST">
@@ -12,6 +12,4 @@
     {{ form.as_p }}
     <input type="Submit" value="Save" />
   </form>
-</body>
-</html>
-
+{%endblock%}

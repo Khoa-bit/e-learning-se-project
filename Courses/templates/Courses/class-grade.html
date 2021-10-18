@@ -2,7 +2,11 @@
 {% load static %}
 
 {% block title %}
-  <title>{{ user_class.course.name }} - {{ user_class.schedule }} Content</title>
+  {% if user.is_lecturer %}
+    <title>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} Grade</title>
+  {% else %}
+    <title>{{ student_class.course.name }} - {{ student_class.schedule }} Grade</title>
+  {% endif %}
 {% endblock title %}
 
 {% block stylesheets %}

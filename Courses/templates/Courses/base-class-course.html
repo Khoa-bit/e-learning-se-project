@@ -11,18 +11,26 @@
   <article class="panel">
     <header>
       <h2>
-        {{ user_class.course.name }} - {{ user_class.schedule }}
+        {% if user.user_type == 'Student' %}
+          {{ student_class.course.name }} - {{ student_class.schedule }}
+        {% elif user.user_type == 'Lecturer' %}
+          {{ lecturer_class.course.name }} - {{ lecturer_class.schedule }}
+        {% endif %}
       </h2>
       <p>
-        {{ user_class.lecturer.user_id.full_name }}
+        {% if user.user_type == 'Student' %}
+          Instructor: {{ student_class.lecturer.user_id.full_name }}
+        {% elif user.user_type == 'Lecturer' %}
+          Instructor: {{ lecturer_class.lecturer.user_id.full_name }}
+        {% endif %}
       </p>
       <ul class="flex-tabs">
         <li>
           <a class="tab {% block class-announcements-active %}{% endblock %}"
              href="{% if user.user_type == 'Student' %}
-                      {% url 'user-class-announcement-page' user.student.id user_class.id %}
+                      {% url 'student-class-announcement-page' user.student.id student_class.id %}
                       {% elif user.user_type == 'Lecturer' %}
-                      {% url 'user-class-announcement-page' user.lecturer.id user_class.id %}
+                      {% url 'lecturer-class-announcement-page' user.lecturer.id lecturer_class.id %}
                       {% endif %}">
             Announcements
           </a>
@@ -30,9 +38,9 @@
         <li>
           <a class="tab {% block class-content-active %}{% endblock %}"
              href="{% if user.user_type == 'Student' %}
-                      {% url 'user-class-content-page' user.student.id user_class.id %}
+                      {% url 'student-class-content-page' user.student.id student_class.id %}
                       {% elif user.user_type == 'Lecturer' %}
-                      {% url 'user-class-content-page' user.lecturer.id user_class.id %}
+                      {% url 'lecturer-class-content-page' user.lecturer.id lecturer_class.id %}
                       {% endif %}">
             Content
           </a>
@@ -40,9 +48,9 @@
         <li>
           <a class="tab {% block class-my-grades-active %}{% endblock %}"
              href="{% if user.user_type == 'Student' %}
-                      {% url 'user-class-grade-page' user.student.id user_class.id %}
+                      {% url 'student-class-grade-page' user.student.id student_class.id %}
                       {% elif user.user_type == 'Lecturer' %}
-                      {% url 'user-class-grade-page' user.lecturer.id user_class.id %}
+                      {% url 'lecturer-class-grade-page' user.lecturer.id lecturer_class.id %}
                       {% endif %}">
             Grade
           </a>
@@ -50,9 +58,9 @@
         <li>
           <a class="tab {% block class-assignment-active %}{% endblock %}"
              href="{% if user.user_type == 'Student' %}
-                      {% url 'user-class-assignment-page' user.student.id user_class.id %}
+                      {% url 'student-class-assignment-page' user.student.id student_class.id %}
                       {% elif user.user_type == 'Lecturer' %}
-                      {% url 'user-class-assignment-page' user.lecturer.id user_class.id %}
+                      {% url 'lecturer-class-assignment-page' user.lecturer.id lecturer_class.id %}
                       {% endif %}">
             Assignment
           </a>

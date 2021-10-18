@@ -39,9 +39,9 @@ def LoginView(request):
             if user.is_staff:
                 return HttpResponseRedirect(reverse("admin:index"))
             elif user.is_lecturer():
-                return HttpResponseRedirect(reverse("user-announcement-page", args=[user.lecturer.id]))
+                return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
             elif user.is_student():
-                return HttpResponseRedirect(reverse("user-announcement-page", args=[user.student.id]))
+                return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
             else:
                 return HttpResponseRedirect(reverse("userinfo", args=[user.id]))
     else:
@@ -56,22 +56,44 @@ def LogoutView(request):
 
 @CheckValidUser
 def UserInfoView(request, id):
+    # user = User.objects.get(id=id)
+    # if not (request.user.is_authenticated and request.user == user):
+    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
     return render(request, "User/userinfo.html")
 
 
 @CheckValidUser
 def LecturerAboutView(request, id):
+    # user = Lecturer.objects.get(id=id)
+    # if not (request.user.is_authenticated and request.user == user.user_id):
+    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
     return render(request, "User/lecturer-about.html")
 
 
 @CheckValidUser
 def StudentAboutView(request, id):
+    # user = Student.objects.get(id=id)
+    # user.major_id.name
+    # context = {"student": user}
+    # if not (request.user.is_authenticated and request.user == user.user_id):
+    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
     return render(request, "User/student-about.html", {"student": request.user.student})
 
 
 @CheckValidUser
 def UserAnnouncement(request, id):
+    # user = Student.objects.get(id=id)
+    # if not (request.user.is_authenticated and request.user == user.user_id):
+    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
     return render(request, "User/user-announcement.html")
+
+
+#@CheckValidUser
+#def LecturerAnnouncement(request, id):
+    # user = Student.objects.get(id=id)
+    # if not (request.user.is_authenticated and request.user == user.user_id):
+    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
+    #return render(request, "User/lecturer-announcement.html")
 
 
 def PasswordChangeView(request):
