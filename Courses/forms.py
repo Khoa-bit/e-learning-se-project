@@ -24,3 +24,10 @@ class UploadClassContentForm(forms.ModelForm):
             'attached_file'
         ]
 
+
+class ClassRegistrationForm(forms.Form):
+    CLASS_CHOICES = []
+    for i in Class.objects.all():
+        CLASS_CHOICES.append((i.id, i))
+    selection = forms.MultipleChoiceField(choices=CLASS_CHOICES, widget=forms.CheckboxSelectMultiple)
+

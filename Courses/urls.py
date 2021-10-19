@@ -7,7 +7,7 @@ urlpatterns = [
     path('student/<int:id>/class/<int:class_id>/content', views.StudentClassContent, name='student-class-content-page'),
     path('student/<int:id>/class/<int:class_id>/grade', views.StudentClassGrade, name='student-class-grade-page'),
     path('student/<int:id>/class/<int:class_id>/assignment', views.StudentClassAssignment, name='student-class-assignment-page'),
-    path('registration/', views.ClassRegistration, name='class-registration-page'),
+    path('student/<int:id>/registration', views.ClassRegistration, name='student-class-registration-page'),
     path('lecturer/<int:id>/class/<int:class_id>/announcement', views.LecturerClassAnnouncement, name='lecturer-class-announcement-page'),
     path('lecturer/<int:id>/class/<int:class_id>/content', views.LecturerClassContent, name='lecturer-class-content-page'),
     path('lecturer/<int:id>/class/<int:class_id>/classwork/',include('Classwork.urls')),

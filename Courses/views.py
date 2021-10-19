@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import *
 from User.models import Student
@@ -130,6 +130,7 @@ def LecturerClassGrade(request, id, class_id):
     return render(request, "Courses/class-grade.html", content)
 
 
+@CheckValidUser
 def UploadClassAnnouncement(request, id, class_id):
     if request.method == 'POST':
         form = forms.UploadClassAnnouncementForm(request.POST)
@@ -145,6 +146,7 @@ def UploadClassAnnouncement(request, id, class_id):
     return render(request, 'User/upload-announcement.html', context)
 
 
+@CheckValidUser
 def UploadClassContent(request, id, class_id):
     if request.method == 'POST':
         form = forms.UploadClassContentForm(request.POST, request.FILES or None)
@@ -160,12 +162,18 @@ def UploadClassContent(request, id, class_id):
     return render(request, 'User/upload-content.html', context)
 
 
-def ClassRegistration(request):
-    selected_classes_id = []
+@CheckValidUser
+def ClassRegistration(request, id):
+    student = Student.objects.get(id=id)
     if request.method == 'POST':
-        selected_classes_id = list(request.POST.keys())[1:]
-        selected_classes_id = [int(x) for x in selected_classes_id] # convert to int
-    # Selected classes id are in the selected_classes_id list
-    available_classes = Class.objects.all()
-    context = {'available_classes': available_classes}
+        form = forms.ClassRegistrationForm()
+        selected_classes = request.POST.getlist('selection')
+        for i in selected_classes:
+            student.class_id.add(i)
+        return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
+    else:
+        form = forms.ClassRegistrationForm()
+    context = {'form': form}
     return render(request, 'User/class-registration.html', context)
+
+

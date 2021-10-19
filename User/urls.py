@@ -14,6 +14,5 @@ urlpatterns = [
     path('student/<int:id>/announcement/', views.UserAnnouncement, name="student-announcement-page"),
     path('student/<int:id>/active-classes/', coursesViews.ActiveStudentClasses, name="active-student-classes-page"),
     path('student/<int:id>/calendar/', coursesViews.StudentSchedule, name="student-schedule-page"),
-    path('student/<int:id>/registration/', coursesViews.ClassRegistration, name="class-registration-page"),
     path('', include("Courses.urls")),
 ]
