@@ -164,6 +164,7 @@ def UploadClassContent(request, id, class_id):
 
 @CheckValidUser
 def ClassRegistration(request, id):
+    classes = Class.objects.all()
     student = Student.objects.get(id=id)
     if request.method == 'POST':
         form = forms.ClassRegistrationForm()
@@ -173,7 +174,7 @@ def ClassRegistration(request, id):
         return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
     else:
         form = forms.ClassRegistrationForm()
-    context = {'form': form}
+    context = {'form': form, 'classes': classes}
     return render(request, 'User/class-registration.html', context)
 
 
