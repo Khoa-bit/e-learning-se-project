@@ -1,6 +1,6 @@
 .panel > * {
   margin-block-end: 2rem;
-  border-bottom: 1px solid var(--gray-light);
+  border-bottom: 1px solid var(--gray-lighter);
 }
 
 .panel > *:last-child {
