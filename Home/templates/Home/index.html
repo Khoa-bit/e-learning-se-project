@@ -21,7 +21,7 @@
   <a class="logo"
      href="{% if user.user_type == 'Student' %}{% url 'student-announcement-page' user.student.id %}
             {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-announcement-page' user.lecturer.id %}
-            {% else %}#{% endif %}">
+            {% else %} {% url 'guest-announcement-page' %}{% endif %}">
     <img src="{% static 'images/iu-image-png.png' %}" alt="International University's Learning Management System">
     <h1><b>Learning Management System</b><br>
       International University</h1>
