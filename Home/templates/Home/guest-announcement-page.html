@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>Guest Announcements - {{announcement_1.title}}</title>
+    <title>Guest Announcements - View</title>
 {% endblock title %}
 
 {% block stylesheets %}
@@ -13,12 +13,16 @@
 
 {% block main-content %}
     <article class="panel announcement general-information">
-        <h2>{{announcement_1.title}}</h2>
-        <article>
-            <p>{{announcement_1.content}}</p>
-            <footer>
-                <time datetime=<!--"2021-05-16 19:00">16/05/2021-->announcement.time_announced>{{announcement_1.time_announced}}<!--</time>-->
-            </footer>
-        </article>
+      {% for announcement in announcement_1%}
+      <div class="heading">
+        <h2>{{announcement.title}}</h2>
+        <footer>
+            {{announcement.time_announced}}
+        </footer>
+      </div>
+        <!--<article>-->
+            <p>{{announcement.content | linebreaks}}</p>
+        <!--</article>-->
+        {% endfor %}
     </article>
 {% endblock %}

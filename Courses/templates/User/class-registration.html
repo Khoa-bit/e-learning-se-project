@@ -1,19 +1,62 @@
-{%extends 'User/base.html'%}
+<!DOCTYPE html>
+{% load static %}
 
-{% block title %}
-<title>Class Registration</title>
-{% endblock title %}
+<html>
+<head>
+  <link rel="stylesheet" href="{% static 'Courses/search.css' %}">
+  <title>Class Registration</title>
+</head>
 
-{%block body%}
+<body>
   <h1>Register for a class</h1>
   <p> </p>
-  <form action="." method="POST">
-    {% csrf_token %}
-    {% for available_class in available_classes %}
-      <p> <input type="radio" id="{{available_class.id}}" name="{{available_class.id}}">
-        {{forloop.counter}}.{{ available_class.course.name }} - {{ available_class.lecturer.user_id.full_name }} - {{ available_class.schedule.day_of_the_week }} - {{ available_class.schedule.start_time }} - {{ available_class.schedule.duration }}
-      </p>
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for course..">
+  <ul id="myUL">
+    {% for class in classes %}
+      <li><a href="#">{{ class }}</a></li>
     {% endfor %}
-    <input type="Submit" value="Save" />
+  </ul>
+
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="Submit" onclick="clicked(event)" value="Save" />
   </form>
-{%endblock%}
+
+</body>
+
+<script type="text/javascript">
+    function clicked() {
+       if (confirm('Do you want to submit?')) {
+           form.submit();
+       } else {
+           return false;
+       }
+    }
+</script>
+
+<script>
+  function myFunction() {
+    // Declare variables
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('myInput');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName('li');
+
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName("a")[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+  }
+</script>
+</html>
+
+
+
