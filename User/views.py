@@ -109,3 +109,11 @@ def ForgotPasswordView(request):
     else:
         form = PasswordResetForm()
     return render(request, "User/forgot-password.html", {"form": form})
+
+
+def StudentChangePassword(request, id):
+    return render(request, "User/change-password.html", {"student": request.user.student})
+
+
+def LecturerChangePassword(request, id):
+    return render(request, "User/change-password.html", {"lecturer": request.user.lecturer})
