@@ -26,19 +26,20 @@
       <div><h3 class="projectname"><b>Learning Management System</b></h3></div>
     </div>
     <div class="part2">
-      <form method="post">
-        {% csrf_token %}
-        <div class="loginpanel">
+      <div class="loginpanel">
+        <form method="post">
+          {% csrf_token %}
           <div>{{ form.as_p }}</div>
-          <div class="forgotusernorpass"><a href="{% url 'passwordreset' %}" target="_blank"><i><u>Forgot username or password?</u></i></a>
-        </div>
-        <input class="loginbutton" type="submit" value="Login" name="login"/>
-      </form>
-      <p class="or"><span><b>or</b></span></p>
-      <a class="loginasguessbutton" href="{% url 'logout' %}">Login as Guest</a>
+          <div class="forgotusernorpass"><a href="{% url 'forgot-password' %}"><i><u>Forgot username or
+            password?</u></i></a>
+          </div>
+          <input class="loginbutton" type="submit" value="Login" name="login"/>
+        </form>
+        <p class="or"><span><b>or</b></span></p>
+        <a class="loginasguessbutton" href="{% url 'logout' %}">Login as Guest</a>
+      </div>
     </div>
   </div>
-</div>
 </div>
 </body>
 </html>
