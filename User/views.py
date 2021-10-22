@@ -46,7 +46,7 @@ def LoginView(request):
                 return HttpResponseRedirect(reverse("userinfo", args=[user.id]))
     else:
         form = LoginForm()
-    return render(request, "User/loginpage.html", {"form": form})
+    return render(request, "User/login.html", {"form": form})
 
 
 def LogoutView(request):
