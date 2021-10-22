@@ -95,8 +95,7 @@ def UserAnnouncement(request, id):
     #     return HttpResponseRedirect(reverse("guest-announcement-page"))
     #return render(request, "User/lecturer-announcement.html")
 
-
-def PasswordChangeView(request):
+def ForgotPasswordView(request):
     if request.method == "POST":
         form = PasswordResetForm(data=request.POST)
         if form.is_valid():
@@ -107,9 +106,6 @@ def PasswordChangeView(request):
                     user.set_password(data["password"])
                     user.save()
                     messages.success(request, 'Form submission successful')
-
     else:
         form = PasswordResetForm()
-    return render(request, "User/resetpassword.html", {"form": form})
-
-
+    return render(request, "User/forgot-password.html", {"form": form})
