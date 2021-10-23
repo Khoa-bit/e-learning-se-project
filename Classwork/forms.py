@@ -2,8 +2,6 @@ from django import forms
 from django.forms import widgets
 from .models import *
 
-
-
 class TestForm(forms.ModelForm):
   class Meta:
     model = Test
@@ -14,13 +12,14 @@ class TestForm(forms.ModelForm):
     }
 
 class WrittenQuestionForm(forms.Form):
-  question = forms.CharField()
+  question = forms.CharField(label='Question')
 
 class MultipleChoiceQuestionForm(forms.Form):
-  question = forms.CharField()
+  question = forms.CharField(label='Question')
 
 class MultipleChoiceOptionForm(forms.Form):
-  option = forms.CharField()
+  optionid = forms.CharField(widget=forms.HiddenInput,required=False)
+  option = forms.CharField(label='Option')
   is_true = forms.BooleanField(label = "Is true",required=False,initial=False)
 
 # class WrittenQuestionForm(forms.ModelForm):
