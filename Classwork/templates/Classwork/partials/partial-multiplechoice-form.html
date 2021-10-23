@@ -1,0 +1,10 @@
+<div>
+  {{form.as_p}}
+  <div id="{{eid}}">
+  </div>
+  <div>
+    <button hx-get="{% url 'mco-form' id class_id %}" hx-swap = "beforeend" hx-target="#{{eid}}">Add choice</button>
+  </div>
+  <hr>
+</div>
+

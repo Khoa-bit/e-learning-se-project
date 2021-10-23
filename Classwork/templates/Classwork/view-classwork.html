@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+{% extends 'Classwork/base-test.html' %}
+{%block body%}
+
     {% for test in tests %}
-    <h3>{{test.test_name}}</h3>
-    {% for question in test.question_set.all%}
+    <h3>{{test.test_name}}   <a href="{% url 'edit-classwork-view' id class_id.id test.id %}">EDIT</a></h3>
+
+    <!-- {% for question in test.question_set.all%}
     <p>{{forloop.counter}}.{{question.question}}</p>
     {% if question.is_written %}
     {% else %}
@@ -23,7 +18,6 @@
     </ul>
     {%endfor%}
     {%endif%}
+    {%endfor%} -->
     {%endfor%}
-    {%endfor%}
-</body>
-</html>
+  {% endblock body %}

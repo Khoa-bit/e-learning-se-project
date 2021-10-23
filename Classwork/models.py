@@ -1,13 +1,16 @@
 from django.db import models
+import datetime
 from django.db.models.deletion import CASCADE
 
 # Create your models here.
 
 class Test(models.Model):
   class_id = models.ForeignKey("Courses.Class",on_delete=CASCADE)
+  test_description = models.TextField(null=True,blank=True)
   test_name = models.CharField(max_length=100)
-  start_time = models.DateTimeField()
+  publish_time = models.DateTimeField()
   end_time = models.DateTimeField()
+  available_time_after_deadline = models.DurationField(default=datetime.timedelta(hours=6)) # available for submission after deadline
   def __str__(self):
       return self.test_name 
 
@@ -25,7 +28,6 @@ class MultipleChoiceOption(models.Model):
   def __str__(self):
       return self.option
   
-
 class StudentTest(models.Model):
   student_id = models.ForeignKey("User.student",on_delete=CASCADE)
   test_id = models.ForeignKey(Test,on_delete=CASCADE)
