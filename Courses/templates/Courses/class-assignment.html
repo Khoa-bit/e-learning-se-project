@@ -11,7 +11,8 @@
 
 {% block stylesheets %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static 'Courses/student-class-announcement.css' %}">
+  <link rel="stylesheet" href="{% static 'Courses/class-announcement.css' %}">
+  <link rel="stylesheet" href="{% static 'Courses/class-assignment.css' %}">
 {% endblock %}
 
 {% block class-assignment-active %}active{% endblock %}
@@ -41,4 +42,74 @@
     <p>{{ test.test_description | linebreaks }}</p>
   </article>
   {% endfor %}
+
+  <h4>UPCOMING</h4>
+  <article>
+    <div class="heading">
+      <h3>Homework 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Attendance - Week 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Quiz - Week 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Homework 2</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Midterm Test</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
+
+  <h4>OVERDUE</h4>
+  <article>
+    <div class="heading">
+      <h3>Homework 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Homework 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Quiz - Week 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Homework 2</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Quiz - Week 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Midterm Test</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+  </article>
 {% endblock %}
