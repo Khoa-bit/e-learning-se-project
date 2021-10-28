@@ -35,6 +35,8 @@ def ClassworkView(request, id, class_id):
 
 def EditClassworkView(request, id, class_id , test_id):
   # when the edit button is implemented
+  if request.method == "POST":
+    print(request.POST)
   lecturer = Lecturer.objects.get(id=id)
   class_id = Class.objects.get(id=class_id)
   test = Test.objects.get(id=test_id)
