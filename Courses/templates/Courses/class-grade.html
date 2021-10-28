@@ -11,7 +11,8 @@
 
 {% block stylesheets %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static 'Courses/student-class-announcement.css' %}">
+  <link rel="stylesheet" href="{% static 'Courses/class-announcement.css' %}">
+  <link rel="stylesheet" href="{% static 'Courses/class-grade.css' %}">
 {% endblock %}
 
 {% block class-my-grades-active %}active{% endblock %}
@@ -31,15 +32,75 @@
     </a>
   {% endif %}
 
-{#  {% for announcement in announcements %}#}
-{#    <article>#}
-{#      <div class="heading">#}
-{#        <h3>{{ announcement.title }}</h3>#}
-{#        <footer>#}
-{#          <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>#}
-{#        </footer>#}
-{#      </div>#}
-{#      <p>{{ announcement.content | linebreaks }}</p>#}
-{#    </article>#}
-{#  {% endfor %}#}
+  <article>
+    <div class="heading">
+      <h3>Homework 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+    <div class="status">
+      <p>SUBMITTED (LATE)</p>
+      <p>Wed, Sep 8 10:23:03 PM</p>
+    </div>
+    <div class="grade">
+      <p class="highlight">-</p>
+      <p>/100</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Homework 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+    <div class="status">
+      <p>SUBMITTED (LATE)</p>
+      <p>Wed, Sep 8 10:23:03 PM</p>
+    </div>
+    <div class="grade">
+      <p class="highlight">-</p>
+      <p>/100</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Quiz - Week 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+    <div class="status">
+      <p>SUBMITTED</p>
+      <p>Wed, Sep 8 10:23:03 PM</p>
+    </div>
+    <div class="grade">
+      <p class="highlight">-</p>
+      <p>/100</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Homework 2</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+    <div class="status">
+      <p>Not SUBMITTED</p>
+      {#      <p>Wed, Sep 8 10:23:03 PM</p>#}
+    </div>
+    <div class="grade">
+      <p class="highlight">-</p>
+      <p>/100</p>
+    </div>
+  </article>
+  <article>
+    <div class="heading">
+      <h3>Quiz - Week 1</h3>
+      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    </div>
+    <div class="status">
+      <p>Graded</p>
+      <p>Mon, Sep 6 10:23:03 PM</p>
+    </div>
+    <div class="grade">
+      <p class="highlight">90</p>
+      <p>/100</p>
+    </div>
+  </article>
+
 {% endblock %}

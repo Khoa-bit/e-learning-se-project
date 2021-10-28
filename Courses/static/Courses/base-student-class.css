@@ -1,6 +1,6 @@
 .panel > * {
   margin-block-end: 2rem;
-  border-bottom: 1px solid var(--gray-light);
+  border-bottom: 1px solid var(--gray-lighter);
 }
 
 .panel > *:last-child {
@@ -10,7 +10,7 @@
 
 /* Panel header */
 .panel > header {
-  padding-block-end: 2rem;
+  padding-block-end: 1rem;
 }
 
 .panel > header h2 {

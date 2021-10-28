@@ -46,7 +46,7 @@ def LoginView(request):
                 return HttpResponseRedirect(reverse("userinfo", args=[user.id]))
     else:
         form = LoginForm()
-    return render(request, "User/loginpage.html", {"form": form})
+    return render(request, "User/login.html", {"form": form})
 
 
 def LogoutView(request):
@@ -95,8 +95,7 @@ def UserAnnouncement(request, id):
     #     return HttpResponseRedirect(reverse("guest-announcement-page"))
     #return render(request, "User/lecturer-announcement.html")
 
-
-def PasswordChangeView(request):
+def ForgotPasswordView(request):
     if request.method == "POST":
         form = PasswordResetForm(data=request.POST)
         if form.is_valid():
@@ -107,9 +106,14 @@ def PasswordChangeView(request):
                     user.set_password(data["password"])
                     user.save()
                     messages.success(request, 'Form submission successful')
-
     else:
         form = PasswordResetForm()
-    return render(request, "User/resetpassword.html", {"form": form})
+    return render(request, "User/forgot-password.html", {"form": form})
 
 
+def StudentChangePassword(request, id):
+    return render(request, "User/change-password.html", {"student": request.user.student})
+
+
+def LecturerChangePassword(request, id):
+    return render(request, "User/change-password.html", {"lecturer": request.user.lecturer})
