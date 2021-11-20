@@ -12,4 +12,5 @@ urlpatterns = [
     path("<int:test_id>/delete/",views.DeleteTest,name='delete-classwork-view'),
     path("<int:test_id>/<int:qid>/delete",views.DeleteQuestion,name='delete-question-view'),
     path("<int:test_id>/<int:qid>/update",views.UpdateQuestion,name='update-question-view'),
+    path("view/<int:studenttest_id>/",views.ViewStudentTest,name='view-student-test'),
 ]

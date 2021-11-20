@@ -10,7 +10,26 @@ from .models import *
 from .forms import *
 # Create your views here.
 
+def CheckValidUser(func):
+    def decorate(*args, **kwargs):
+        userID = kwargs['id']
+        classID=kwargs['class_id']
+        request = args[0]
+        if request.user.id==None:
+            return HttpResponseRedirect(reverse("login"))
+        elif request.user.is_student():
+            return HttpResponseRedirect(reverse('student-class-announcement-page',args=[userID,classID]))
+        elif request.user.is_lecturer():
+            user = Lecturer.objects.get(id=userID).user_id
+        else:
+            user = User.objects.get(id=userID)
+        if request.user == user and request.user.is_authenticated:
+            return func(*args, **kwargs)
+        else:
+            return HttpResponseRedirect(reverse("guest-announcement-page"))
+    return decorate
 
+@CheckValidUser
 def CreateClassworkView(request, id, class_id):
   context={'id':id,'class_id':class_id}
   if request.method == 'POST':
@@ -25,6 +44,7 @@ def CreateClassworkView(request, id, class_id):
   context['form'] = form
   return render(request, "Classwork/create-classwork.html",context)
 
+@CheckValidUser
 def ClassworkView(request, id, class_id):
   lecturer = Lecturer.objects.get(id=id)
   c = Class.objects.get(id=class_id)
@@ -33,6 +53,7 @@ def ClassworkView(request, id, class_id):
   context['tests']=tests
   return render(request,'Classwork/view-classwork.html', context)
 
+@CheckValidUser
 def EditClassworkView(request, id, class_id , test_id):
   # when the edit button is implemented
   lecturer = Lecturer.objects.get(id=id)
@@ -44,14 +65,37 @@ def EditClassworkView(request, id, class_id , test_id):
   return render(request,'Classwork/edit-classwork.html',context)
 
 def DoTestView(request,id,class_id,test_id):
+  if request.user.is_lecturer():
+    return HttpResponseRedirect(reverse('classwork-view',args=[id,class_id]))
   if request.method == 'POST':
-    print(request.POST)
+    print(dict(request.POST.lists()))
+    test = StudentTest(student_id=Student.objects.get(id=id),test_id=Test.objects.get(id=test_id))
+    test.save()
+    for question, answer in dict(request.POST.lists()).items():
+      if question != 'csrfmiddlewaretoken':
+        q = Question.objects.get(id=int(question))
+        a = StudentAnswer(student_test=test,question=q)
+        a.save()
+        if q.is_written:
+          a.written_ans=answer[0]
+        else:
+          for mco in answer:
+            a.choice_ans.add(MultipleChoiceOption.objects.get(id=int(mco)))
+        a.save()
+    print(test.choice_ans)
+    return HttpResponseRedirect(reverse('student-class-announcement-page',args=[id,class_id]))
   # student = User.objects.get(id=id).student
   class_id = Class.objects.get(id=test_id)
   test = Test.objects.get(id=test_id)
   context={'test':test,}
   return render(request,"Classwork/do-test.html",context)
 
+@CheckValidUser
+def ViewStudentTest(request,id,class_id,studenttest_id):
+  st = StudentTest.objects.get(id=studenttest_id)
+  return render(request,"Classwork/view-student-test.html",{"test":st})
+
+@CheckValidUser
 def written_question_form(request,id,class_id,test_id):
   form = MultipleChoiceQuestionForm()
   if request.method == 'POST':
@@ -61,6 +105,7 @@ def written_question_form(request,id,class_id,test_id):
   context={'form':form}
   return render(request,"Classwork/partials/partial-written-form.html",context)
 
+@CheckValidUser
 def multiplechoice_form(request,id,class_id,test_id):
   error=""
   form = MultipleChoiceQuestionForm()
@@ -82,6 +127,7 @@ def multiplechoice_form(request,id,class_id,test_id):
     return HttpResponseRedirect(reverse("edit-classwork-view",args=[id,class_id,test_id]))
   return render(request,"Classwork/partials/partial-multiplechoice-form.html",context)
 
+@CheckValidUser
 def parseMultipleChoice(request):
   questions={}
   options={}
@@ -96,6 +142,7 @@ def parseMultipleChoice(request):
       correctoptions[k]=v
   return (questions,options,correctoptions)
 
+@CheckValidUser
 def mco_form(request,id,class_id,qid):
   oid = str(uuid4())[:5]
   form = MultipleChoiceOptionForm(initial={'optionid':oid})
@@ -106,6 +153,7 @@ def mco_form(request,id,class_id,qid):
   context = {'form': form,"id":id,"class_id":class_id}
   return render(request,"Classwork/partials/partial-mco-form.html",context)
 
+@CheckValidUser
 def DeleteTest(request,id,class_id,test_id):
   test = Test.objects.get(id=test_id)
   context = {'id':id,'class_id':class_id,'test_id':test_id,'test':test}
@@ -114,11 +162,13 @@ def DeleteTest(request,id,class_id,test_id):
     return HttpResponseRedirect(reverse("classwork-view",args=[id,class_id]))
   return render(request,"Classwork/delete-classwork.html",context)
 
+@CheckValidUser
 def DeleteQuestion(request,id,class_id,test_id,qid):
   q = Question.objects.get(id=qid)
   q.delete()
   return HttpResponseRedirect(reverse("edit-classwork-view",args=[id,class_id,test_id]))
 
+@CheckValidUser
 def UpdateQuestion(request,id,class_id,test_id,qid):
   q=Question.objects.get(id=qid)
   context={'id':id,'class_id':class_id,'test_id':test_id,'question':q}

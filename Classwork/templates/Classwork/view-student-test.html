@@ -1,0 +1,15 @@
+{% extends 'Classwork/base-test.html'%}
+{%block body%}
+  {% for answer in test.studentanswer_set.all %}
+  <h2>{{answer.question}}</h2>
+  {%if answer.question.is_written%}
+  <p>{{answer.written_ans}}</p>
+  {%else%}
+  <ul>
+    {%for a in answer.choice_ans.all%}
+    <li>{{a.option}}</li>
+    {%endfor%}
+  </ul>
+  {%endif%}
+  {%endfor%}
+{%endblock body%}
