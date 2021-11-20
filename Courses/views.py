@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import *
-from User.models import Student
+from User.models import Student, Lecturer
 from Classwork.models import *
 from Courses import forms
 from User.views import CheckValidUser
@@ -188,3 +188,6 @@ def EditClassRegistration(request, id):
     return render(request, 'User/edit-class-registration.html', context)
 
 
+def StaffContact(request, class_id):
+    lecturer = Class.objects.get(id = class_id).lecturer.user_id
+    return render(request, 'User/staff-contact.html', {"lecturer": lecturer})

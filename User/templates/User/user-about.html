@@ -28,26 +28,40 @@
                                 <th>ROLE</th>
                                 <td>{{ user.user_type }}</td>
                             </tr>
+                            {% if user.user_type == 'Student' %}
                             <tr>
                                 <th>MAJOR</th>
                                 <td>{{ student.major_id.name }}</td>
                             </tr>
                             <tr>
+                                <th>DATE OF BIRTH</th>
+                                <td>N/A</td>
+                            </tr>
+                            {% else %}
+                            {% endif %}
+                            {% if user.user_type == 'Lecturer' %}
+                            <tr>
                                 <th>DEPARTMENT</th>
                                 <td>N/A</td>
                             </tr>
                             <tr>
+                                <th>PHONE NUMBER</th>
+                                <td>{{ user.phone_number }}</td>
+                            </tr>
+                            {% else %}
+                            {% endif %}
+                            <tr>
                                 <th>EMAIL ADDRESS</th>
                                 <td>{{ user.email|urlize }}</td>
                             </tr>
-                            <tr>
-                                <th>DATE OF BIRTH</th>
-                                <td>N/A</td>
-                            </tr>
                         </table>
+
                         <footer class="change-password">
-                            <a class="change-password-btn" href="{% url 'student-change-password' user.student.id %}">Change Password</a>
+                            <a class="change-password-btn" href="{% if user.user_type == 'Lecturer' %}{% url 'lecturer-change-password' user.id %}
+                                                                 {% elif user.user_type == 'Student' %}{% url 'student-change-password' user.id %}
+                                                                 {% endif %}">Change Password</a>
                         </footer>
+
                     </section>
                 </div>
             </section>

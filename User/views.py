@@ -69,7 +69,7 @@ def LecturerAboutView(request, id):
     # user = Lecturer.objects.get(id=id)
     # if not (request.user.is_authenticated and request.user == user.user_id):
     #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-    return render(request, "User/lecturer-about.html")
+    return render(request, "User/user-about.html")
 
 
 @CheckValidUser
@@ -79,7 +79,7 @@ def StudentAboutView(request, id):
     # context = {"student": user}
     # if not (request.user.is_authenticated and request.user == user.user_id):
     #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-    return render(request, "User/student-about.html", {"student": request.user.student})
+    return render(request, "User/user-about.html", {"student": request.user.student})
 
 
 @CheckValidUser
