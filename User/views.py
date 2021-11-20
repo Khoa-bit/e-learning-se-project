@@ -1,8 +1,8 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, decorators, login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, decorators, login, logout, update_session_auth_hash
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http.response import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from .forms import *
@@ -15,7 +15,9 @@ def CheckValidUser(func):
     def decorate(*args, **kwargs):
         userID = kwargs['id']
         request = args[0]
-        if request.user.is_student():
+        if request.user.id==None:
+            return HttpResponseRedirect(reverse("login"))
+        elif request.user.is_student():
             user = Student.objects.get(id=userID).user_id
         elif request.user.is_lecturer():
             user = Lecturer.objects.get(id=userID).user_id
@@ -112,8 +114,32 @@ def ForgotPasswordView(request):
 
 
 def StudentChangePassword(request, id):
-    return render(request, "User/change-password.html", {"student": request.user.student})
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('student-change-password',request.user.student.id)
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, "User/change-password.html", {'form': form,'student':request.user.student})
+    #return render(request, "User/change-password.html", {"student": request.user.student})
 
 
 def LecturerChangePassword(request, id):
-    return render(request, "User/change-password.html", {"lecturer": request.user.lecturer})
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('lecturer-change-password',request.user.lecturer.id)
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, "User/change-password.html", {'form': form,'lecturer':request.user.lecturer})
+    #return render(request, "User/change-password.html", {"lecturer": request.user.lecturer})
