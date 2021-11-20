@@ -15,3 +15,5 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(Test,TestAdmin)
 admin.site.register(Question,QuestionAdmin)
+admin.site.register(StudentTest)
+admin.site.register(StudentAnswer)
