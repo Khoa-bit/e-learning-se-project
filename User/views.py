@@ -58,12 +58,12 @@ def LogoutView(request):
 
 @CheckValidUser
 def LecturerAboutView(request, id):
-    return render(request, "User/user-about.html", {"userObj": Lecturer.objects.get(id=id)})
+    return render(request, "User/user-about.html", {"userObj": Lecturer.objects.get(id=id.user_id)})
 
 
 @CheckValidUser
 def StudentAboutView(request, id):
-    return render(request, "User/user-about.html", {"userObj": Student.objects.get(id=id)})
+    return render(request, "User/user-about.html", {"userObj": Student.objects.get(id=id).user_id})
 
 
 @CheckValidUser
