@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>User Announcements</title>
+    <title>General Announcements</title>
 {% endblock title %}
 
 {% block stylesheets %}
@@ -14,71 +14,41 @@
 {% block main-content %}
     <article class="panel announcement general-information">
         <h2>General Information</h2>
+        {% for announcement in general_announcements %}
         <article style="--order: 1">
-            <a class="heading" href="#"><h3>THÔNG BÁO VỀ KHẢO SÁT SINH VIÊN TỐT NGHIỆP_HỌC KỲ 1 NĂM HỌC 2020-2021</h3>
+            <a class="heading" href="#"><h3>{{ announcement.title }}</h3>
             </a>
             <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
+                <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
             </footer>
         </article>
-        <article style="--order: 2">
-            <a class="heading" href="#"><h3>THÔNG BÁO VỀ VIỆC TỔ CHỨC DẠY VÀ HỌC TRỰC TUYẾN MÔN GIÁO DỤC THỂ CHẤT CỦA
-                HỌC KỲ 2, NĂM HỌC
-                2020-2021</h3></a>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
-        <article style="--order: 3">
-            <a class="heading" href="#"><h3>ACADEMIC CALENDAR 2021 - 2022</h3></a>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
-        <article style="--order: 4">
-            <a class="heading" href="#"><h3>THÔNG BÁO VỀ VIỆC ĐIỀU CHỈNH ĐĂNG KÝ MÔN HỌC HỌC KỲ 1, NĂM HỌC 2021 – 2022 /
-                ANNOUNCEMENT: ABOUT
-                SCHEDULE ADJUSTMENT IN 1ST SEMESTER, ACADEMIC YEAR 2021 - 2022</h3></a>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
+        {% endfor %}
         <footer>
-            <a class="view-all-btn" href="#">View All</a>
+            <a class="view-all-btn" href="{% if user.user_type == 'Student' %}{% url 'student-announcement-all' user.student.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-announcement-all' user.lecturer.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-all' %}
+                                          {% endif %}">View All</a>
         </footer>
     </article>
 
+    {% if user.is_authenticated %}
     <article class="panel announcement courses-announcements">
         <h2>Class Announcements</h2>
+        {% for announcement in class_announcements %}
         <article style="--order: 1">
             <div class="heading">
-                <a href="#"><p>Software Engineering_S1_2021-22_G02</p></a>
-                <a href="#"><h3>How to write a project proposal?</h3></a>
+                <a href="#"><p>{{ announcement.class_id }}</p></a>
+                <a href="#"><h3>>{{ announcement.title }}</h3></a>
             </div>
             <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
+                <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
             </footer>
         </article>
-        <article style="--order: 2">
-            <div class="heading">
-                <a href="#"><p>Software Engineering_S1_2021-22_G02</p></a>
-                <a href="#"><h3>How to write a project proposal?</h3></a>
-            </div>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
-        <article style="--order: 3">
-            <div class="heading">
-                <a href="#"><p>Software Engineering_S1_2021-22_G02</p></a>
-                <a href="#"><h3>How to write a project proposal?</h3></a>
-            </div>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
-        <footer>
-            <a class="view-all-btn" href="#">View All</a>
-        </footer>
+        {% endfor %}
+        <!--<footer>
+            <a class="view-all-btn" href="{%url 'guest-announcement-all' %}">View All</a>
+        </footer>-->
     </article>
+    {% endif %}
+
 {% endblock %}
