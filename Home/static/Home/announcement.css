@@ -60,7 +60,7 @@ article.panel > footer .view-all-btn:hover {
 .announcement > article {
   opacity: 0;
   animation: riseUpAnimation 8s ease forwards;
-  animation-delay: calc(var(--order) * 200ms);
+  animation-delay: calc(var(--order) * 100ms);
 }
 
 @keyframes riseUpAnimation {

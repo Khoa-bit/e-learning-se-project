@@ -84,7 +84,7 @@ article.panel .card h3 {
 article.panel .card {
   opacity: 0;
   animation: riseUpAnimation 8s ease forwards;
-  animation-delay: calc(var(--order) * 200ms);
+  animation-delay: calc(var(--order) * 100ms);
 }
 
 @keyframes riseUpAnimation {

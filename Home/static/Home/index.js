@@ -13,7 +13,7 @@ for (const sidebarDropBtnElement of sidebarDropBtnList) {
         } else {
             let dropDownMenuHeight = 0.0;
             for (const dropDownMenuChild of dropDownMenuChildren) {
-                dropDownMenuHeight += dropDownMenuChild.offsetHeight + 0.4;
+                dropDownMenuHeight += dropDownMenuChild.offsetHeight;
             }
             dropDownMenu.style.maxHeight = dropDownMenuHeight + "px";
         }

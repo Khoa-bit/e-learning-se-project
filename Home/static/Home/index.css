@@ -4,6 +4,8 @@ body {
   --header-height: 10rem;
   --dropdown-transition: 0.3s ease-in-out;
   --spacing: 1rem;
+  --header-footer-padding-inline: clamp(var(--spacing), 6vw, 12rem);
+  min-height: 100vh;
 }
 
 .page-grid {
@@ -35,8 +37,8 @@ body > footer {
 .header-bar {
   display: flex;
   align-items: center;
-  padding-inline: 6vw;
-  height: var(--header-height);
+  padding-inline: var(--header-footer-padding-inline);
+  min-height: var(--header-height);
   border-bottom: 1px solid #dce2e4;
 }
 
@@ -132,15 +134,22 @@ body > footer {
   position: sticky;
   top: 0;
   max-height: 100vh;
-  max-width: 20vw;
-  min-width: fit-content;
-  
+
+  /* Resize max-width if sidebar buttons overflow*/
+  max-width: 29rem;
+
   padding-block-end: calc(
           var(--header-height) + var(--spacing)
   ); /* var(--gap) = Section title padding top */
-  overflow-y: auto;
+  overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: var(--gray-default) transparent;
+
+  transition: max-width var(--dropdown-transition);
+}
+
+.sidebar-nav.collapse {
+  max-width: 0;
 }
 
 .sidebar-nav::-webkit-scrollbar {
@@ -197,10 +206,6 @@ body > footer {
   color: var(--gray-dark);
 }
 
-.sidebar-nav .btn:not(.small) > a {
-  white-space: nowrap;
-}
-
 .sidebar-nav .btn > a svg {
   width: 2.4rem;
   height: 2.4rem;
@@ -244,7 +249,7 @@ body > footer {
 .footer-top-container {
   display: flex;
   justify-content: space-between;
-  padding: clamp(var(--spacing), 3vw, 3rem) clamp(var(--spacing), 6vw, 12rem);
+  padding: clamp(var(--spacing), 3vw, 3rem) var(--header-footer-padding-inline);
 }
 
 .footer-top-container ul {
@@ -397,7 +402,7 @@ body > footer {
   top: 6rem;
   left: var(--spacing);
   background-color: var(--white-default);
-  border-radius: 0px 6px 6px 6px;
+  border-radius: 0 6px 6px 6px;
   border: 1px solid var(--gray-lighter);
   padding: var(--spacing);
   margin: 0;
@@ -493,7 +498,6 @@ article.panel:last-child {
 }
 
 .sidebar-nav .btn .drop-btn > svg {
-  margin-inline-end: 1rem;
   transform: rotateZ(-90deg);
   transition: transform var(--hover-transition);
 }
@@ -519,8 +523,10 @@ article.panel:last-child {
 }
 
 .sidebar-nav .btn.small > a {
-  min-height: 3.7rem;
-  padding-inline: 1rem 1.5rem;
+  min-height: 0;
+  padding:  1rem;
 
+  line-height: 1.68rem;
   font-size: 1.4rem;
+  font-weight: bold;
 }
