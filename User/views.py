@@ -7,6 +7,8 @@ from django.urls import reverse
 
 from .forms import *
 from .models import *
+from Courses.models import ClassAnnouncement
+from Home.models import Announcement
 
 # Decorator to check valid user
 
@@ -67,19 +69,40 @@ def StudentAboutView(request, id):
 
 
 @CheckValidUser
-def UserAnnouncement(request, id):
-    # user = Student.objects.get(id=id)
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-    return render(request, "User/user-announcement.html")
+def StudentUserAnnouncement(request, id):
+    student = Student.objects.get(id=id)
+    class_announcements = []
+    general_announcements = []
+    for i in Announcement.objects.all().order_by('-time_created'):
+        general_announcements.append(i)
+    for class_id in student.class_id.all():
+        for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
+            class_announcements.append(announcement)
+    return render(request, "User/user-announcement.html", {"class_announcements": class_announcements[:3], "general_announcements": general_announcements[:3]})
 
 
-#@CheckValidUser
-#def LecturerAnnouncement(request, id):
-    # user = Student.objects.get(id=id)
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-    #return render(request, "User/lecturer-announcement.html")
+@CheckValidUser
+def LecturerUserAnnouncement(request, id):
+    lecturer = Lecturer.objects.get(id=id)
+    class_announcements = []
+    general_announcements = []
+    for i in Announcement.objects.all().order_by('-time_created'):
+        general_announcements.append(i)
+    for class_id in lecturer.class_set.all():
+        for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
+            class_announcements.append(announcement)
+    return render(request, "User/user-announcement.html", {"class_announcements": class_announcements, "general_announcements": general_announcements[:3]})
+
+
+@CheckValidUser
+def StudentAnnouncementViewAll(request, id):
+    return render(request, "User/user-announcement-view-all.html")
+
+
+@CheckValidUser
+def LecturerAnnouncementViewAll(request, id):
+    return render(request, "User/user-announcement-view-all.html")
+
 
 def ForgotPasswordView(request):
     if request.method == "POST":
