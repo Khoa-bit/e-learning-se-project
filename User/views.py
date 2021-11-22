@@ -57,29 +57,13 @@ def LogoutView(request):
 
 
 @CheckValidUser
-def UserInfoView(request, id):
-    # user = User.objects.get(id=id)
-    # if not (request.user.is_authenticated and request.user == user):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-    return render(request, "User/userinfo.html")
-
-
-@CheckValidUser
 def LecturerAboutView(request, id):
-    # user = Lecturer.objects.get(id=id)
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-    return render(request, "User/user-about.html")
+    return render(request, "User/user-about.html", {"userObj": Lecturer.objects.get(id=id)})
 
 
 @CheckValidUser
 def StudentAboutView(request, id):
-    # user = Student.objects.get(id=id)
-    # user.major_id.name
-    # context = {"student": user}
-    # if not (request.user.is_authenticated and request.user == user.user_id):
-    #     return HttpResponseRedirect(reverse("guest-announcement-page"))
-    return render(request, "User/user-about.html", {"student": request.user.student})
+    return render(request, "User/user-about.html", {"userObj": Student.objects.get(id=id)})
 
 
 @CheckValidUser

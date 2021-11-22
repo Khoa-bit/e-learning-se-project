@@ -22,16 +22,16 @@
                         <table>
                             <tr>
                                 <th>NAME</th>
-                                <td>{{ user.full_name|upper }}</td>
+                                <td>{{ userObj.full_name|upper }}</td>
                             </tr>
                             <tr>
                                 <th>ROLE</th>
-                                <td>{{ user.user_type }}</td>
+                                <td>{{ userObj.user_type }}</td>
                             </tr>
-                            {% if user.user_type == 'Student' %}
+                            {% if userObj.user_type == 'Student' %}
                             <tr>
                                 <th>MAJOR</th>
-                                <td>{{ student.major_id.name }}</td>
+                                <td>{{ userObj.student.major_id.name }}</td>
                             </tr>
                             <tr>
                                 <th>DATE OF BIRTH</th>
@@ -39,29 +39,30 @@
                             </tr>
                             {% else %}
                             {% endif %}
-                            {% if user.user_type == 'Lecturer' %}
+                            {% if userObj.user_type == 'Lecturer' %}
                             <tr>
                                 <th>DEPARTMENT</th>
                                 <td>N/A</td>
                             </tr>
                             <tr>
                                 <th>PHONE NUMBER</th>
-                                <td>{{ user.phone_number }}</td>
+                                <td>{{ userObj.phone_number }}</td>
                             </tr>
                             {% else %}
                             {% endif %}
                             <tr>
                                 <th>EMAIL ADDRESS</th>
-                                <td>{{ user.email|urlize }}</td>
+                                <td>{{ userObj.email|urlize }}</td>
                             </tr>
                         </table>
 
+                        {% if userObj == user %}
                         <footer class="change-password">
-                            <a class="change-password-btn" href="{% if user.user_type == 'Lecturer' %}{% url 'lecturer-change-password' user.id %}
-                                                                 {% elif user.user_type == 'Student' %}{% url 'student-change-password' user.id %}
+                            <a class="change-password-btn" href="{% if userObj.user_type == 'Lecturer' %}{% url 'lecturer-change-password' userObj.id %}
+                                                                 {% elif userObj.user_type == 'Student' %}{% url 'student-change-password' userObj.id %}
                                                                  {% endif %}">Change Password</a>
                         </footer>
-
+                        {% endif %}
                     </section>
                 </div>
             </section>

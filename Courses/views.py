@@ -189,5 +189,5 @@ def EditClassRegistration(request, id):
 
 
 def StaffContact(request, class_id):
-    lecturer = Class.objects.get(id = class_id).lecturer.user_id
-    return render(request, 'User/staff-contact.html', {"lecturer": lecturer})
+    lecturer = Class.objects.get(id=class_id).lecturer.user_id
+    return render(request, 'User/user-about.html', {"userObj": lecturer})
