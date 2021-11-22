@@ -157,14 +157,14 @@ body > footer {
 }
 
 .sidebar-nav::-webkit-scrollbar-thumb {
-  background-color: var(--gray-default);
+  background-color: #C1C1C1;
 }
 
 .sidebar-nav ul {
   display: flex;
   flex-direction: column;
 
-  padding-inline: var(--spacing);
+  padding-inline: var(--spacing) calc(var(--spacing) - 0.5rem);
   margin: 0;
   list-style: none;
 }
