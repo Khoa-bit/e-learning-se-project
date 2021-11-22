@@ -66,7 +66,30 @@ body > footer {
   text-align: unset;
   margin: 0;
   margin-inline-start: var(--spacing);
+}
 
+.header-bar .sidebar-button {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+}
+
+.header-bar .sidebar-button svg#hamburger {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  opacity: 0;
+  transition: opacity var(--dropdown-transition);
+}
+
+.header-bar .sidebar-button svg#close {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  opacity: 0;
+  transition: opacity var(--dropdown-transition);
 }
 
 .header-bar nav {
@@ -145,6 +168,7 @@ body > footer {
   padding-block-end: calc(
           var(--header-height) + var(--spacing)
   ); /* var(--gap) = Section title padding top */
+  overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: var(--gray-default) transparent;

@@ -34,12 +34,15 @@ for (const sidebarDropBtnElement of sidebarDropBtnList) {
 const sidebarNav = document.querySelector("nav.sidebar-nav");
 let isSidebarCollapsed = localStorage.getItem("isSidebarCollapsed");
 let toggleSidebarButton = document.getElementById("toggle-nav-sidebar");
+let hamburgerSVG = toggleSidebarButton.querySelector("#hamburger")
+let closeSVG = toggleSidebarButton.querySelector("#close")
 
 if (isSidebarCollapsed) {
   toggleSidebar();
   // Update timeout arguments If --dropdown-transition changes in index.css
   setTimeout(() => sidebarNav.style.display = null, 300);
 } else {
+  closeSVG.style.opacity = "1";
   sidebarNav.style.display = null;
 }
 
@@ -47,9 +50,13 @@ function toggleSidebar() {
   if (sidebarNav.classList.contains("collapse")) {
     sidebarNav.classList.remove("collapse");
     localStorage.removeItem("isSidebarCollapsed");
+    hamburgerSVG.style.opacity = null;
+    closeSVG.style.opacity = "1";
   } else {
     sidebarNav.classList.add("collapse");
     localStorage.setItem("isSidebarCollapsed", "true");
+    hamburgerSVG.style.opacity = "1";
+    closeSVG.style.opacity = null;
   }
 }
 
