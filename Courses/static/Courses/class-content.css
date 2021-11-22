@@ -25,7 +25,3 @@
   text-align: right;
   color: var(--gray-default);
 }
-
-article p {
-  width: 80rem;
-}

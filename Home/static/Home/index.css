@@ -151,6 +151,8 @@ body > footer {
 
 /* SideBar */
 .sidebar {
+  --drop-btn-width: 4.5rem;
+
   position: relative;
   background-color: var(--white-default);
 }
@@ -254,10 +256,14 @@ body > footer {
 
 /* 1200px / 16px = 75em */
 @media (max-width: 75em) {
+  .sidebar-nav {
+    max-width: calc(17rem + var(--drop-btn-width));
+  }
+
   .sidebar-nav .btn > a {
     flex-direction: column;
     height: auto;
-    padding-inline: 1rem;
+    padding-inline-end: var(--drop-btn-width);
     padding-block: 1rem;
     font-size: 1.2rem;
   }
@@ -500,6 +506,7 @@ main {
 }
 
 article.panel {
+  min-height: 45.8rem;
   background-color: var(--white-default);
   border-radius: 6px;
   padding: 2rem 3rem;
@@ -515,7 +522,7 @@ article.panel:last-child {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4.5rem;
+  width: var(--drop-btn-width);
 }
 
 .sidebar-nav .btn.active .drop-btn {
