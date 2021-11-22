@@ -18,6 +18,7 @@
 
 <body class="page-grid">
 <header class="header-bar {% if user.is_authenticated %}user-login{% endif %}">
+<button id="toggle-nav-sidebar">Toggle</button>
   <a class="logo"
      href="{% if user.user_type == 'Student' %}{% url 'student-announcement-page' user.student.id %}
             {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-announcement-page' user.lecturer.id %}
@@ -85,7 +86,7 @@
 
 </header>
 <aside class="sidebar">
-  <nav class="sidebar-nav">
+  <nav class="sidebar-nav" style="display: none">
     <ul>
       <p class="section-title">HOME</p>
       <li class="btn btn-grid {% block announcements-active %}{% endblock announcements-active %}">

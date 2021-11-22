@@ -2,9 +2,13 @@
 
 body {
   --header-height: 10rem;
-  --dropdown-transition: 0.3s ease-in-out;
   --spacing: 1rem;
   --header-footer-padding-inline: clamp(var(--spacing), 6vw, 12rem);
+
+  /* If --dropdown-transition changes,
+  Update timeout arguments of toggleSidebar section in index.js */
+  --dropdown-transition: 0.3s ease-in-out;
+
   min-height: 100vh;
 }
 
@@ -62,7 +66,7 @@ body > footer {
   text-align: unset;
   margin: 0;
   margin-inline-start: var(--spacing);
-  
+
 }
 
 .header-bar nav {
@@ -204,6 +208,7 @@ body > footer {
 
   font-weight: 500;
   color: var(--gray-dark);
+  white-space: nowrap;
 }
 
 .sidebar-nav .btn > a svg {
@@ -524,9 +529,10 @@ article.panel:last-child {
 
 .sidebar-nav .btn.small > a {
   min-height: 0;
-  padding:  1rem;
+  padding: 1rem;
 
   line-height: 1.68rem;
   font-size: 1.4rem;
   font-weight: bold;
+  white-space: normal;
 }
