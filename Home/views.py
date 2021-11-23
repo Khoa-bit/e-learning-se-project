@@ -16,6 +16,8 @@ def redirect_auth_user(func):
                 return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
             if user.is_lecturer():
                 return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
+        else:
+            return func(*args, **kwargs)
     return decorate
 
 
