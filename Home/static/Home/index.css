@@ -41,7 +41,7 @@ body > footer {
 .header-bar {
   display: flex;
   align-items: center;
-  padding-inline: var(--header-footer-padding-inline);
+  padding-inline: calc(var(--header-footer-padding-inline) / 5) var(--header-footer-padding-inline);
   min-height: var(--header-height);
   border-bottom: 1px solid #dce2e4;
 }
@@ -72,6 +72,7 @@ body > footer {
   position: relative;
   width: 4rem;
   height: 4rem;
+  margin-inline-end: 3.5%;
 }
 
 .header-bar .sidebar-button svg#hamburger {

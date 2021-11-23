@@ -10,6 +10,7 @@ from .models import *
 from Courses.models import ClassAnnouncement
 from Home.models import Announcement
 
+
 # Decorator to check valid user
 
 
@@ -17,7 +18,7 @@ def CheckValidUser(func):
     def decorate(*args, **kwargs):
         userID = kwargs['id']
         request = args[0]
-        if request.user.id==None:
+        if request.user.id == None:
             return HttpResponseRedirect(reverse("login"))
         elif request.user.is_student():
             user = Student.objects.get(id=userID).user_id
@@ -29,7 +30,9 @@ def CheckValidUser(func):
             return func(*args, **kwargs)
         else:
             return HttpResponseRedirect(reverse("guest-announcement-page"))
+
     return decorate
+
 
 # Create your views here.
 
@@ -60,12 +63,14 @@ def LogoutView(request):
 
 @CheckValidUser
 def LecturerAboutView(request, id):
-    return render(request, "User/user-about.html", {"userObj": Lecturer.objects.get(id=id.user_id)})
+    return render(request, "User/user-about.html",
+                  {"userObj": Lecturer.objects.get(id=id).user_id, "page_title": "Personal Information"})
 
 
 @CheckValidUser
 def StudentAboutView(request, id):
-    return render(request, "User/user-about.html", {"userObj": Student.objects.get(id=id).user_id})
+    return render(request, "User/user-about.html",
+                  {"userObj": Student.objects.get(id=id).user_id, "page_title": "Personal Information"})
 
 
 @CheckValidUser
@@ -78,7 +83,8 @@ def StudentUserAnnouncement(request, id):
     for class_id in student.class_id.all():
         for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
             class_announcements.append(announcement)
-    return render(request, "User/user-announcement.html", {"class_announcements": class_announcements[:3], "general_announcements": general_announcements[:3]})
+    return render(request, "User/user-announcement.html",
+                  {"class_announcements": class_announcements[:3], "general_announcements": general_announcements[:3]})
 
 
 @CheckValidUser
@@ -91,7 +97,8 @@ def LecturerUserAnnouncement(request, id):
     for class_id in lecturer.class_set.all():
         for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
             class_announcements.append(announcement)
-    return render(request, "User/user-announcement.html", {"class_announcements": class_announcements, "general_announcements": general_announcements[:3]})
+    return render(request, "User/user-announcement.html",
+                  {"class_announcements": class_announcements, "general_announcements": general_announcements[:3]})
 
 
 @CheckValidUser
@@ -177,13 +184,13 @@ def StudentChangePassword(request, id):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('student-change-password',request.user.student.id)
+            return redirect('student-change-password', request.user.student.id)
         else:
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, "User/change-password.html", {'form': form,'student':request.user.student})
-    #return render(request, "User/change-password.html", {"student": request.user.student})
+    return render(request, "User/change-password.html", {'form': form, 'student': request.user.student})
+    # return render(request, "User/change-password.html", {"student": request.user.student})
 
 
 def LecturerChangePassword(request, id):
@@ -193,10 +200,10 @@ def LecturerChangePassword(request, id):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('lecturer-change-password',request.user.lecturer.id)
+            return redirect('lecturer-change-password', request.user.lecturer.id)
         else:
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
-    return render(request, "User/change-password.html", {'form': form,'lecturer':request.user.lecturer})
-    #return render(request, "User/change-password.html", {"lecturer": request.user.lecturer})
+    return render(request, "User/change-password.html", {'form': form, 'lecturer': request.user.lecturer})
+    # return render(request, "User/change-password.html", {"lecturer": request.user.lecturer})
