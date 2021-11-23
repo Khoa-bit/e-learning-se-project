@@ -16,7 +16,10 @@
         <h2>General Information</h2>
         {% for announcement in general_announcements %}
         <article style="--order: 1">
-            <a class="heading" href="#"><h3>{{ announcement.title }}</h3>
+            <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-general-announcement-page' user.student.id announcement.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-general-announcement-page' user.lecturer.id announcement.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-viewpage' announcement.id %}
+                                          {% endif %}"><h3>{{ announcement.title }}</h3>
             </a>
             <footer>
                 <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
@@ -24,8 +27,8 @@
         </article>
         {% endfor %}
         <footer>
-            <a class="view-all-btn" href="{% if user.user_type == 'Student' %}{% url 'student-announcement-all' user.student.id %}
-                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-announcement-all' user.lecturer.id %}
+            <a class="view-all-btn" href="{% if user.user_type == 'Student' %}{% url 'student-general-announcement-all' user.student.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-general-announcement-all' user.lecturer.id %}
                                           {% elif not user.is_authenticated %}{% url 'guest-announcement-all' %}
                                           {% endif %}">View All</a>
         </footer>
@@ -35,19 +38,28 @@
     <article class="panel announcement courses-announcements">
         <h2>Class Announcements</h2>
         {% for announcement in class_announcements %}
-        <article style="--order: 1">
-            <div class="heading">
-                <a href="#"><p>{{ announcement.class_id }}</p></a>
-                <a href="#"><h3>>{{ announcement.title }}</h3></a>
-            </div>
-            <footer>
-                <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
-            </footer>
-        </article>
+            <article style="--order: 1">
+                <div class="heading">
+                    <a href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-page' user.student.id announcement.class_id.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-page' user.lecturer.id announcement.class_id.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                          {% endif %}"><p>{{ announcement.class_id }}</p></a>
+                    <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id announcement.class_id.id announcement.id %}
+                                              {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id announcement.class_id.id announcement.id %}
+                                              {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                              {% endif %}"><h3>{{ announcement.title }}</h3></a>
+                </div>
+                <footer>
+                    <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
+                </footer>
+            </article>
         {% endfor %}
-        <!--<footer>
-            <a class="view-all-btn" href="{%url 'guest-announcement-all' %}">View All</a>
-        </footer>-->
+       <footer>
+            <a class="view-all-btn" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-all' user.student.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-all' user.lecturer.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                          {% endif %}">View All</a>
+        </footer>
     </article>
     {% endif %}
 
