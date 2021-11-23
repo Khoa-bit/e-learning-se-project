@@ -83,8 +83,14 @@ def fetch_general_announcements():
 
 
 def fetch_class_announcements(user):
+    classes_queryset = []
+    if type(user) is Student:
+        classes_queryset = user.class_id.all()
+    elif type(user) is Lecturer:
+        classes_queryset = user.class_set.all()
+
     class_announcements = []
-    for class_id in user.class_id.all():
+    for class_id in classes_queryset:
         for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
             is_new = timezone.now() - announcement.time_created < timezone.timedelta(weeks=1)
             class_announcements.append({"obj": announcement, "is_new": is_new})
