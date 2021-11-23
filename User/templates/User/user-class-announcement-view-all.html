@@ -1,0 +1,39 @@
+{% extends 'Home/index.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Class Announcements All</title>
+{% endblock title %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'Home/announcement.css' %}">
+{% endblock %}
+
+{% block announcements-active %}active{% endblock %}
+
+{% block main-content %}
+    <article class="panel announcement general-information">
+        <h2>General Information
+          <br></br>
+          <form action="{% url 'guest-announcement-search' %}" method="get">
+            <input name="search" type="text" placeholder="Search...">
+          </form>
+        </h2>
+        {% for announcement in class_announcements %}
+            <article style="--order: 1">
+                <a href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-page' user.student.id announcement.class_id.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-page' user.lecturer.id announcement.class_id.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                          {% endif %}"><p>{{ announcement.class_id }}</p></a>
+                <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id announcement.class_id.id announcement.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id announcement.class_id.id announcement.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                          {% endif %}"><h3>{{ announcement.title }}</h3></a>
+                <footer>
+                    <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
+                </footer>
+            </article>
+        {% endfor %}
+    </article>
+{% endblock %}
+

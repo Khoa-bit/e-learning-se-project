@@ -102,13 +102,63 @@ def LecturerUserAnnouncement(request, id):
 
 
 @CheckValidUser
-def StudentAnnouncementViewAll(request, id):
-    return render(request, "User/user-announcement-view-all.html")
+def StudentGeneralAnnouncementViewAll(request, id):
+    general_announcements = []
+    for i in Announcement.objects.all().order_by('-time_created'):
+        general_announcements.append(i)
+    return render(request, "User/user-general-announcement-view-all.html", {"general_announcements": general_announcements})
 
 
 @CheckValidUser
-def LecturerAnnouncementViewAll(request, id):
-    return render(request, "User/user-announcement-view-all.html")
+def LecturerGeneralAnnouncementViewAll(request, id):
+    general_announcements = []
+    for i in Announcement.objects.all().order_by('-time_created'):
+        general_announcements.append(i)
+    return render(request, "User/user-general-announcement-view-all.html", {"general_announcements": general_announcements})
+
+
+@CheckValidUser
+def StudentClassAnnouncementViewAll(request, id):
+    student = Student.objects.get(id=id)
+    class_announcements = []
+    for class_id in student.class_id.all():
+        for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
+            class_announcements.append(announcement)
+    return render(request, "User/user-class-announcement-view-all.html", {"class_announcements": class_announcements})
+
+
+@CheckValidUser
+def LecturerClassAnnouncementViewAll(request, id):
+    lecturer = Lecturer.objects.get(id=id)
+    class_announcements = []
+    for class_id in lecturer.class_set.all():
+        for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
+            class_announcements.append(announcement)
+    return render(request, "User/user-class-announcement-view-all.html", {"class_announcements": class_announcements})
+
+
+@CheckValidUser
+def StudentClassAnnouncementPage(request, id, class_id, class_announcement_id):
+    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
+    return render(request, "User/user-class-announcement-page.html", {"announcement": announcement})
+
+
+@CheckValidUser
+def LecturerClassAnnouncementPage(request, id, class_id, class_announcement_id):
+    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
+    return render(request, "User/user-class-announcement-page.html", {"announcement": announcement})
+
+
+@CheckValidUser
+def StudentGeneralAnnouncementPage(request, id, announcement_id):
+    announcement = Announcement.objects.get(id=announcement_id)
+    return render(request, "User/user-general-announcement-page.html", {"announcement": announcement})
+
+
+@CheckValidUser
+def LecturerGeneralAnnouncementPage(request, id, announcement_id):
+    announcement = Announcement.objects.get(id=announcement_id)
+    return render(request, "User/user-general-announcement-page.html", {"announcement": announcement})
 
 
 def ForgotPasswordView(request):

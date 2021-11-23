@@ -37,7 +37,10 @@ def GuestAnnouncementAll(request):
         if user.is_lecturer():
             return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
     '''
-    return render(request, "User/user-announcement-view-all.html")
+    general_announcements = []
+    for i in Announcement.objects.all().order_by('-time_created'):
+        general_announcements.append(i)
+    return render(request, "User/user-general-announcement-view-all.html", {"general_announcements": general_announcements})
 
 
 def GuestAnnouncementSearch(request): # new
@@ -57,9 +60,8 @@ def GuestAnnouncementSearch(request): # new
 
 
 def GuestAnnouncementPage(request, id):
-    #announcement = Announcement.objects.filter(id=id)
-    context = {'announcement_1': Announcement.objects.filter(id=id)}
-    return render(request, "Home/guest-announcement-page.html", context)
+    announcement = Announcement.objects.get(id=id)
+    return render(request, "User/user-general-announcement-page.html", {"announcement": announcement})
 
 
 def GuestAbout(request):
