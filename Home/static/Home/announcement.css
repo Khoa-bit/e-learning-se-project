@@ -39,9 +39,15 @@ article.panel > footer .view-all-btn:hover {
   align-items: center;
 }
 
-.announcement > article .heading  {
-  color: var(--iu-primary-default);
+.announcement > article .heading {
   width: 76.6%;
+}
+
+.announcement > article .heading h3 {
+  color: var(--iu-primary-default);
+  font-size: 2.2rem;
+  font-weight: 600;
+  transition: color var(--hover-transition);
 }
 
 .announcement > article .heading h3:hover {
@@ -49,12 +55,23 @@ article.panel > footer .view-all-btn:hover {
 }
 
 .announcement > article footer {
-  width: 15.5rem;
+  display: flex;
+  gap: 2rem;
+  width: 16rem;
   padding-block: 1rem;
   margin-inline-start: auto;
-  
+
   color: var(--gray-default);
   text-align: right;
+}
+
+.announcement > article footer .new-tag {
+  padding-inline: 1rem;
+
+  font-weight: bold;
+  color: var(--white-default);
+  background-color: var(--success-primary);
+  border-radius: 6px;
 }
 
 .announcement > article {
@@ -79,24 +96,24 @@ article.panel > footer .view-all-btn:hover {
 /* General information panel */
 
 
-
 /* Courses Announcements panel */
-.courses-announcements > article .heading p  {
+.courses-announcements > article .heading p {
   margin-bottom: 0.4rem;
   color: var(--gray-default);
   font-weight: 500;
 }
 
-.courses-announcements > article .heading p:hover  {
+.courses-announcements > article .heading p:hover {
   color: var(--gray-dark);
 }
 
-.courses-announcements > article .heading h3  {
+.courses-announcements > article .heading h3 {
   color: var(--iu-primary-default);
   font-weight: 700;
   font-size: 2.2rem;
   line-height: 2.6rem;
 }
-.courses-announcements > article .heading h3:hover  {
+
+.courses-announcements > article .heading h3:hover {
   color: var(--iu-primary-dark);
 }

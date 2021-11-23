@@ -21,16 +21,16 @@
         </h2>
         {% for announcement in class_announcements %}
             <article style="--order: 1">
-                <a href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-page' user.student.id announcement.class_id.id %}
-                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-page' user.lecturer.id announcement.class_id.id %}
+                <a href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-page' user.student.id announcement.obj.class_id.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-page' user.lecturer.id announcement.obj.class_id.id %}
                                           {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
-                                          {% endif %}"><p>{{ announcement.class_id }}</p></a>
-                <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id announcement.class_id.id announcement.id %}
-                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id announcement.class_id.id announcement.id %}
+                                          {% endif %}"><p>{{ announcement.obj.class_id }}</p></a>
+                <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id announcement.obj.class_id.id announcement.obj.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id announcement.obj.class_id.id announcement.obj.id %}
                                           {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
-                                          {% endif %}"><h3>{{ announcement.title }}</h3></a>
+                                          {% endif %}"><h3>{{ announcement.obj.title }}</h3></a>
                 <footer>
-                    <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
+                    <time>{{ announcement.obj.time_created.date }}<br>{{ announcement.obj.time_created.time | time:"g:iA" }}</time>
                 </footer>
             </article>
         {% endfor %}
