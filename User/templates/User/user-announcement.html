@@ -15,7 +15,7 @@
     <article class="panel announcement general-information">
         <h2>General Information</h2>
         {% for announcement in general_announcements %}
-        <article style="--order: 1">
+        <article style="--order: {{ forloop.counter }}">
             <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-general-announcement-page' user.student.id announcement.id %}
                                           {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-general-announcement-page' user.lecturer.id announcement.id %}
                                           {% elif not user.is_authenticated %}{% url 'guest-announcement-viewpage' announcement.id %}
@@ -38,7 +38,7 @@
     <article class="panel announcement courses-announcements">
         <h2>Class Announcements</h2>
         {% for announcement in class_announcements %}
-            <article style="--order: 1">
+            <article style="--order: {{ forloop.counter }}">
                 <div class="heading">
                     <a href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-page' user.student.id announcement.class_id.id %}
                                           {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-page' user.lecturer.id announcement.class_id.id %}
