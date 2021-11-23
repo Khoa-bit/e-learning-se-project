@@ -65,15 +65,6 @@ article.panel > footer .view-all-btn:hover {
   text-align: right;
 }
 
-.announcement > article footer .new-tag {
-  padding-inline: 1rem;
-
-  font-weight: bold;
-  color: var(--white-default);
-  background-color: var(--success-primary);
-  border-radius: 6px;
-}
-
 .announcement > article {
   opacity: 0;
   animation: riseUpAnimation 8s ease forwards;
