@@ -35,7 +35,10 @@
     <article>
       <div class="heading">
         <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
-        <h3>{{ content_post.title }}</h3>
+        <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-content-view-page' user.student.id student_class.id content_post.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-content-view-page' user.lecturer.id lecturer_class.id content_post.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                          {% endif %}"><h3>{{ content_post.title }}</h3></a>
         <footer>
           <time>{{ content_post.time_created.date }}<br>{{ content_post.time_created.time | time:"g:iA" }}</time>
         </footer>

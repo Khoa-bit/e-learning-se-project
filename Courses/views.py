@@ -77,6 +77,18 @@ def StudentClassAnnouncement(request, id, class_id):
 
 
 @CheckValidUser
+def StudentClassAnnouncementViewPage(request, id, class_id, class_announcement_id):
+    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
+    return render(request, "Courses/class-announcement-viewpage.html", {"announcement": announcement})
+
+
+@CheckValidUser
+def LecturerClassAnnouncementViewPage(request, id, class_id, class_announcement_id):
+    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
+    return render(request, "Courses/class-announcement-viewpage.html", {"announcement": announcement})
+
+
+@CheckValidUser
 def StudentClassContent(request, id, class_id):
     content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
     student_class = Class.objects.get(id=class_id)
@@ -93,6 +105,17 @@ def LecturerClassContent(request, id, class_id):
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class, 'content_posts': content_posts}
     return render(request, "Courses/class-content.html", content)
+
+
+@CheckValidUser
+def StudentClassContentViewPage(request, id, class_id, content_id):
+    content_post = ClassContent.objects.get(id=content_id)
+    return render(request, "Courses/class-content-viewpage.html", {"content_post": content_post})
+
+
+@CheckValidUser
+def LecturerClassContentViewPage(request, id, class_id, content_id):
+    pass
 
 
 @CheckValidUser

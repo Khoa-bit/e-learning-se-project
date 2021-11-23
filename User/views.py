@@ -137,17 +137,6 @@ def LecturerClassAnnouncementViewAll(request, id):
     return render(request, "User/user-class-announcement-view-all.html", {"class_announcements": class_announcements})
 
 
-@CheckValidUser
-def StudentClassAnnouncementPage(request, id, class_id, class_announcement_id):
-    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
-    return render(request, "User/user-class-announcement-page.html", {"announcement": announcement})
-
-
-@CheckValidUser
-def LecturerClassAnnouncementPage(request, id, class_id, class_announcement_id):
-    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
-    return render(request, "User/user-class-announcement-page.html", {"announcement": announcement})
-
 
 @CheckValidUser
 def StudentGeneralAnnouncementPage(request, id, announcement_id):
