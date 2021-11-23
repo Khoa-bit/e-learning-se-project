@@ -82,19 +82,19 @@ def fetch_general_announcements():
     return general_announcements
 
 
-def fetch_class_announcements(user):
+def fetch_classes_announcements(user):
     classes_queryset = []
     if type(user) is Student:
         classes_queryset = user.class_id.all()
     elif type(user) is Lecturer:
         classes_queryset = user.class_set.all()
 
-    class_announcements = []
+    classes_announcements = []
     for class_id in classes_queryset:
         for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
             is_new = timezone.now() - announcement.time_created < timezone.timedelta(weeks=1)
-            class_announcements.append({"obj": announcement, "is_new": is_new})
-    return class_announcements
+            classes_announcements.append({"obj": announcement, "is_new": is_new})
+    return classes_announcements
 
 
 @CheckValidUser
@@ -102,7 +102,7 @@ def StudentUserAnnouncement(request, id):
     student = Student.objects.get(id=id)
     return render(request, "User/user-announcement.html",
                   {"general_announcements": fetch_general_announcements()[:7],
-                   "class_announcements": fetch_class_announcements(student)[:7]})
+                   "classes_announcements": fetch_classes_announcements(student)[:7]})
 
 
 @CheckValidUser
@@ -110,7 +110,7 @@ def LecturerUserAnnouncement(request, id):
     lecturer = Lecturer.objects.get(id=id)
     return render(request, "User/user-announcement.html",
                   {"general_announcements": fetch_general_announcements()[:7],
-                   "class_announcements": fetch_class_announcements(lecturer)[:7]})
+                   "classes_announcements": fetch_classes_announcements(lecturer)[:7]})
 
 
 @CheckValidUser
@@ -129,14 +129,14 @@ def LecturerGeneralAnnouncementViewAll(request, id):
 def StudentClassAnnouncementViewAll(request, id):
     student = Student.objects.get(id=id)
     return render(request, "User/user-class-announcement-view-all.html",
-                  {"class_announcements": fetch_class_announcements(student)})
+                  {"classes_announcements": fetch_classes_announcements(student)})
 
 
 @CheckValidUser
 def LecturerClassAnnouncementViewAll(request, id):
     lecturer = Lecturer.objects.get(id=id)
     return render(request, "User/user-class-announcement-view-all.html",
-                  {"class_announcements": fetch_class_announcements(lecturer)})
+                  {"classes_announcements": fetch_classes_announcements(lecturer)})
 
 
 @CheckValidUser

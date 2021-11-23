@@ -39,7 +39,7 @@
     {% if user.is_authenticated %}
     <article class="panel announcement courses-announcements">
         <h2>Class Announcements</h2>
-        {% for class_announcement in class_announcements %}
+        {% for class_announcement in classes_announcements %}
             <article style="--order: {{ forloop.counter }}">
                 <div class="heading">
                     <a href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-page' user.student.id class_announcement.obj.class_id.id %}
