@@ -2,8 +2,14 @@
 
 body {
   --header-height: 10rem;
-  --dropdown-transition: 0.3s ease-in-out;
   --spacing: 1rem;
+  --header-footer-padding-inline: clamp(var(--spacing), 6vw, 12rem);
+
+  /* If --dropdown-transition changes,
+  Update timeout arguments of toggleSidebar section in index.js */
+  --dropdown-transition: 0.3s ease-in-out;
+
+  min-height: 100vh;
 }
 
 .page-grid {
@@ -35,8 +41,8 @@ body > footer {
 .header-bar {
   display: flex;
   align-items: center;
-  padding-inline: 6vw;
-  height: var(--header-height);
+  padding-inline: var(--header-footer-padding-inline);
+  min-height: var(--header-height);
   border-bottom: 1px solid #dce2e4;
 }
 
@@ -60,7 +66,30 @@ body > footer {
   text-align: unset;
   margin: 0;
   margin-inline-start: var(--spacing);
-  
+}
+
+.header-bar .sidebar-button {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+}
+
+.header-bar .sidebar-button svg#hamburger {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  opacity: 0;
+  transition: opacity var(--dropdown-transition);
+}
+
+.header-bar .sidebar-button svg#close {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  opacity: 0;
+  transition: opacity var(--dropdown-transition);
 }
 
 .header-bar nav {
@@ -122,6 +151,8 @@ body > footer {
 
 /* SideBar */
 .sidebar {
+  --drop-btn-width: 4.5rem;
+
   position: relative;
   background-color: var(--white-default);
 }
@@ -132,15 +163,23 @@ body > footer {
   position: sticky;
   top: 0;
   max-height: 100vh;
-  max-width: 20vw;
-  min-width: fit-content;
-  
+
+  /* Resize max-width if sidebar buttons overflow*/
+  max-width: 29rem;
+
   padding-block-end: calc(
           var(--header-height) + var(--spacing)
   ); /* var(--gap) = Section title padding top */
-  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: var(--gray-default) transparent;
+
+  transition: max-width var(--dropdown-transition);
+}
+
+.sidebar-nav.collapse {
+  max-width: 0;
 }
 
 .sidebar-nav::-webkit-scrollbar {
@@ -148,14 +187,14 @@ body > footer {
 }
 
 .sidebar-nav::-webkit-scrollbar-thumb {
-  background-color: var(--gray-default);
+  background-color: #C1C1C1;
 }
 
 .sidebar-nav ul {
   display: flex;
   flex-direction: column;
 
-  padding-inline: var(--spacing);
+  padding-inline: var(--spacing) calc(var(--spacing) - 0.5rem);
   margin: 0;
   list-style: none;
 }
@@ -195,9 +234,6 @@ body > footer {
 
   font-weight: 500;
   color: var(--gray-dark);
-}
-
-.sidebar-nav .btn:not(.small) > a {
   white-space: nowrap;
 }
 
@@ -220,10 +256,14 @@ body > footer {
 
 /* 1200px / 16px = 75em */
 @media (max-width: 75em) {
+  .sidebar-nav {
+    max-width: calc(17rem + var(--drop-btn-width));
+  }
+
   .sidebar-nav .btn > a {
     flex-direction: column;
     height: auto;
-    padding-inline: 1rem;
+    padding-inline-end: var(--drop-btn-width);
     padding-block: 1rem;
     font-size: 1.2rem;
   }
@@ -244,7 +284,7 @@ body > footer {
 .footer-top-container {
   display: flex;
   justify-content: space-between;
-  padding: clamp(var(--spacing), 3vw, 3rem) clamp(var(--spacing), 6vw, 12rem);
+  padding: clamp(var(--spacing), 3vw, 3rem) var(--header-footer-padding-inline);
 }
 
 .footer-top-container ul {
@@ -397,7 +437,7 @@ body > footer {
   top: 6rem;
   left: var(--spacing);
   background-color: var(--white-default);
-  border-radius: 0px 6px 6px 6px;
+  border-radius: 0 6px 6px 6px;
   border: 1px solid var(--gray-lighter);
   padding: var(--spacing);
   margin: 0;
@@ -466,6 +506,7 @@ main {
 }
 
 article.panel {
+  min-height: 45.8rem;
   background-color: var(--white-default);
   border-radius: 6px;
   padding: 2rem 3rem;
@@ -481,7 +522,7 @@ article.panel:last-child {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 4.5rem;
+  width: var(--drop-btn-width);
 }
 
 .sidebar-nav .btn.active .drop-btn {
@@ -493,7 +534,6 @@ article.panel:last-child {
 }
 
 .sidebar-nav .btn .drop-btn > svg {
-  margin-inline-end: 1rem;
   transform: rotateZ(-90deg);
   transition: transform var(--hover-transition);
 }
@@ -519,8 +559,11 @@ article.panel:last-child {
 }
 
 .sidebar-nav .btn.small > a {
-  min-height: 3.7rem;
-  padding-inline: 1rem 1.5rem;
+  min-height: 0;
+  padding: 1rem;
 
+  line-height: 1.68rem;
   font-size: 1.4rem;
+  font-weight: bold;
+  white-space: normal;
 }

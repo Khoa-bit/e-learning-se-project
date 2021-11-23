@@ -62,8 +62,11 @@
               Assignment
             </a>
           </li>
-          <li><a class="tab {% block class-staff-contacts-active %}{% endblock %}"
-                 href="#">Staff contacts</a>
+          <li>
+            <a class="tab {% block class-staff-contacts-active %}{% endblock %}"
+                 href="{% if user.user_type == 'Student' %}{% url 'staff-contact-page' student_class.id %}
+                       {% elif user.user_type == 'Lecturer' %}{% url 'staff-contact-page' lecturer_class.id %}
+                       {% endif %}">Staff contact</a>
           </li>
         </ul>
       {% endblock tabs_navbar %}

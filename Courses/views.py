@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import *
-from User.models import Student
+from User.models import Student, Lecturer
 from Classwork.models import *
 from Courses import forms
 from User.views import CheckValidUser
+from datetime import datetime
 
 
 @CheckValidUser
@@ -171,10 +172,22 @@ def ClassRegistration(request, id):
         selected_classes = request.POST.getlist('selection')
         for i in selected_classes:
             student.class_id.add(i)
-        return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
+        return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
     else:
         form = forms.ClassRegistrationForm()
-    context = {'form': form, 'classes': classes}
+    context = {'form': form, 'classes': classes, 'student': student}
     return render(request, 'User/class-registration.html', context)
 
 
+def EditClassRegistration(request, id):
+    selected_classes = Class.objects.all()
+    deadline = datetime(2021, 12, 31, 19, 59, 00)
+    now = datetime.now()
+    student = Student.objects.get(id=id)
+    context = {'selected_classes': selected_classes, 'deadline': deadline, 'now': now, 'student': student}
+    return render(request, 'User/edit-class-registration.html', context)
+
+
+def StaffContact(request, class_id):
+    lecturer = Class.objects.get(id=class_id).lecturer.user_id
+    return render(request, 'User/user-about.html', {"userObj": lecturer})

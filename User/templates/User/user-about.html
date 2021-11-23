@@ -22,32 +22,47 @@
                         <table>
                             <tr>
                                 <th>NAME</th>
-                                <td>{{ user.full_name|upper }}</td>
+                                <td>{{ userObj.full_name|upper }}</td>
                             </tr>
                             <tr>
                                 <th>ROLE</th>
-                                <td>{{ user.user_type }}</td>
+                                <td>{{ userObj.user_type }}</td>
                             </tr>
+                            {% if userObj.user_type == 'Student' %}
                             <tr>
                                 <th>MAJOR</th>
-                                <td>{{ student.major_id.name }}</td>
-                            </tr>
-                            <tr>
-                                <th>DEPARTMENT</th>
-                                <td>N/A</td>
-                            </tr>
-                            <tr>
-                                <th>EMAIL ADDRESS</th>
-                                <td>{{ user.email|urlize }}</td>
+                                <td>{{ userObj.student.major_id.name }}</td>
                             </tr>
                             <tr>
                                 <th>DATE OF BIRTH</th>
                                 <td>N/A</td>
                             </tr>
+                            {% else %}
+                            {% endif %}
+                            {% if userObj.user_type == 'Lecturer' %}
+                            <tr>
+                                <th>DEPARTMENT</th>
+                                <td>N/A</td>
+                            </tr>
+                            <tr>
+                                <th>PHONE NUMBER</th>
+                                <td>{{ userObj.phone_number }}</td>
+                            </tr>
+                            {% else %}
+                            {% endif %}
+                            <tr>
+                                <th>EMAIL ADDRESS</th>
+                                <td>{{ userObj.email|urlize }}</td>
+                            </tr>
                         </table>
+
+                        {% if userObj == user %}
                         <footer class="change-password">
-                            <a class="change-password-btn" href="{% url 'student-change-password' user.student.id %}">Change Password</a>
+                            <a class="change-password-btn" href="{% if userObj.user_type == 'Lecturer' %}{% url 'lecturer-change-password' userObj.id %}
+                                                                 {% elif userObj.user_type == 'Student' %}{% url 'student-change-password' userObj.id %}
+                                                                 {% endif %}">Change Password</a>
                         </footer>
+                        {% endif %}
                     </section>
                 </div>
             </section>

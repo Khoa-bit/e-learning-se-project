@@ -36,5 +36,5 @@ class StudentAnswer(models.Model):
   student_test = models.ForeignKey(StudentTest,on_delete=CASCADE)
   question = models.ForeignKey(Question,on_delete=CASCADE)
   written_ans = models.TextField(blank=True,null=True)
-  choice_ans = models.ForeignKey(MultipleChoiceOption,blank=True,null=True,on_delete=CASCADE)
+  choice_ans = models.ManyToManyField(MultipleChoiceOption,blank=True)
 
