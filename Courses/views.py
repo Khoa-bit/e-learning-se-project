@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -7,6 +8,10 @@ from Classwork.models import *
 from Courses import forms
 from User.views import CheckValidUser
 from datetime import datetime
+from django.conf import settings
+from django.http import HttpResponse, Http404
+from django.views.static import serve
+
 
 
 @CheckValidUser
@@ -187,6 +192,19 @@ def UploadClassContent(request, id, class_id):
 
 
 @CheckValidUser
+def Download(request, path):
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/pdf")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            print(response)
+            return response
+    raise Http404
+
+
+
+@CheckValidUser
 def ClassRegistration(request, id):
     classes = Class.objects.all()
     student = Student.objects.get(id=id)
@@ -202,6 +220,7 @@ def ClassRegistration(request, id):
     return render(request, 'User/class-registration.html', context)
 
 
+@CheckValidUser
 def EditClassRegistration(request, id):
     selected_classes = Class.objects.all()
     deadline = datetime(2021, 12, 31, 19, 59, 00)
@@ -211,6 +230,7 @@ def EditClassRegistration(request, id):
     return render(request, 'User/edit-class-registration.html', context)
 
 
+@CheckValidUser
 def StaffContact(request, class_id):
     lecturer = Class.objects.get(id=class_id).lecturer.user_id
     return render(request, 'User/user-about.html', {"userObj": lecturer, "page_title": "Staff Contact"})

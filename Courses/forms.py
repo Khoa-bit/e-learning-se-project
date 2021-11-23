@@ -32,3 +32,7 @@ class ClassRegistrationForm(forms.Form):
         CLASS_CHOICES.append((i.id, i))
     selection = forms.MultipleChoiceField(choices=CLASS_CHOICES, widget=forms.CheckboxSelectMultiple)
 
+
+
+
+

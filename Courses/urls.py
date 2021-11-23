@@ -1,6 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+from django.conf.urls import url
+from django.views.static import serve
 
 urlpatterns = [
     path('student/<int:id>/class/<int:class_id>/announcement', views.StudentClassAnnouncement, name='student-class-announcement-page'),
@@ -22,4 +26,10 @@ urlpatterns = [
     path('lecturer/<int:id>/class/<int:class_id>/upload-class-announcement/', views.UploadClassAnnouncement, name='upload-class-announcement-page'),
     path('lecturer/<int:id>/class/<int:class_id>/upload-class-content/', views.UploadClassContent, name='upload-class-content-page'),
     path('class/<int:class_id>/staff-contact/', views.StaffContact, name='staff-contact-page'),
+    #path('download/<int:id>', views.Download, name='download-file')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_URL)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL)
+

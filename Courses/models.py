@@ -79,8 +79,8 @@ class ClassContent(models.Model):
     title = models.CharField(max_length=255)
     time_created = models.DateTimeField(auto_now_add=True)
     time_modified = models.DateTimeField(auto_now=True)
-    attached_file = models.FileField(upload_to=class_content_location, blank=True)
-    content = models.TextField()
+    attached_file = models.FileField(upload_to='media', blank=True)
+    content = models.TextField(blank=True)
 
     class Meta:
         ordering = ["time_created", "time_modified"]
