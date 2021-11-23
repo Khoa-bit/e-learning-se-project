@@ -80,8 +80,9 @@ input[type = text], input[type = password]{
 }
 
 .forgotpass{
-    position: static;
     text-align: right;
+    font-weight: bold;
+    color: var(--iu-primary-default);
 }
 
 .loginbutton {

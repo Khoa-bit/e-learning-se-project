@@ -23,8 +23,7 @@
     <form method="post">
       {% csrf_token %}
       <div>{{ form.as_p }}</div>
-      <div class="forgotusernorpass"><a href="{% url 'forgot-password' %}"><i><u>Forgot username or
-        password?</u></i></a>
+      <div class="forgotpass"><a href="{% url 'forgot-password' %}">Forgot password?</a>
       </div>
       <input class="loginbutton" type="submit" value="Login" name="login"/>
     </form>
