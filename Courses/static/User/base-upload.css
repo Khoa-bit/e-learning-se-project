@@ -38,6 +38,7 @@
   border-radius: 6px;
 
   background-color: var(--white-default);
+  font-family: var(--body-font-family);
   font-size: 18px;
 }
 
