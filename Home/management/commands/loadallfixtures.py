@@ -20,6 +20,7 @@ class Command(BaseCommand):
             'student_data.json',
             'class_announcement_data.json',
             'general_announcement_data.json',
+            'class_content_data.json',
         ]
 
         management.call_command('makemigrations')

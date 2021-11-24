@@ -34,7 +34,10 @@
   {% for class_announcement in class_announcements %}
     <article>
       <div class="heading">
-        <h3>{{ class_announcement.obj.title }}</h3>
+        <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id announcement.class_id.id announcement.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id announcement.class_id.id announcement.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                          {% endif %}"><h3>{{ class_announcement.obj.title }}</h3></a>
         <footer>
           <div class="new-tag" {% if class_announcement.is_new == False %}style="visibility: hidden"{% endif %}>
             NEW

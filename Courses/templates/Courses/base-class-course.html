@@ -64,10 +64,15 @@
           </li>
           <li>
             <a class="tab {% block class-staff-contacts-active %}{% endblock %}"
-                 href="{% if user.user_type == 'Student' %}{% url 'staff-contact-page' student_class.id %}
-                       {% elif user.user_type == 'Lecturer' %}{% url 'staff-contact-page' lecturer_class.id %}
+                 href="{% if user.user_type == 'Student' %}{% url 'student-staff-contact-page' user.student.id student_class.id %}
+                       {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-staff-contact-page' user.lecturer.id lecturer_class.id %}
                        {% endif %}">Staff contact</a>
           </li>
+          {% if user.user_type == 'Lecturer' %}
+            <li>
+              <a class="tab " href="{% url 'lecturer-class-view-student-list' user.lecturer.id lecturer_class.id %}">Student List</a>
+            </li>
+          {% endif %}
         </ul>
       {% endblock tabs_navbar %}
     </header>

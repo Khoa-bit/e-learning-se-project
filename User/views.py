@@ -140,17 +140,6 @@ def LecturerClassAnnouncementViewAll(request, id):
                   {"classes_announcements": fetch_classes_announcements(lecturer)})
 
 
-@CheckValidUser
-def StudentClassAnnouncementPage(request, id, class_id, class_announcement_id):
-    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
-    return render(request, "User/user-class-announcement-page.html", {"announcement": announcement})
-
-
-@CheckValidUser
-def LecturerClassAnnouncementPage(request, id, class_id, class_announcement_id):
-    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
-    return render(request, "User/user-class-announcement-page.html", {"announcement": announcement})
-
 
 @CheckValidUser
 def StudentGeneralAnnouncementPage(request, id, announcement_id):
@@ -172,7 +161,7 @@ def ForgotPasswordView(request):
             if User.objects.filter(email=data["email"]):
                 user = User.objects.get(email=data['email'])
                 if user.first_name == data['first_name']:
-                    user.set_password(data["password"])
+                    user.set_password(data["new_password"])
                     user.save()
                     messages.success(request, 'Form submission successful')
     else:
