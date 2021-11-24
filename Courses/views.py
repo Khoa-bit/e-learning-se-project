@@ -8,7 +8,7 @@ from Classwork.models import *
 from Courses import forms
 from User.views import CheckValidUser
 from datetime import datetime
-from django.conf import settings
+from django.conf import Settings, settings
 from django.http import HttpResponse, Http404
 from django.views.static import serve
 
@@ -115,7 +115,7 @@ def LecturerClassContent(request, id, class_id):
 @CheckValidUser
 def StudentClassContentViewPage(request, id, class_id, content_id):
     content_post = ClassContent.objects.get(id=content_id)
-    return render(request, "Courses/class-content-viewpage.html", {"content_post": content_post})
+    return render(request, "Courses/class-content-viewpage.html", {"content_post": content_post,"id":id,"class_id":class_id})
 
 
 @CheckValidUser
@@ -191,9 +191,11 @@ def UploadClassContent(request, id, class_id):
     return render(request, 'User/upload-content.html', context)
 
 
-@CheckValidUser
-def Download(request, path):
-    file_path = os.path.join(settings.MEDIA_ROOT, path)
+def Download(request, id, class_id, content_id):
+    content = ClassContent.objects.get(id=content_id)
+    path = content.attached_file.url
+    #file_path = os.path.join(settings.MEDIA_ROOT, "/media/",content.attached_file.name)
+    file_path = str(settings.BASE_DIR).replace("\\","/")+path
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/pdf")
@@ -201,7 +203,6 @@ def Download(request, path):
             print(response)
             return response
     raise Http404
-
 
 
 @CheckValidUser

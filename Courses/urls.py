@@ -19,6 +19,7 @@ urlpatterns = [
     path('lecturer/<int:id>/class/<int:class_id>/announcement/<int:class_announcement_id>', views.LecturerClassAnnouncementViewPage, name="lecturer-class-announcement-viewpage"),
     path('lecturer/<int:id>/class/<int:class_id>/content', views.LecturerClassContent, name='lecturer-class-content-page'),
     path('student/<int:id>/class/<int:class_id>/content/<int:content_id>', views.LecturerClassContentViewPage, name='lecturer-class-content-view-page'),
+     path('student/<int:id>/class/<int:class_id>/content/<int:content_id>/download/', views.Download, name='download-content'),
     path('lecturer/<int:id>/class/<int:class_id>/classwork/',include('Classwork.urls')),
     path('student/<int:id>/class/<int:class_id>/classwork/',include('Classwork.urls')),
     path('lecturer/<int:id>/class/<int:class_id>/grade', views.LecturerClassGrade, name='lecturer-class-grade-page'),
