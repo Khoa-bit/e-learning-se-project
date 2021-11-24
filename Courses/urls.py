@@ -11,6 +11,7 @@ urlpatterns = [
     path('student/<int:id>/class/<int:class_id>/announcement/<int:class_announcement_id>', views.StudentClassAnnouncementViewPage, name="student-class-announcement-viewpage"),
     path('student/<int:id>/class/<int:class_id>/content', views.StudentClassContent, name='student-class-content-page'),
     path('student/<int:id>/class/<int:class_id>/content/<int:content_id>', views.StudentClassContentViewPage, name='student-class-content-view-page'),
+    path('student<int:id>/class/<int:class_id>/content/<int:content_id>/download/', views.Download, name='student-download-content'),
     path('student/<int:id>/class/<int:class_id>/grade', views.StudentClassGrade, name='student-class-grade-page'),
     path('student/<int:id>/class/<int:class_id>/assignment', views.StudentClassAssignment, name='student-class-assignment-page'),
     path('student/<int:id>/registration', views.ClassRegistration, name='student-class-registration-page'),
@@ -19,7 +20,7 @@ urlpatterns = [
     path('lecturer/<int:id>/class/<int:class_id>/announcement/<int:class_announcement_id>', views.LecturerClassAnnouncementViewPage, name="lecturer-class-announcement-viewpage"),
     path('lecturer/<int:id>/class/<int:class_id>/content', views.LecturerClassContent, name='lecturer-class-content-page'),
     path('student/<int:id>/class/<int:class_id>/content/<int:content_id>', views.LecturerClassContentViewPage, name='lecturer-class-content-view-page'),
-     path('student/<int:id>/class/<int:class_id>/content/<int:content_id>/download/', views.Download, name='download-content'),
+    path('lecturer<int:id>/class/<int:class_id>/content/<int:content_id>/download/', views.Download, name='lecturer-download-content'),
     path('lecturer/<int:id>/class/<int:class_id>/classwork/',include('Classwork.urls')),
     path('student/<int:id>/class/<int:class_id>/classwork/',include('Classwork.urls')),
     path('lecturer/<int:id>/class/<int:class_id>/grade', views.LecturerClassGrade, name='lecturer-class-grade-page'),
@@ -27,6 +28,7 @@ urlpatterns = [
     path('lecturer/<int:id>/class/<int:class_id>/upload-class-announcement/', views.UploadClassAnnouncement, name='upload-class-announcement-page'),
     path('lecturer/<int:id>/class/<int:class_id>/upload-class-content/', views.UploadClassContent, name='upload-class-content-page'),
     path('class/<int:class_id>/staff-contact/', views.StaffContact, name='staff-contact-page'),
+
     #path('download/<int:id>', views.Download, name='download-file')
 ]
 
