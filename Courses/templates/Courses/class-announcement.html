@@ -31,15 +31,20 @@
     </a>
   {% endif %}
 
-  {% for announcement in announcements %}
+  {% for class_announcement in class_announcements %}
     <article>
       <div class="heading">
-        <h3>{{ announcement.title }}</h3>
+        <h3>{{ class_announcement.obj.title }}</h3>
         <footer>
-          <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
+          <div class="new-tag" {% if class_announcement.is_new == False %}style="visibility: hidden"{% endif %}>
+            NEW
+          </div>
+          <time datetime="{{ class_announcement.obj.time_created | date:"c" }}">
+            {{ class_announcement.obj.time_created | date:"D, d M Y" }}<br>{{ class_announcement.obj.time_created | date:"g:i A" }}
+          </time>
         </footer>
       </div>
-      <p>{{ announcement.content | linebreaks }}</p>
+      <p>{{ class_announcement.obj.content | linebreaks }}</p>
     </article>
   {% endfor %}
 {% endblock %}

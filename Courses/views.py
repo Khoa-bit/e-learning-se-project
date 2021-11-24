@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.utils import timezone
+
 from .models import *
 from User.models import Student, Lecturer
 from Classwork.models import *
@@ -57,22 +59,30 @@ def ActiveLecturerClasses(request, id):
     return render(request, "Courses/active-classes.html", context)
 
 
+def fetch_class_announcements(class_id):
+    class_announcements = []
+    for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
+        is_new = timezone.now() - announcement.time_created < timezone.timedelta(weeks=1)
+        class_announcements.append({"obj": announcement, "is_new": is_new})
+    return class_announcements
+
+
 @CheckValidUser
 def LecturerClassAnnouncement(request, id, class_id):
-    user = Lecturer.objects.get(id=id)
-    if (class_id not in user.class_set.all().values_list('id', flat=True)):
+    lecturer = Lecturer.objects.get(id=id)
+    if (class_id not in lecturer.class_set.all().values_list('id', flat=True)):
         return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[id]))
-    announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
+    class_announcements = fetch_class_announcements(class_id)
     lecturer_class = Class.objects.get(id=class_id)
-    content = {'lecturer_class': lecturer_class, 'announcements': announcements}
+    content = {'lecturer_class': lecturer_class, 'class_announcements': class_announcements}
     return render(request, "Courses/class-announcement.html", content)
 
 
 @CheckValidUser
 def StudentClassAnnouncement(request, id, class_id):
-    announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
+    class_announcements = fetch_class_announcements(class_id)
     student_class = Class.objects.get(id=class_id)
-    content = {'student_class': student_class, 'announcements': announcements}
+    content = {'student_class': student_class, 'class_announcements': class_announcements}
     return render(request, "Courses/class-announcement.html", content)
 
 
