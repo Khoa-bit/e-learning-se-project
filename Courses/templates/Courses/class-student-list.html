@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+
+<head>
+  <title>{{ class }} Student List</title>
+</head>
+
+<body>
+  {% for i in student_list %}
+    <h2>{{ i.id }} - {{ i.user_id.full_name }} - {{ i.user_id.email }}</h2>
+  {% endfor %}
+</body>

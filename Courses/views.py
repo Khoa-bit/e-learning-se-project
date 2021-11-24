@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
@@ -7,6 +8,10 @@ from Classwork.models import *
 from Courses import forms
 from User.views import CheckValidUser
 from datetime import datetime
+from django.conf import Settings, settings
+from django.http import HttpResponse, Http404
+from django.views.static import serve
+
 
 
 @CheckValidUser
@@ -77,6 +82,18 @@ def StudentClassAnnouncement(request, id, class_id):
 
 
 @CheckValidUser
+def StudentClassAnnouncementViewPage(request, id, class_id, class_announcement_id):
+    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
+    return render(request, "Courses/class-announcement-viewpage.html", {"announcement": announcement})
+
+
+@CheckValidUser
+def LecturerClassAnnouncementViewPage(request, id, class_id, class_announcement_id):
+    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
+    return render(request, "Courses/class-announcement-viewpage.html", {"announcement": announcement})
+
+
+@CheckValidUser
 def StudentClassContent(request, id, class_id):
     content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
     student_class = Class.objects.get(id=class_id)
@@ -93,6 +110,18 @@ def LecturerClassContent(request, id, class_id):
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class, 'content_posts': content_posts}
     return render(request, "Courses/class-content.html", content)
+
+
+@CheckValidUser
+def StudentClassContentViewPage(request, id, class_id, content_id):
+    content_post = ClassContent.objects.get(id=content_id)
+    return render(request, "Courses/class-content-viewpage.html", {"content_post": content_post, "id": id, "class_id": class_id})
+
+
+@CheckValidUser
+def LecturerClassContentViewPage(request, id, class_id, content_id):
+    content_post = ClassContent.objects.get(id=content_id)
+    return render(request, "Courses/class-content-viewpage.html", {"content_post": content_post, "id": id, "class_id": class_id})
 
 
 @CheckValidUser
@@ -164,6 +193,20 @@ def UploadClassContent(request, id, class_id):
 
 
 @CheckValidUser
+def Download(request, id, class_id, content_id):
+    content = ClassContent.objects.get(id=content_id)
+    path = content.attached_file.url
+    file_path = str(settings.BASE_DIR).replace("\\","/")+path
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/pdf")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
+
+
+
+@CheckValidUser
 def ClassRegistration(request, id):
     classes = Class.objects.all()
     student = Student.objects.get(id=id)
@@ -179,6 +222,7 @@ def ClassRegistration(request, id):
     return render(request, 'User/class-registration.html', context)
 
 
+@CheckValidUser
 def EditClassRegistration(request, id):
     selected_classes = Class.objects.all()
     deadline = datetime(2021, 12, 31, 19, 59, 00)
@@ -188,6 +232,21 @@ def EditClassRegistration(request, id):
     return render(request, 'User/edit-class-registration.html', context)
 
 
-def StaffContact(request, class_id):
+@CheckValidUser
+def StaffContact(request, id, class_id):
     lecturer = Class.objects.get(id=class_id).lecturer.user_id
     return render(request, 'User/user-about.html', {"userObj": lecturer, "page_title": "Staff Contact"})
+
+
+@CheckValidUser
+def ViewStudentList(request, id, class_id):
+    lecturer_class = Class.objects.get(id=class_id)
+    '''
+        for i in lecturer_class.student.values_list:
+        student_list.append(i)
+    '''
+    student_list = lecturer_class.student_set.all()
+    return render(request, 'Courses/class-student-list.html', {"student_list": student_list, "class": lecturer_class})
+
+
+
