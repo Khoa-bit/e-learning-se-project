@@ -158,7 +158,7 @@ def ForgotPasswordView(request):
             if User.objects.filter(email=data["email"]):
                 user = User.objects.get(email=data['email'])
                 if user.first_name == data['first_name']:
-                    user.set_password(data["password"])
+                    user.set_password(data["new_password"])
                     user.save()
                     messages.success(request, 'Form submission successful')
     else:
