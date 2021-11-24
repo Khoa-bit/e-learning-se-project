@@ -1,0 +1,28 @@
+/* Course Content Tab */
+.panel > article .heading {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.panel > article .heading .icon {
+  width: 3rem;
+  height: min-content;
+  margin-inline-end: 1rem;
+}
+
+.panel > article .heading h3 {
+  margin-top: 0.3rem;
+  color: var(--black-default);
+  font-weight: bold;
+  font-size: 2.2rem;
+  line-height: 2.6rem;
+}
+
+.panel > article .heading footer {
+  display: flex;
+  gap: 2rem;
+  margin-inline-start: auto;
+  text-align: right;
+  color: var(--gray-default);
+}

@@ -4,7 +4,9 @@ from django.urls import path,include
 urlpatterns = [
     path('', views.GuestAnnouncement, name="guest-announcement-page"),
     path('user/', include("User.urls")),
-    path('about/', views.AboutView, name="about-page"),
-    path('index/', views.IndexView, name="index-page"),
-    path('announcement/<int:id>', views.GuestAnnouncementPage, name='guest-announcement-viewpage')
+    path('announcement/<int:id>', views.GuestAnnouncementPage, name='guest-announcement-viewpage'),
+    path('about/', views.About, name='about'),
+    path('contact-us/', views.Contact, name='contact'),
+    path('announcement/all/', views.GuestAnnouncementAll, name='guest-announcement-all'),
+    path('announcement/search/', views.GuestAnnouncementSearch, name='guest-announcement-search'),
 ]

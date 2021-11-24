@@ -1,0 +1,23 @@
+<DOCTYPE! html>
+
+<html>
+<head>
+    <a href="{% url 'student-announcement-page' student.id %}">Return to home page</a>
+    <title>Class Registration - Selected Classes</title>
+    <h1>Selected classes</h1>
+    <h2>Edit before {{ deadline }}</h2>
+</head>
+<body>
+    {% for i in selected_classes %}
+        <p>{{ i }}</p>
+    {% endfor %}
+</body>
+<form>
+    {% if deadline == now %}
+    {% else %}
+        <button><a href="{% url 'student-class-registration-page' student.id %}">Edit</a></button>
+    {% endif %}
+</form>
+</html>
+
+

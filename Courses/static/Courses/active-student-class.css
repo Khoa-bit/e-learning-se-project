@@ -2,13 +2,13 @@
 
 article.panel h2 {
   grid-column-end: span 1;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 1.8rem;
   line-height: 2.1rem;
-  color: var(--gray-default);
+  color: var(--gray-dark);
   text-align: unset;
 
-  padding-bottom: 2rem;
+  padding-bottom: 1.5rem;
   margin-bottom: 2rem;
   border-bottom: 1px solid var(--gray-light);
 }
@@ -20,7 +20,6 @@ article.panel .courses-grid {
 }
 
 article.panel .card {
-  --hover-transition: 0.25s ease-out;
   --spacing: 1rem;
 
   position: relative;
@@ -85,16 +84,16 @@ article.panel .card h3 {
 article.panel .card {
   opacity: 0;
   animation: riseUpAnimation 8s ease forwards;
-  animation-delay: calc(var(--order) * 200ms);
+  animation-delay: calc(var(--order) * 100ms);
 }
 
 @keyframes riseUpAnimation {
-  20% {
+  10% {
     opacity: 0;
     transform: translateY(20%);
   }
 
-  30%, 100% {
+  20%, 100% {
     opacity: 1;
     transform: translateY(0);
   }

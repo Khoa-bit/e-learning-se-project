@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    <title>User Announcements</title>
+    <title>General Announcements</title>
 {% endblock title %}
 
 {% block stylesheets %}
@@ -14,71 +14,56 @@
 {% block main-content %}
     <article class="panel announcement general-information">
         <h2>General Information</h2>
-        <article style="--order: 1">
-            <a class="heading" href="#"><h3>THÔNG BÁO VỀ KHẢO SÁT SINH VIÊN TỐT NGHIỆP_HỌC KỲ 1 NĂM HỌC 2020-2021</h3>
+        {% for general_announcement in general_announcements %}
+        <article style="--order: {{ forloop.counter }}">
+            <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-general-announcement-page' user.student.id general_announcement.obj.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-general-announcement-page' user.lecturer.id general_announcement.obj.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-viewpage' general_announcement.obj.id %}
+                                          {% endif %}"><h3>{{ general_announcement.obj.title }}</h3>
             </a>
             <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
+                <div class="new-tag" {% if general_announcement.is_new == False %}style="visibility: hidden"{% endif %}>NEW</div>
+                <time datetime="{{ general_announcement.obj.time_modified | date:"c" }}">{{ general_announcement.obj.time_modified | date:"d/m/Y" }}</time>
             </footer>
         </article>
-        <article style="--order: 2">
-            <a class="heading" href="#"><h3>THÔNG BÁO VỀ VIỆC TỔ CHỨC DẠY VÀ HỌC TRỰC TUYẾN MÔN GIÁO DỤC THỂ CHẤT CỦA
-                HỌC KỲ 2, NĂM HỌC
-                2020-2021</h3></a>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
-        <article style="--order: 3">
-            <a class="heading" href="#"><h3>ACADEMIC CALENDAR 2021 - 2022</h3></a>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
-        <article style="--order: 4">
-            <a class="heading" href="#"><h3>THÔNG BÁO VỀ VIỆC ĐIỀU CHỈNH ĐĂNG KÝ MÔN HỌC HỌC KỲ 1, NĂM HỌC 2021 – 2022 /
-                ANNOUNCEMENT: ABOUT
-                SCHEDULE ADJUSTMENT IN 1ST SEMESTER, ACADEMIC YEAR 2021 - 2022</h3></a>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
+        {% endfor %}
         <footer>
-            <a class="view-all-btn" href="#">View All</a>
+
+            <a class="view-all-btn" href="{% if user.user_type == 'Student' %}{% url 'student-general-announcement-all' user.student.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-general-announcement-all' user.lecturer.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-all' %}
+                                          {% endif %}">View All</a>
         </footer>
     </article>
 
+    {% if user.is_authenticated %}
     <article class="panel announcement courses-announcements">
-        <h2>Courses Announcements</h2>
-        <article style="--order: 1">
-            <div class="heading">
-                <a href="#"><p>Software Engineering_S1_2021-22_G02</p></a>
-                <a href="#"><h3>How to write a project proposal?</h3></a>
-            </div>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
-        <article style="--order: 2">
-            <div class="heading">
-                <a href="#"><p>Software Engineering_S1_2021-22_G02</p></a>
-                <a href="#"><h3>How to write a project proposal?</h3></a>
-            </div>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
-        <article style="--order: 3">
-            <div class="heading">
-                <a href="#"><p>Software Engineering_S1_2021-22_G02</p></a>
-                <a href="#"><h3>How to write a project proposal?</h3></a>
-            </div>
-            <footer>
-                <time datetime="2021-05-16 19:00">16/05/2021</time>
-            </footer>
-        </article>
-        <footer>
-            <a class="view-all-btn" href="#">View All</a>
+        <h2>Class Announcements</h2>
+        {% for class_announcement in classes_announcements %}
+            <article style="--order: {{ forloop.counter }}">
+                <div class="heading">
+                    <a href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-page' user.student.id class_announcement.obj.class_id.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-page' user.lecturer.id class_announcement.obj.class_id.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                          {% endif %}"><p>{{ class_announcement.obj.class_id }}</p></a>
+                    <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id class_announcement.obj.class_id.id class_announcement.obj.id %}
+                                              {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id class_announcement.obj.class_id.id class_announcement.obj.id %}
+                                              {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                              {% endif %}"><h3>{{ class_announcement.obj.title }}</h3></a>
+                </div>
+                <footer>
+                    <div class="new-tag" {% if class_announcement.is_new == False %}style="visibility: hidden"{% endif %}>NEW</div>
+                    <time datetime="{{ class_announcement.obj.time_modified | date:"c" }}">{{ class_announcement.obj.time_modified | date:"d/m/Y" }}</time>
+                </footer>
+            </article>
+        {% endfor %}
+       <footer>
+            <a class="view-all-btn" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-all' user.student.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-all' user.lecturer.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                          {% endif %}">View All</a>
         </footer>
     </article>
+    {% endif %}
+
 {% endblock %}

@@ -1,15 +1,32 @@
-{%extends 'User/base.html'%}
+{% extends 'Courses/base-class-course.html' %}
+{% load static %}
 
 {% block title %}
-<title>Upload announcement</title>
+  <title>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} Upload announcement</title>
 {% endblock title %}
 
-{%block body%}
-  <h1>Post new announcement</h1>
-  <p> </p>
-  <form action="." method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="Submit" value="Save" />
-  </form>
-{%endblock%}
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'User/base-upload.css' %}">
+  <link rel="stylesheet" href="{% static 'User/upload-announcement.css' %}">
+{% endblock %}
+
+{% block tabs_navbar %}{% endblock tabs_navbar %}
+
+{% block panel-content %}
+  <article>
+    <div class="heading">
+      <h3 class="title">New Announcement</h3>
+    </div>
+    <form action="." method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="btn-container">
+        <a class="btn cancel" href="{% url 'lecturer-class-announcement-page' lecturer.id lecturer_class.id %}">
+          Cancel
+        </a>
+        <input class="btn post" type="Submit" value="Post"/>
+      </div>
+    </form>
+  </article>
+{% endblock %}

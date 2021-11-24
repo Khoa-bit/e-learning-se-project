@@ -6,6 +6,7 @@ To sync database when you clone the project onto your remote, follow this steps:
 1. Run the command python manage.py flush and choose y.
 
 2. Run the command python manage.py loaddata (file_name) for all these files in the order given below (can be run in one command line):
+general_announcement_data.json
 
 user_data.json 
 
@@ -20,6 +21,8 @@ course_data.json
 class_data.json 
 
 student_data.json
+
+class_announcement_data.json
 
 ------------------------
 After this step is finished, run this command python manage.py runserver.
