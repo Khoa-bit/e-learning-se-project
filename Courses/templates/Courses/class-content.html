@@ -35,13 +35,18 @@
     <article>
       <div class="heading">
         <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
-        <h3>{{ content_post.title }}</h3>
+        <h3>{{ content_post.obj.title }}</h3>
         <footer>
-          <time>{{ content_post.time_created.date }}<br>{{ content_post.time_created.time | time:"g:iA" }}</time>
+          <div class="new-tag" {% if content_post.is_new == False %}style="visibility: hidden"{% endif %}>
+            NEW
+          </div>
+          <time datetime="{{ content_post.obj.time_created | date:"c" }}">
+            {{ content_post.obj.time_created | date:"D, d M Y" }}<br>{{ content_post.obj.time_created | date:"g:i A" }}
+          </time>
         </footer>
       </div>
-      <p>Attached Files: {{ content_post.attached_file.name }}</p>
-      <p>{{ content_post.content | linebreaks }}</p>
+      <p>Attached Files: {{ content_post.obj.attached_file.name }}</p>
+      <p>{{ content_post.obj.content | linebreaks }}</p>
     </article>
   {% endfor %}
 {% endblock %}
