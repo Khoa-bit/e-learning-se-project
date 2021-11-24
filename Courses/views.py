@@ -240,13 +240,19 @@ def StaffContact(request, id, class_id):
 
 @CheckValidUser
 def ViewStudentList(request, id, class_id):
+    lecturer = Lecturer.objects.get(id=id)
     lecturer_class = Class.objects.get(id=class_id)
-    '''
-        for i in lecturer_class.student.values_list:
-        student_list.append(i)
-    '''
     student_list = lecturer_class.student_set.all()
-    return render(request, 'Courses/class-student-list.html', {"student_list": student_list, "class": lecturer_class})
+    return render(request, 'Courses/class-student-list.html', {"student_list": student_list.order_by('user_id__first_name'), "class": lecturer_class, "lecturer": lecturer})
 
 
+@CheckValidUser
+def ViewStudentCoursePerformance(request, id, class_id, student_id):
+    student = Student.objects.get(id=student_id)
+    return render(request, 'Courses/view-student-course-performance.html', {"student": student})
 
+
+@CheckValidUser
+def ViewSelfCoursePerformance(request, id, class_id):
+    student = Student.objects.get(id=id)
+    return render(request, 'Courses/view-student-course-performance.html', {"student": student})

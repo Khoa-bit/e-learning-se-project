@@ -18,6 +18,7 @@ urlpatterns = [
     path('student/<int:id>/edit-registration', views.EditClassRegistration, name='edit-class-registration-page'),
     path('student/<int:id>/class/<int:class_id>/staff-contact/', views.StaffContact, name='student-staff-contact-page'),
     path('student/<int:id>/class/<int:class_id>/classwork/',include('Classwork.urls')),
+    path('student/<int:id>/class/<int:class_id>/performance', views.ViewSelfCoursePerformance, name='student-view-self-course-performance'),
     path('lecturer/<int:id>/class/<int:class_id>/announcement', views.LecturerClassAnnouncement, name='lecturer-class-announcement-page'),
     path('lecturer/<int:id>/class/<int:class_id>/announcement/<int:class_announcement_id>', views.LecturerClassAnnouncementViewPage, name="lecturer-class-announcement-viewpage"),
     path('lecturer/<int:id>/class/<int:class_id>/content', views.LecturerClassContent, name='lecturer-class-content-page'),
@@ -30,6 +31,7 @@ urlpatterns = [
     path('lecturer/<int:id>/class/<int:class_id>/upload-class-content/', views.UploadClassContent, name='upload-class-content-page'),
     path('lecturer/<int:id>/class/<int:class_id>/staff-contact/', views.StaffContact, name='lecturer-staff-contact-page'),
     path('lecturer/<int:id>/class/<int:class_id>/student-list/', views.ViewStudentList, name='lecturer-class-view-student-list'),
+    path('lecturer/<int:id>/class/<int:class_id>/student/<int:student_id>/performance', views.ViewStudentCoursePerformance, name='lecturer-view-student-course-performance'),
 ]
 
 if settings.DEBUG:

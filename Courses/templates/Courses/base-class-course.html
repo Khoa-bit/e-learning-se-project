@@ -72,6 +72,10 @@
             <li>
               <a class="tab " href="{% url 'lecturer-class-view-student-list' user.lecturer.id lecturer_class.id %}">Student List</a>
             </li>
+          {% elif user.user_type == 'Student' %}
+            <li>
+              <a class="tab " href="{% url 'student-view-self-course-performance' user.student.id student_class.id %}">Course Performance</a>
+            </li>
           {% endif %}
         </ul>
       {% endblock tabs_navbar %}
