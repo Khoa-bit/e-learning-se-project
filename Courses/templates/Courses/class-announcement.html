@@ -31,18 +31,23 @@
     </a>
   {% endif %}
 
-  {% for announcement in announcements %}
+  {% for class_announcement in class_announcements %}
     <article>
       <div class="heading">
         <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id announcement.class_id.id announcement.id %}
                                           {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id announcement.class_id.id announcement.id %}
                                           {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
-                                          {% endif %}"><h3>{{ announcement.title }}</h3></a>
+                                          {% endif %}"><h3>{{ class_announcement.obj.title }}</h3></a>
         <footer>
-          <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
+          <div class="new-tag" {% if class_announcement.is_new == False %}style="visibility: hidden"{% endif %}>
+            NEW
+          </div>
+          <time datetime="{{ class_announcement.obj.time_modified | date:"c" }}">
+            {{ class_announcement.obj.time_modified | date:"D, d M Y" }}<br>{{ class_announcement.obj.time_modified | date:"g:i A" }}
+          </time>
         </footer>
       </div>
-      <p>{{ announcement.content | linebreaks }}</p>
+      <p>{{ class_announcement.obj.content | linebreaks }}</p>
     </article>
   {% endfor %}
 {% endblock %}

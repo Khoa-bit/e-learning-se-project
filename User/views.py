@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.utils import timezone
 
 from .forms import *
 from .models import *
@@ -73,68 +74,70 @@ def StudentAboutView(request, id):
                   {"userObj": Student.objects.get(id=id).user_id, "page_title": "Personal Information"})
 
 
+def fetch_general_announcements():
+    general_announcements = []
+    for announcement in Announcement.objects.order_by('-time_modified'):
+        is_new = timezone.now() - announcement.time_modified < timezone.timedelta(weeks=1)
+        general_announcements.append({"obj": announcement, "is_new": is_new})
+    return general_announcements
+
+
+def fetch_classes_announcements(user):
+    classes_announcements = []
+
+    if type(user) is Student:
+        classes_queryset = user.class_id
+    elif type(user) is Lecturer:
+        classes_queryset = user.class_set
+    else:
+        return classes_announcements
+
+    for announcement in ClassAnnouncement.objects.filter(class_id__in=classes_queryset.all()).order_by("-time_modified"):
+        is_new = timezone.now() - announcement.time_modified < timezone.timedelta(weeks=1)
+        classes_announcements.append({"obj": announcement, "is_new": is_new})
+    return classes_announcements
+
+
 @CheckValidUser
 def StudentUserAnnouncement(request, id):
     student = Student.objects.get(id=id)
-    class_announcements = []
-    general_announcements = []
-    for i in Announcement.objects.all().order_by('-time_created'):
-        general_announcements.append(i)
-    for class_id in student.class_id.all():
-        for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
-            class_announcements.append(announcement)
     return render(request, "User/user-announcement.html",
-                  {"class_announcements": class_announcements[:3], "general_announcements": general_announcements[:3]})
+                  {"general_announcements": fetch_general_announcements()[:7],
+                   "classes_announcements": fetch_classes_announcements(student)[:7]})
 
 
 @CheckValidUser
 def LecturerUserAnnouncement(request, id):
     lecturer = Lecturer.objects.get(id=id)
-    class_announcements = []
-    general_announcements = []
-    for i in Announcement.objects.all().order_by('-time_created'):
-        general_announcements.append(i)
-    for class_id in lecturer.class_set.all():
-        for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
-            class_announcements.append(announcement)
     return render(request, "User/user-announcement.html",
-                  {"class_announcements": class_announcements, "general_announcements": general_announcements[:3]})
+                  {"general_announcements": fetch_general_announcements()[:7],
+                   "classes_announcements": fetch_classes_announcements(lecturer)[:7]})
 
 
 @CheckValidUser
 def StudentGeneralAnnouncementViewAll(request, id):
-    general_announcements = []
-    for i in Announcement.objects.all().order_by('-time_created'):
-        general_announcements.append(i)
-    return render(request, "User/user-general-announcement-view-all.html", {"general_announcements": general_announcements})
+    return render(request, "User/user-general-announcement-view-all.html",
+                  {"general_announcements": fetch_general_announcements()})
 
 
 @CheckValidUser
 def LecturerGeneralAnnouncementViewAll(request, id):
-    general_announcements = []
-    for i in Announcement.objects.all().order_by('-time_created'):
-        general_announcements.append(i)
-    return render(request, "User/user-general-announcement-view-all.html", {"general_announcements": general_announcements})
+    return render(request, "User/user-general-announcement-view-all.html",
+                  {"general_announcements": fetch_general_announcements()})
 
 
 @CheckValidUser
 def StudentClassAnnouncementViewAll(request, id):
     student = Student.objects.get(id=id)
-    class_announcements = []
-    for class_id in student.class_id.all():
-        for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
-            class_announcements.append(announcement)
-    return render(request, "User/user-class-announcement-view-all.html", {"class_announcements": class_announcements})
+    return render(request, "User/user-class-announcement-view-all.html",
+                  {"classes_announcements": fetch_classes_announcements(student)})
 
 
 @CheckValidUser
 def LecturerClassAnnouncementViewAll(request, id):
     lecturer = Lecturer.objects.get(id=id)
-    class_announcements = []
-    for class_id in lecturer.class_set.all():
-        for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
-            class_announcements.append(announcement)
-    return render(request, "User/user-class-announcement-view-all.html", {"class_announcements": class_announcements})
+    return render(request, "User/user-class-announcement-view-all.html",
+                  {"classes_announcements": fetch_classes_announcements(lecturer)})
 
 
 

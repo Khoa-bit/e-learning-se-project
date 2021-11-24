@@ -2,6 +2,8 @@ import os
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.utils import timezone
+
 from .models import *
 from User.models import Student, Lecturer
 from Classwork.models import *
@@ -62,23 +64,39 @@ def ActiveLecturerClasses(request, id):
     return render(request, "Courses/active-classes.html", context)
 
 
+def fetch_class_announcements(class_id):
+    class_announcements = []
+    for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_modified"):
+        is_new = timezone.now() - announcement.time_modified < timezone.timedelta(weeks=1)
+        class_announcements.append({"obj": announcement, "is_new": is_new})
+    return class_announcements
+
+
 @CheckValidUser
 def LecturerClassAnnouncement(request, id, class_id):
-    user = Lecturer.objects.get(id=id)
-    if (class_id not in user.class_set.all().values_list('id', flat=True)):
+    lecturer = Lecturer.objects.get(id=id)
+    if (class_id not in lecturer.class_set.all().values_list('id', flat=True)):
         return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[id]))
-    announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
+    class_announcements = fetch_class_announcements(class_id)
     lecturer_class = Class.objects.get(id=class_id)
-    content = {'lecturer_class': lecturer_class, 'announcements': announcements}
+    content = {'lecturer_class': lecturer_class, 'class_announcements': class_announcements}
     return render(request, "Courses/class-announcement.html", content)
 
 
 @CheckValidUser
 def StudentClassAnnouncement(request, id, class_id):
-    announcements = ClassAnnouncement.objects.filter(class_id=class_id).order_by('-time_created')
+    class_announcements = fetch_class_announcements(class_id)
     student_class = Class.objects.get(id=class_id)
-    content = {'student_class': student_class, 'announcements': announcements}
+    content = {'student_class': student_class, 'class_announcements': class_announcements}
     return render(request, "Courses/class-announcement.html", content)
+
+
+def fetch_class_content_posts(class_id):
+    class_content_posts = []
+    for content_post in ClassContent.objects.filter(class_id=class_id).order_by('-time_modified'):
+        is_new = timezone.now() - content_post.time_modified < timezone.timedelta(weeks=1)
+        class_content_posts.append({"obj": content_post, "is_new": is_new})
+    return class_content_posts
 
 
 @CheckValidUser
@@ -95,7 +113,7 @@ def LecturerClassAnnouncementViewPage(request, id, class_id, class_announcement_
 
 @CheckValidUser
 def StudentClassContent(request, id, class_id):
-    content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
+    content_posts = fetch_class_content_posts(class_id)
     student_class = Class.objects.get(id=class_id)
     content = {'student_class': student_class, 'content_posts': content_posts}
     return render(request, "Courses/class-content.html", content)
@@ -106,7 +124,7 @@ def LecturerClassContent(request, id, class_id):
     user = Lecturer.objects.get(id=id)
     if (class_id not in user.class_set.all().values_list('id', flat=True)):
         return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[id]))
-    content_posts = ClassContent.objects.filter(class_id=class_id).order_by('-time_created')
+    content_posts = fetch_class_content_posts(class_id)
     lecturer_class = Class.objects.get(id=class_id)
     content = {'lecturer_class': lecturer_class, 'content_posts': content_posts}
     return render(request, "Courses/class-content.html", content)
