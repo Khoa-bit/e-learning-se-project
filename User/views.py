@@ -92,8 +92,8 @@ def fetch_classes_announcements(user):
     else:
         return classes_announcements
 
-    for announcement in ClassAnnouncement.objects.filter(class_id__in=classes_queryset.all()).order_by("-time_created"):
-        is_new = timezone.now() - announcement.time_created < timezone.timedelta(weeks=1)
+    for announcement in ClassAnnouncement.objects.filter(class_id__in=classes_queryset.all()).order_by("-time_modified"):
+        is_new = timezone.now() - announcement.time_modified < timezone.timedelta(weeks=1)
         classes_announcements.append({"obj": announcement, "is_new": is_new})
     return classes_announcements
 
