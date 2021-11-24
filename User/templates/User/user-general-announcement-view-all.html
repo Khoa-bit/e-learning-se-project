@@ -27,7 +27,7 @@
                                           {% endif %}"><h3>{{ announcement.obj.title }}</h3>
                 </a>
                 <footer>
-                    <time>{{ announcement.obj.time_created.date }}<br>{{ announcement.obj.time_created.time | time:"g:iA" }}</time>
+                    <time>{{ announcement.obj.time_modified.date }}<br>{{ announcement.obj.time_modified.time | time:"g:iA" }}</time>
                 </footer>
             </article>
         {% endfor %}

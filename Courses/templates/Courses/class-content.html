@@ -43,8 +43,8 @@
           <div class="new-tag" {% if content_post.is_new == False %}style="visibility: hidden"{% endif %}>
             NEW
           </div>
-          <time datetime="{{ content_post.obj.time_created | date:"c" }}">
-            {{ content_post.obj.time_created | date:"D, d M Y" }}<br>{{ content_post.obj.time_created | date:"g:i A" }}
+          <time datetime="{{ content_post.obj.time_modified | date:"c" }}">
+            {{ content_post.obj.time_modified | date:"D, d M Y" }}<br>{{ content_post.obj.time_modified | date:"g:i A" }}
           </time>
         </footer>
       </div>

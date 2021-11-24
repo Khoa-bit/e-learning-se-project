@@ -42,8 +42,8 @@
           <div class="new-tag" {% if class_announcement.is_new == False %}style="visibility: hidden"{% endif %}>
             NEW
           </div>
-          <time datetime="{{ class_announcement.obj.time_created | date:"c" }}">
-            {{ class_announcement.obj.time_created | date:"D, d M Y" }}<br>{{ class_announcement.obj.time_created | date:"g:i A" }}
+          <time datetime="{{ class_announcement.obj.time_modified | date:"c" }}">
+            {{ class_announcement.obj.time_modified | date:"D, d M Y" }}<br>{{ class_announcement.obj.time_modified | date:"g:i A" }}
           </time>
         </footer>
       </div>

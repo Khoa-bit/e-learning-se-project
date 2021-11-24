@@ -23,7 +23,7 @@
             </a>
             <footer>
                 <div class="new-tag" {% if general_announcement.is_new == False %}style="visibility: hidden"{% endif %}>NEW</div>
-                <time datetime="{{ general_announcement.obj.time_created | date:"c" }}">{{ general_announcement.obj.time_created | date:"d/m/Y" }}</time>
+                <time datetime="{{ general_announcement.obj.time_modified | date:"c" }}">{{ general_announcement.obj.time_modified | date:"d/m/Y" }}</time>
             </footer>
         </article>
         {% endfor %}
@@ -53,7 +53,7 @@
                 </div>
                 <footer>
                     <div class="new-tag" {% if class_announcement.is_new == False %}style="visibility: hidden"{% endif %}>NEW</div>
-                    <time datetime="{{ class_announcement.obj.time_created | date:"c" }}">{{ class_announcement.obj.time_created | date:"d/m/Y" }}</time>
+                    <time datetime="{{ class_announcement.obj.time_modified | date:"c" }}">{{ class_announcement.obj.time_modified | date:"d/m/Y" }}</time>
                 </footer>
             </article>
         {% endfor %}

@@ -76,8 +76,8 @@ def StudentAboutView(request, id):
 
 def fetch_general_announcements():
     general_announcements = []
-    for announcement in Announcement.objects.order_by('-time_created'):
-        is_new = timezone.now() - announcement.time_created < timezone.timedelta(weeks=1)
+    for announcement in Announcement.objects.order_by('-time_modified'):
+        is_new = timezone.now() - announcement.time_modified < timezone.timedelta(weeks=1)
         general_announcements.append({"obj": announcement, "is_new": is_new})
     return general_announcements
 
