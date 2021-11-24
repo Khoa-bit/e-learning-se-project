@@ -233,6 +233,20 @@ def EditClassRegistration(request, id):
 
 
 @CheckValidUser
-def StaffContact(request, class_id):
+def StaffContact(request, id, class_id):
     lecturer = Class.objects.get(id=class_id).lecturer.user_id
     return render(request, 'User/user-about.html', {"userObj": lecturer, "page_title": "Staff Contact"})
+
+
+@CheckValidUser
+def ViewStudentList(request, id, class_id):
+    lecturer_class = Class.objects.get(id=class_id)
+    '''
+        for i in lecturer_class.student.values_list:
+        student_list.append(i)
+    '''
+    student_list = lecturer_class.student_set.all()
+    return render(request, 'Courses/class-student-list.html', {"student_list": student_list, "class": lecturer_class})
+
+
+

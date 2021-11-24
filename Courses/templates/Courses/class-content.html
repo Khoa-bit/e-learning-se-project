@@ -43,7 +43,7 @@
           <time>{{ content_post.time_created.date }}<br>{{ content_post.time_created.time | time:"g:iA" }}</time>
         </footer>
       </div>
-      <p>Attached Files: {{ content_post.attached_file.name }}</p>
+      <p>{{ content_post.attached_file.name }}</p>
       <p>{{ content_post.content | linebreaks }}</p>
     </article>
   {% endfor %}
