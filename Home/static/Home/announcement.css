@@ -85,7 +85,10 @@ article.panel > footer .view-all-btn:hover {
 
 
 /* General information panel */
-
+.date-text {
+  display: flex;
+  gap: 2rem;
+}
 
 /* Courses Announcements panel */
 .courses-announcements > article .heading p {

@@ -92,7 +92,8 @@ def fetch_classes_announcements(user):
     else:
         return classes_announcements
 
-    for announcement in ClassAnnouncement.objects.filter(class_id__in=classes_queryset.all()).order_by("-time_modified"):
+    for announcement in ClassAnnouncement.objects.filter(class_id__in=classes_queryset.all()).order_by(
+            "-time_modified"):
         is_new = timezone.now() - announcement.time_modified < timezone.timedelta(weeks=1)
         classes_announcements.append({"obj": announcement, "is_new": is_new})
     return classes_announcements
@@ -140,17 +141,22 @@ def LecturerClassAnnouncementViewAll(request, id):
                   {"classes_announcements": fetch_classes_announcements(lecturer)})
 
 
+def fetch_general_announcement(announcement_id):
+    general_announcement = Announcement.objects.get(id=announcement_id)
+    is_new = timezone.now() - general_announcement.time_modified < timezone.timedelta(weeks=1)
+    return {"obj": general_announcement, "is_new": is_new}
+
 
 @CheckValidUser
 def StudentGeneralAnnouncementPage(request, id, announcement_id):
-    announcement = Announcement.objects.get(id=announcement_id)
-    return render(request, "User/user-general-announcement-page.html", {"announcement": announcement})
+    general_announcement = fetch_general_announcement(announcement_id)
+    return render(request, "User/user-general-announcement-page.html", {"general_announcement": general_announcement})
 
 
 @CheckValidUser
 def LecturerGeneralAnnouncementPage(request, id, announcement_id):
-    announcement = Announcement.objects.get(id=announcement_id)
-    return render(request, "User/user-general-announcement-page.html", {"announcement": announcement})
+    general_announcement = fetch_general_announcement(announcement_id)
+    return render(request, "User/user-general-announcement-page.html", {"general_announcement": general_announcement})
 
 
 def ForgotPasswordView(request):
