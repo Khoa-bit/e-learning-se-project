@@ -20,7 +20,7 @@
 <body class="page-grid">
 <header class="header-bar {% if user.is_authenticated %}user-login{% endif %}">
   <div id="toggle-nav-sidebar" class="sidebar-button">
-    <svg id="hamburger"  viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <svg id="hamburger" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
       <rect x="3" y="5" width="15" height="2" fill="currentColor"></rect>
       <rect x="3" y="11" width="18" height="2" fill="currentColor"></rect>
       <rect x="3" y="17" width="12" height="2" fill="currentColor"></rect>
@@ -34,7 +34,9 @@
      href="{% if user.user_type == 'Student' %}{% url 'student-announcement-page' user.student.id %}
             {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-announcement-page' user.lecturer.id %}
             {% else %} {% url 'guest-announcement-page' %}{% endif %}">
-    <img src="{% static 'images/iu-image-png.png' %}" alt="International University's Learning Management System">
+    <img src="{% static 'images/masked-iu-logo-160px-png@1X.png' %}"
+         alt="International University's Learning Management System"
+         srcset="{% static 'images/masked-iu-logo-160px-png@1x.png' %} 1x, {% static 'images/masked-iu-logo-160px-png@2x.png' %} 2x, {% static 'images/masked-iu-logo-160px-png@3x.png' %} 3x">
     <h1><b>Learning Management System</b><br>
       International University</h1>
   </a>
@@ -94,7 +96,6 @@
       {% endif %}
     </ul>
   </nav>
-
 </header>
 <aside class="sidebar">
   <nav class="sidebar-nav" style="display: none">
@@ -233,23 +234,25 @@
   {% block main-content %}
   {% endblock %}
 </main>
-<footer class="{% if user.is_authenticated %}user-login{% endif %}">
+<footer class="page-footer {% if user.is_authenticated %}user-login{% endif %}">
   <div class="footer-top-container">
-    <img class="footer-logo" src="{% static 'images/iu-image-png.png' %}" alt="IU Logo">
+    <img class="footer-logo" src="{% static 'images/masked-iu-logo-160px-png@1X.png' %}"
+         alt="International University Logo"
+         srcset="{% static 'images/masked-iu-logo-160px-png@1x.png' %} 1x, {% static 'images/masked-iu-logo-160px-png@2x.png' %} 2x, {% static 'images/masked-iu-logo-160px-png@3x.png' %} 3x">
     <ul>
-      <li><b>International University</b></li>
+      <li class="icon-list-heading">International University</li>
       <li><a href="{% url 'about' %}" target="_blank">About us</a></li>
       <li><a href="https://hcmiu.edu.vn/" target="_blank">Blog</a></li>
       <li><a href="{% url 'contact' %}" target="_blank">Contact</a></li>
       <li><a href="https://hcmiu.edu.vn/" target="_blank">Help</a></li>
     </ul>
     <ul>
-      <li><b>Information</b></li>
+      <li class="icon-list-heading">Information</li>
       <li><a href="https://hcmiu.edu.vn/" target="_blank">School Website</a></li>
       <li><a href="https://edusoftweb.hcmiu.edu.vn/" target="_blank">EdusoftWeb</a></li>
     </ul>
     <ul class="icon-list">
-      <li><b>International University - Vietnam National University HCM City</b></li>
+      <li class="icon-list-heading">International University - Vietnam National University HCM City</li>
       <li><a href="geo:10.868562,106.796312">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
              xmlns="http://www.w3.org/2000/svg">
@@ -281,6 +284,7 @@
       </li>
     </ul>
   </div>
+  <hr class="footer-hr">
   <div class="footer-bottom-container">
     <p>© 2021, International University</p>
     <ul>
