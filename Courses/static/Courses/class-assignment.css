@@ -3,10 +3,9 @@
 }
 
 .panel > h4 {
-  padding-block-start: 1rem;
-
+  padding-block: 1rem;
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--gray-default);
 }
 
