@@ -1,5 +1,6 @@
 .new-tag {
   height: fit-content;
+  width: fit-content;
   padding-inline: 1rem;
 
   font-weight: bold;
