@@ -42,13 +42,14 @@
     font-size: 1.92rem;
     font-style:inherit;
     font-weight: bold;
+    margin-top: 1rem;
 }
 
 .iulogo{
     position: static;
     width: 16.4rem;
     height: 16.2rem;
-    margin:auto;
+    margin: auto;
 }
 
 .logo img{
@@ -72,7 +73,7 @@ input[type = text], input[type = password]{
     position: static;
     width: 100%;
     padding: 1.2rem 2rem;
-    margin: 0.8rem 0;
+    margin: 0.2rem 0;
     display: inline-block;
     border: 0.1rem solid var(--gray-lighter);
     box-sizing: border-box;
@@ -81,8 +82,9 @@ input[type = text], input[type = password]{
 
 .forgotpass{
     text-align: right;
-    font-weight: bold;
+    font-weight: 500;
     color: var(--iu-primary-default);
+    margin-bottom: 2rem;
 }
 
 .loginbutton {
@@ -113,6 +115,7 @@ input[type = text], input[type = password]{
     margin: 3rem 0 3rem;
     font-size: 1.8rem;
     line-height: 0;
+    font-weight: 200;
 }
 
 .or span{

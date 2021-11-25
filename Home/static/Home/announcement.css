@@ -45,8 +45,8 @@ article.panel > footer .view-all-btn:hover {
 
 .announcement > article .heading h3 {
   color: var(--iu-primary-default);
-  font-size: 2.2rem;
-  font-weight: 600;
+  font-size: 2.4rem;
+  font-weight: 500;
   transition: color var(--hover-transition);
 }
 

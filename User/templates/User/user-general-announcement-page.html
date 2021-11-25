@@ -1,11 +1,62 @@
-<!DOCTYPE html>
+{% extends 'Home/index.html' %}
+{% load static %}
 
-<head>
-    <title>{{ announcement.title }}</title>
-</head>
+{% block title %}
+    <title>General Announcements All</title>
+{% endblock title %}
 
-<body>
-    <h2>{{ announcement.title }}</h2>
-    <time><h3>{{ announcement.time_modified.date }}<br>{{ announcement.time_modified.time | time:"g:iA" }}</h3></time>
-    <p>{{ announcement.content }}</p>
-</body>
+{% block stylesheets %}
+    <link rel="stylesheet" href="{% static 'Home/announcement.css' %}">
+{% endblock %}
+
+{% block announcements-active %}active{% endblock %}
+
+{% block main-content %}
+<article class="panel announcement general-information">
+    <h2>General Information
+      <br></br>
+    </h2>
+    <div class="heading">
+        <h3>Thông Báo Về Khảo Sát Sinh Viên Tốt Nghiệp Học Kì 1 - Năm Học 2020-2021 1</h3>
+        <p class="date-text">Date posted: 22/09/2021</p>
+    </div>
+    <div class="body">
+        <p>
+            Thân gửi các bạn Sinh viên tốt nghiệp đợt học kỳ 1, năm học 2020-2021,  
+
+Để có cơ sở đánh giá chất lượng đào tạo, Phòng Bảo đảm chất lượng – Khảo thí - Trường Đại học Quốc tế gửi phiếu khảo sát này đến anh/chị nhằm thu thập ý kiến phản hồi về khoá học. Mong anh/chị vui lòng đọc kỹ và trả lời các câu hỏi của khảo sát dưới đây. 
+
+Hình thức khảo sát: Trực tuyến trên trang web Phòng Bảo đảm chất lượng – Khảo thí tại link https://qato.hcmiu.edu.vn/Surveys/ExitSurvey?surveyID=2 
+
+Thời gian khảo sát: Các bạn vui lòng thực hiện khảo sát đến 30/9/2021.   
+
+Các thao tác để thực hiện khảo sát tốt nghiệp:   
+
+Truy cập website https://qato.hcmiu.edu.vn/ 
+Chọn mục Graduated Student, chọn Exit Survey, nhập mã sinh viên. 
+Thực hiện đánh giá khảo sát online. 
+Ghi chú: để đảm bảo thông tin, Phòng Bảo đảm chất lượng – Khảo thí đã gửi thông báo và link trang web khảo sát này đến email sinh viên của các bạn.
+
+ANNOUNCEMENT FOR ONLINE EXIT EVALUATION   
+
+SEMESTER I, ACADEMIC YEAR 2020-2021   
+
+Dear All graduated Students,  
+
+As a graduate, your opinion regarding our program from your perspective is an extremely valuable part of our process for evaluating the education quality. Please read all questions carefully and finish the following survey. 
+
+Office of Quality Assurance – Testing would like to inform all students on Online Exit Survey:   
+Survey channel: https://qato.hcmiu.edu.vn/Surveys/Course?surveyID=2 
+Survey period time: Due to 30/9/2021 
+
+Please follow these steps to complete surveys:   
+
+Go to https://qato.hcmiu.edu.vn/ 
+Select Students Surveys, select Exit survey, type your student ID , and complete the evaluation.
+Note: QATO has sent this notice to your student email.
+
+Trân trọng,  
+
+With many thanks.  
+          </p>
+    </div>
