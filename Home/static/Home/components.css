@@ -8,3 +8,14 @@
   background-color: var(--success-primary);
   border-radius: 6px;
 }
+
+body {
+  --riseUpAnimation: riseUpKeyframes 0.8s ease forwards;
+}
+
+@keyframes riseUpKeyframes {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
