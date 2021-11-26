@@ -1,6 +1,8 @@
 // Toggle Dropdown in Sidebar
 
 const sidebarDropBtnList = document.querySelectorAll(".drop-btn:not(.disabled)");
+const classReg = /\/\d+\/class\/\d+\//;
+const currentClassURL = window.location.href.match(classReg);
 
 for (const sidebarDropBtnElement of sidebarDropBtnList) {
   const dropDownMenu = sidebarDropBtnElement.parentElement.querySelector('.drop-down-menu')
@@ -25,6 +27,11 @@ for (const sidebarDropBtnElement of sidebarDropBtnList) {
 
   for (const dropDownMenuChild of dropDownMenuChildren) {
     dropDownMenuChild.addEventListener('click', toggleDropDown);
+
+    // Highlight a link that matches the current Class URL
+    if (currentClassURL && dropDownMenuChild.firstElementChild.href.match(classReg)[0] === currentClassURL[0]) {
+      dropDownMenuChild.classList.add("class-active");
+    }
   }
 }
 
