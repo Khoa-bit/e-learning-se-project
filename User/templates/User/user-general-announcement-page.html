@@ -1,11 +1,28 @@
-<!DOCTYPE html>
+{% extends 'Home/index.html' %}
+{% load static %}
 
-<head>
-    <title>{{ announcement.title }}</title>
-</head>
+{% block title %}
+   <title>Guest Announcements - View</title>
+{% endblock title %}
 
-<body>
-    <h2>{{ announcement.title }}</h2>
-    <time><h3>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</h3></time>
-    <p>{{ announcement.content }}</p>
-</body>
+{% block stylesheets %}
+   <link rel="stylesheet" href="{% static 'Home/announcement.css' %}">
+{% endblock %}
+
+{% block announcements-active %}active{% endblock %}
+
+{% block main-content %}
+   <article class="panel announcement general-information">
+     {% for announcement in announcements %}
+     <div class="heading">
+       <h2>{{announcement.title}}</h2>
+       <footer>
+           {{announcement.time_created}}
+       </footer>
+     </div>
+       <!--<article>-->
+           <p>{{announcement.content | linebreaks}}</p>
+       <!--</article>-->
+       {% endfor %}
+   </article>
+{% endblock %}

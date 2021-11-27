@@ -60,8 +60,9 @@ def GuestAnnouncementSearch(request): # new
 
 
 def GuestAnnouncementPage(request, id):
-    announcement = Announcement.objects.get(id=id)
-    return render(request, "User/user-general-announcement-page.html", {"announcement": announcement})
+    #announcement = Announcement.objects.get(id=id)
+    context = {'announcements' : Announcement.objects.filter(id=id)}
+    return render(request, "User/user-general-announcement-page.html", context)
 
 
 def GuestAbout(request):
