@@ -59,5 +59,9 @@ def About(request):
     return render(request, "Home/about.html")
 
 
+def Talents(request):
+    return render(request, "Home/talents.html")
+
+
 def Contact(request):
     return render(request, "Home/contact.html")
