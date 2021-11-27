@@ -9,8 +9,12 @@
     <h1>Student: {{ student.user_id.full_name }} - {{ student.id }}</h1>
     <h2>Major: {{ student.major_id }}</h2>
     <h3>Course performance</h3>
-    <p>Quiz 1: 0/100</p>
-    <p>Quiz 2: 10/100</p>
-    <p>Homework 1: 30/100</p>
+    {% for entry in tests %}
+    {% if entry.grade %}
+    <p>{{forloop.counter}}. {{entry.test_id.test_name}}: {{entry.grade}}</p>
+    {% else%}
+    <p>{{forloop.counter}}. {{entry.test_id.test_name}}: UNGRADED</p>
+    {% endif %}
+    {% endfor %}
 </body>
 </html>

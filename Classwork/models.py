@@ -31,6 +31,8 @@ class MultipleChoiceOption(models.Model):
 class StudentTest(models.Model):
   student_id = models.ForeignKey("User.student",on_delete=CASCADE)
   test_id = models.ForeignKey(Test,on_delete=CASCADE)
+  submit_time = models.DateTimeField(auto_now_add=True)
+  grade = models.FloatField(blank=True,null=True)
 
 class StudentAnswer(models.Model):
   student_test = models.ForeignKey(StudentTest,on_delete=CASCADE)

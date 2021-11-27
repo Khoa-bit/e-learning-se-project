@@ -1,5 +1,6 @@
 import os
 from django.shortcuts import render
+from django.utils import timezone
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from .models import *
@@ -127,8 +128,17 @@ def LecturerClassContentViewPage(request, id, class_id, content_id):
 @CheckValidUser
 def StudentClassAssignment(request, id, class_id):
     student_class = Class.objects.get(id=class_id)
-    test = student_class.test_set.all()     # add filter here (check if test is in the time window because students can only see those tests)
-    content = {'student_class': student_class,'tests':test}
+    test,upcoming = [],[]
+    # add filter here (check if test is in the time window because students can only see those tests)
+    now = timezone.localtime()+timezone.timedelta(hours=7)
+    for t in student_class.test_set.all():
+        if t.publish_time <= now and t.end_time >= now:
+            print("added "+t.test_name+" to tests")
+            test.append(t)
+        elif t.publish_time >= now:
+            print("added "+t.test_name+" to upcoming")
+            upcoming.append(t)
+    content = {'student_class': student_class,'tests':test,'upcoming':upcoming} # tests that can be taken are in the test list and upcoming test are in the upcoming list
     return render(request, "Courses/class-assignment.html", content)
 
 
@@ -249,7 +259,8 @@ def ViewStudentList(request, id, class_id):
 @CheckValidUser
 def ViewStudentCoursePerformance(request, id, class_id, student_id):
     student = Student.objects.get(id=student_id)
-    return render(request, 'Courses/view-student-course-performance.html', {"student": student})
+    tests = StudentTest.objects.filter(student_id=student)
+    return render(request, 'Courses/view-student-course-performance.html', {"student": student,"tests":tests})
 
 
 @CheckValidUser
