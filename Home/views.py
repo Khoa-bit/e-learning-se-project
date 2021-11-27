@@ -52,11 +52,11 @@ def GuestAnnouncementSearch(request): # new
             if user.is_lecturer():
                 return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
         if query is None:
-            context = {'announcements' : Announcement.objects.order_by("-time_announced")}
-            return render(request, "Home/guest-announcement-all.html", context)
+            context = {'general_announcements' : Announcement.objects.order_by("-time_created")}
+            return render(request, "User/user-general-announcement-view-all.html", context)
         else:
-            context = {'announcements': Announcement.objects.filter(title__icontains=query).order_by("-time_announced")}
-            return render(request, "Home/guest-announcement-search.html", context)
+            context = {'general_announcements': Announcement.objects.filter(title__icontains=query).order_by("-time_created")}
+            return render(request, "User/user-general-announcement-view-all.html", context)
 
 
 def GuestAnnouncementPage(request, id):
