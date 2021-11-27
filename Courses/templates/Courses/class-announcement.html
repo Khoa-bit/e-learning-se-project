@@ -32,7 +32,7 @@
   {% endif %}
 
   {% for class_announcement in class_announcements %}
-    <article>
+    <article style="--order: {{ forloop.counter }}">
       <div class="heading">
         <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id class_announcement.obj.class_id.id class_announcement.obj.id %}
                                           {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id class_announcement.obj.class_id.id class_announcement.obj.id %}

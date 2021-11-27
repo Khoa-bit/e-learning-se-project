@@ -32,7 +32,7 @@
     </a>
   {% endif %}
   {% for test in tests %}
-  <article>
+  <article style="--order: {{ forloop.counter }}">
     <div class="heading">
       <h3>{{ test.test_name }}</h3>
       <footer>
@@ -44,31 +44,31 @@
   {% endfor %}
 
   <h4>UPCOMING</h4>
-  <article>
+  <article  style="--order: 1">
     <div class="heading">
       <h3>Homework 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
     </div>
   </article>
-  <article>
+  <article  style="--order: 2">
     <div class="heading">
       <h3>Attendance - Week 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
     </div>
   </article>
-  <article>
+  <article  style="--order: 3">
     <div class="heading">
       <h3>Quiz - Week 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
     </div>
   </article>
-  <article>
+  <article  style="--order: 4">
     <div class="heading">
       <h3>Homework 2</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
     </div>
   </article>
-  <article>
+  <article  style="--order: 5">
     <div class="heading">
       <h3>Midterm Test</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
@@ -76,37 +76,37 @@
   </article>
 
   <h4>OVERDUE</h4>
-  <article>
+  <article  style="--order: 6">
     <div class="heading">
       <h3>Homework 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
     </div>
   </article>
-  <article>
+  <article  style="--order: 7">
     <div class="heading">
       <h3>Homework 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
     </div>
   </article>
-  <article>
+  <article  style="--order: 8">
     <div class="heading">
       <h3>Quiz - Week 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
     </div>
   </article>
-  <article>
+  <article  style="--order: 9">
     <div class="heading">
       <h3>Homework 2</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
     </div>
   </article>
-  <article>
+  <article  style="--order: 10">
     <div class="heading">
       <h3>Quiz - Week 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
     </div>
   </article>
-  <article>
+  <article  style="--order: 11">
     <div class="heading">
       <h3>Midterm Test</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
