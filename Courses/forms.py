@@ -33,11 +33,15 @@ class UploadClassContentForm(forms.ModelForm):
 
 class ClassRegistrationForm(forms.Form):
     CLASS_CHOICES = []
-    for i in Class.objects.all():
-        now = utc.localize(datetime.datetime.now())
-        if (i.start_date > now):
-            CLASS_CHOICES.append((int(i.id), i.course.name))
-    selection = forms.MultipleChoiceField(choices=CLASS_CHOICES, widget=forms.CheckboxSelectMultiple)
+    def __init__(self, *args, **kwargs):
+        choices = kwargs.pop('choices')
+        super(ClassRegistrationForm,self).__init__(*args, **kwargs)
+        selection = forms.MultipleChoiceField(choices=choices, widget=forms.CheckboxSelectMultiple)
+    # for i in Class.objects.all():
+    #     now = utc.localize(datetime.datetime.now())
+    #     if (i.start_date > now):
+    #         CLASS_CHOICES.append((int(i.id), i.course.name))
+    # selection = forms.MultipleChoiceField(choices=CLASS_CHOICES, widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Class

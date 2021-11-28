@@ -1,6 +1,7 @@
 import os
 
 import pytz
+import datetime
 from django.shortcuts import render
 from django.utils import timezone
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -224,8 +225,13 @@ def Download(request, id, class_id, content_id):
 def ClassRegistration(request, id):
     classes = Class.objects.all()
     student = Student.objects.get(id=id)
+    c = []
+    for i in Class.objects.all():
+        now = pytz.UTC.localize(datetime.now())
+        if (i.start_date > now):
+            c.append((int(i.id), i.course.name))
     if request.method == 'POST':
-        form = forms.ClassRegistrationForm()
+        form = forms.ClassRegistrationForm(choices=c)
         selected_classes = request.POST.getlist('selection')
         if not selected_classes:
             return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
@@ -237,7 +243,7 @@ def ClassRegistration(request, id):
                     student.class_id.add(Class.objects.get(id=i))
             return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
     else:
-        form = forms.ClassRegistrationForm()
+        form = forms.ClassRegistrationForm(choices=c)
     context = {'form': form, 'classes': classes, 'student': student}
     return render(request, 'User/class-registration.html', context)
 
