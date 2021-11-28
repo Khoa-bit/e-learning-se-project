@@ -33,6 +33,7 @@ class StudentTest(models.Model):
   test_id = models.ForeignKey(Test,on_delete=CASCADE)
   submit_time = models.DateTimeField(auto_now_add=True)
   grade = models.FloatField(blank=True,null=True)
+  is_overdue = models.BooleanField()
 
 class StudentAnswer(models.Model):
   student_test = models.ForeignKey(StudentTest,on_delete=CASCADE)
