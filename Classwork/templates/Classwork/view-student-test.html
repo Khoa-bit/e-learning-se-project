@@ -19,7 +19,7 @@
   <form action="" method="POST">
     {%csrf_token%}
     <label for="grade">Grade:</label>
-    <input type="number" name="grade" id="">
+    <input type="number" name="grade" id="" step=".01">
     <button type="submit">CONFIRM GRADING</button>
   </form>
 {%endblock body%}

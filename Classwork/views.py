@@ -103,6 +103,7 @@ def ViewStudentTest(request,id,class_id,studenttest_id):
     if grade >= 0:
       st.grade = grade
       st.save()
+    
   right_ans=0
   for ans in st.studentanswer_set.all():
     if not ans.question.is_written:

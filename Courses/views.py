@@ -266,4 +266,5 @@ def ViewStudentCoursePerformance(request, id, class_id, student_id):
 @CheckValidUser
 def ViewSelfCoursePerformance(request, id, class_id):
     student = Student.objects.get(id=id)
-    return render(request, 'Courses/view-student-course-performance.html', {"student": student})
+    tests = StudentTest.objects.filter(student_id=student.id)
+    return render(request, 'Courses/view-student-course-performance.html', {"student": student, "tests":tests})
