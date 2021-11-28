@@ -6,17 +6,34 @@
 {% endblock title %}
 
 {% block stylesheets %}
-  {{ block.super }}
-  <link rel="stylesheet" href="{% static 'Courses/class-student-list.css' %}">
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'Courses/class-student-list.css' %}">
 {% endblock %}
 
 {% block class-view-student-list-active %}active{% endblock %}
 
 {% block panel-content %}
+<article class="header">
+  <div class="number">
+    <p></p>
+  </div>
+  <div class="name">
+    <h3>Student Name</h3>
+  </div>
+  <div class="id">
+    <h3>Student ID</h3>
+  </div>
+  <div class="email">
+    <h3>Student Email</h3>
+  </div>
+</article>
+
+<a class=student href="#">
   <article>
     <div class="number">
       <p>1</p>
     </div>
+
     <div class="name">
       <p>Do Quang Minh</p>
     </div>
@@ -27,6 +44,42 @@
       <p>minh.do@student.com</p>
     </div>
   </article>
+</a>
+
+<a class=student href="#">
+  <article>
+    <div class="number">
+      <p>1</p>
+    </div>
+
+    <div class="name">
+      <p>Do Quang Minh</p>
+    </div>
+    <div class="id">
+      <p>ITITIU19028</p>
+    </div>
+    <div class="email">
+      <p>minh.do@student.com</p>
+    </div>
+  </article>
+
+  <a class=student href="#">
+    <article>
+      <div class="number">
+        <p>1</p>
+      </div>
   
+      <div class="name">
+        <p>Do Quang Minh</p>
+      </div>
+      <div class="id">
+        <p>ITITIU19028</p>
+      </div>
+      <div class="email">
+        <p>minh.do@student.com</p>
+      </div>
+    </article>
+  </a>
+</a>
 
 {% endblock %}
