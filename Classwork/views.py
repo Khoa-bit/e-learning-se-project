@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from Courses.models import Class
 from User.models import Lecturer, Student, User
+from django.utils import timezone
 from .models import *
 from .forms import *
 # Create your views here.
@@ -67,21 +68,23 @@ def EditClassworkView(request, id, class_id , test_id):
   return render(request,'Classwork/edit-classwork.html',context)
 
 def DoTestView(request,id,class_id,test_id):
+  test = None
   done=False
   grade = None
   if request.user.is_lecturer():
     return HttpResponseRedirect(reverse('classwork-view',args=[id,class_id]))
-  test = Test.objects.get(id=test_id)
+  t = Test.objects.get(id=test_id)
   now = timezone.localtime()+timezone.timedelta(hours=7)
-  if not test.publish_time <= now:
+  if not t.publish_time <= now:
     HttpResponseRedirect(reverse('student-class-announcement-page',args=[id,class_id]))
-  if test.studenttest_set.filter(student_id=id,test_id=test_id).exists():
-    a = test.studenttest_set.get(student_id=id,test_id=test_id)
+  if t.studenttest_set.filter(student_id=id,test_id=test_id).exists():
+    a = t.studenttest_set.get(student_id=id,test_id=test_id)
     done = True
     grade = a.grade
   if request.method == 'POST':
-    print(dict(request.POST.lists()))
-    test = StudentTest(student_id=Student.objects.get(id=id),test_id=Test.objects.get(id=test_id))
+    # print(dict(request.POST.lists()))
+    isoverdue = t.end_time <= now+ t.available_time_after_deadline
+    test = StudentTest(student_id=Student.objects.get(id=id),test_id=Test.objects.get(id=test_id),is_overdue=isoverdue)
     test.save()
     for question, answer in dict(request.POST.lists()).items():
       if question != 'csrfmiddlewaretoken':

@@ -102,8 +102,11 @@
   {% for test in overdue %}
   <article>
     <div class="heading">
-      <h3>test.test_name</h3>
+      <h3>{{test.test_name}}</h3>
       <p class="due-text">DUE: {{ test.end_time }}</p>
+      <p>
+        <a href="{% url 'do-test' user.student.id student_class.id test.id %}">Do test(will be marked as overdue)</a>
+      </p>
     </div>
   </article>
     {% endfor %}
