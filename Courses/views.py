@@ -264,7 +264,7 @@ def ViewStudentList(request, id, class_id):
         student_list.append(i)
     '''
     student_list = lecturer_class.student_set.all()
-    return render(request, 'Courses/class-student-list.html', {"student_list": student_list, "class": lecturer_class})
+    return render(request, 'Courses/class-student-list.html', {"student_list": student_list, "lecturer_class": lecturer_class})
 
 
 

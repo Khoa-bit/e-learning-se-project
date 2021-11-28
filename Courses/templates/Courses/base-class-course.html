@@ -70,7 +70,8 @@
           </li>
           {% if user.user_type == 'Lecturer' %}
             <li>
-              <a class="tab " href="{% url 'lecturer-class-view-student-list' user.lecturer.id lecturer_class.id %}">Student List</a>
+              <a class="tab {% block class-view-student-list-active %}{% endblock %}"
+                 href="{% url 'lecturer-class-view-student-list' user.lecturer.id lecturer_class.id %}">Student List</a>
             </li>
           {% endif %}
         </ul>
