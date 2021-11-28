@@ -72,6 +72,9 @@ def DoTestView(request,id,class_id,test_id):
   if request.user.is_lecturer():
     return HttpResponseRedirect(reverse('classwork-view',args=[id,class_id]))
   test = Test.objects.get(id=test_id)
+  now = timezone.localtime()+timezone.timedelta(hours=7)
+  if not test.publish_time <= now:
+    HttpResponseRedirect(reverse('student-class-announcement-page',args=[id,class_id]))
   if test.studenttest_set.filter(student_id=id,test_id=test_id).exists():
     a = test.studenttest_set.get(student_id=id,test_id=test_id)
     done = True
