@@ -1,5 +1,10 @@
+import pytz
+
 from Courses.models import ClassAnnouncement, ClassContent, Class
 from django import forms
+import datetime
+
+utc = pytz.UTC
 
 class UploadClassAnnouncementForm(forms.ModelForm):
     title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Announcement Title'}))
@@ -29,11 +34,18 @@ class UploadClassContentForm(forms.ModelForm):
 class ClassRegistrationForm(forms.Form):
     CLASS_CHOICES = []
     for i in Class.objects.all():
-        CLASS_CHOICES.append((int(i.id), i.course.name))
+        now = utc.localize(datetime.datetime.now())
+        if (i.start_date > now):
+            CLASS_CHOICES.append((int(i.id), i.course.name))
     selection = forms.MultipleChoiceField(choices=CLASS_CHOICES, widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = Class
+
+
+class EditClassRegistrationForm(forms.Form):
+    selection = forms.BooleanField(widget=forms.CheckboxSelectMultiple)
+
 
 
 

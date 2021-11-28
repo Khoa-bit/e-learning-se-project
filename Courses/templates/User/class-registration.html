@@ -24,6 +24,9 @@
     </label>
     <input type="search" id="search" placeholder="Search for courses..">
   </div>
+  <div>
+    <button class="btn submit"><a href="{% url 'edit-class-registration-page' student.id %}">Edit registered classes</a></button>
+  </div>
   <form method="POST" action="{% url 'student-class-registration-page' student.id %}" enctype="multipart/form-data">
     {% csrf_token %}
       <div class="scrollable">
@@ -33,6 +36,7 @@
             <th>Select</th>
             <th class="subject-col">Subject name</th>
             <th>Class ID</th>
+            <th>Semester</th>
             <th>Day</th>
             <th>Start time</th>
             <th>Duration</th>
@@ -43,11 +47,12 @@
             {% for field in form %}
               {% for choice_id, choice_label in field.field.choices %}
                 <tr>
-                  <td><input type="checkbox" name="selection" value="{{ choice_label }}" id="{{ choice_id }}"></td>
-                  <td>{{ choice_label }}
+                  <td><input type="checkbox" name="selection" value="{{ choice_id }}" id="{{ choice_id }}"></td>
+                  <td>{{ choice_label }}</td>
                   <td>{{ choice_id }}</td>
                   {% for class in classes %}
                     {% if class.id == choice_id %}
+                      <td>{{ class.sem_year }}</td>
                       <td>{{ class.schedule.get_day_of_the_week_display }}</td>
                       <td>{{ class.schedule.start_time }}</td>
                       <td>{{ class.schedule.duration }}</td>

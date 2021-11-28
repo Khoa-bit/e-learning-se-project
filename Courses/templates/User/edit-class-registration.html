@@ -24,7 +24,10 @@
     </label>
     <input type="search" id="search" placeholder="Search for courses..">
   </div>
-  <form method="POST" action="{% url 'student-class-registration-page' student.id %}" enctype="multipart/form-data">
+  <div>
+    <h2>Deadline: {{ deadline }}</h2>
+  </div>
+  <form method="POST" action="{% url 'edit-class-registration-page' student.id %}" enctype="multipart/form-data">
     {% csrf_token %}
       <div class="scrollable">
         <table id="class-table" class="class-table">
@@ -33,6 +36,7 @@
             <th>Select</th>
             <th class="subject-col">Subject name</th>
             <th>Class ID</th>
+            <th>Semester</th>
             <th>Day</th>
             <th>Start time</th>
             <th>Duration</th>
@@ -40,15 +44,25 @@
           </tr>
           </thead>
           <tbody>
-            <tr>
-
-
-
-            </tr>
+            {% for class in classes %}
+              <tr>
+                <td><input type="checkbox" checked="checked" name="selection" value="{{ class.id }}"></td>
+                <th>{{ class.course.name }}</th>
+                <th>{{ class.id }}</th>
+                <th>{{ class.sem_year }}</th>
+                <th>{{ class.schedule.day_of_the_week }}</th>
+                <th>{{ class.schedule.start_time }}</th>
+                <th>{{ class.schedule.duration }}</th>
+                <th>{{ class.lecturer.user_id.full_name }}</th>
+              </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
-    <button id="submit" class="btn submit">Register</button>
+      {% if is_past_deadline %}
+        <button id="submit" class="btn submit">Submit</button>
+      {% elif not is_past_deadline %}
+      {% endif %}
   </form>
 </article>
 {% endblock %}

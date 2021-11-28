@@ -1,4 +1,6 @@
 import os
+
+import pytz
 from django.shortcuts import render
 from django.utils import timezone
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -222,12 +224,14 @@ def ClassRegistration(request, id):
     if request.method == 'POST':
         form = forms.ClassRegistrationForm()
         selected_classes = request.POST.getlist('selection')
-        print(selected_classes)
-        for i in selected_classes:
-            student.class_id.add(Class.objects.get(course__name=i))
         if not selected_classes:
             return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
         else:
+            for i in selected_classes:
+                if int(i) in student.class_id.all().values_list('id',flat=True):
+                    return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
+                else:
+                    student.class_id.add(Class.objects.get(id=i))
             return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
     else:
         form = forms.ClassRegistrationForm()
@@ -237,11 +241,34 @@ def ClassRegistration(request, id):
 
 @CheckValidUser
 def EditClassRegistration(request, id):
+    utc = pytz.UTC
     student = Student.objects.get(id=id)
-
-    deadline = datetime(2021, 12, 31, 19, 59, 00)
-    now = datetime.now()
-    context = {'selected_classes': selected_classes, 'deadline': deadline, 'now': now, 'student': student}
+    classes = []
+    now = utc.localize(datetime.now())
+    deadline = utc.localize(datetime(2021, 12, 31, 19, 59, 00))
+    for i in student.class_id.all():
+        if (i.start_date > now):
+            classes.append(i)
+    if request.method == 'POST':
+        form = forms.EditClassRegistrationForm()
+        selected_classes = request.POST.getlist('selection')
+        print(selected_classes)
+        if not selected_classes:
+            for i in student.class_id.all():
+                if i in classes:
+                    student.class_id.remove(i)
+            return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
+        else:
+            for i in student.class_id.all():
+                if str(i.id) not in selected_classes:
+                    student.class_id.remove(i)
+            return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
+    else:
+        form = forms.EditClassRegistrationForm()
+    is_past_deadline = False
+    if now < deadline:
+        is_past_deadline = True
+    context = {'classes': classes, 'deadline': deadline, 'is_past_deadline': is_past_deadline, 'student': student, 'form': form}
     return render(request, 'User/edit-class-registration.html', context)
 
 
