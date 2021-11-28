@@ -32,3 +32,14 @@
 .panel > article p {
   margin-block: 3rem;
 }
+
+.panel > article:target p {
+  animation: blink 0.4s ease 4 alternate;
+  animation-delay: calc(var(--order) * 100ms + 1.2s);
+}
+
+@keyframes blink {
+  to {
+    background-color: var(--iu-secondary-light);
+  }
+}

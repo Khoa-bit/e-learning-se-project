@@ -32,12 +32,9 @@
   {% endif %}
 
   {% for class_announcement in class_announcements %}
-    <article style="--order: {{ forloop.counter }}">
+    <article id="{{ class_announcement.obj.id }}" style="--order: {{ forloop.counter }}">
       <div class="heading">
-        <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id class_announcement.obj.class_id.id class_announcement.obj.id %}
-                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id class_announcement.obj.class_id.id class_announcement.obj.id %}
-                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
-                                          {% endif %}"><h3>{{ class_announcement.obj.title }}</h3></a>
+        <h3>{{ class_announcement.obj.title }}</h3>
         <footer>
           <div class="new-tag" {% if class_announcement.is_new == False %}style="visibility: hidden"{% endif %}>
             NEW
