@@ -127,8 +127,9 @@ def LecturerClassContentViewPage(request, id, class_id, content_id):
 
 @CheckValidUser
 def StudentClassAssignment(request, id, class_id):
+    student = Student.objects.get(id=id)
     student_class = Class.objects.get(id=class_id)
-    test,upcoming = [],[]
+    test,upcoming,overdue = [],[],[]
     # add filter here (check if test is in the time window because students can only see those tests)
     now = timezone.localtime()+timezone.timedelta(hours=7)
     for t in student_class.test_set.all():
@@ -138,7 +139,9 @@ def StudentClassAssignment(request, id, class_id):
         elif t.publish_time >= now:
             print("added "+t.test_name+" to upcoming")
             upcoming.append(t)
-    content = {'student_class': student_class,'tests':test,'upcoming':upcoming} # tests that can be taken are in the test list and upcoming test are in the upcoming list
+        elif t.end_time <= now+ t.available_time_after_deadline and not t.studenttest_set.filter(student_id=student).exists():
+            overdue.append(t)
+    content = {'student_class': student_class,'tests':test,'upcoming':upcoming,'overdue':overdue} # tests that can be taken are in the test list and upcoming test are in the upcoming list
     return render(request, "Courses/class-assignment.html", content)
 
 
