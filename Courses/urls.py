@@ -28,6 +28,7 @@ urlpatterns = [
     path('lecturer/<int:id>/class/<int:class_id>/grade', views.LecturerClassGrade, name='lecturer-class-grade-page'),
     path('lecturer/<int:id>/class/<int:class_id>/assignment', views.LecturerClassAssignment, name='lecturer-class-assignment-page'),
     path('lecturer/<int:id>/class/<int:class_id>/upload-class-announcement/', views.UploadClassAnnouncement, name='upload-class-announcement-page'),
+    path('lecturer/<int:id>/class/<int:class_id>/<int:announcement_id>/edit/', views.EditClassAnnouncement, name='edit-class-announcement-page'),
     path('lecturer/<int:id>/class/<int:class_id>/upload-class-content/', views.UploadClassContent, name='upload-class-content-page'),
     path('lecturer/<int:id>/class/<int:class_id>/staff-contact/', views.StaffContact, name='lecturer-staff-contact-page'),
     path('lecturer/<int:id>/class/<int:class_id>/student-list/', views.ViewStudentList, name='lecturer-class-view-student-list'),

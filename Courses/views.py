@@ -2,6 +2,8 @@ import os
 
 import pytz
 import datetime
+
+from django.forms import model_to_dict
 from django.shortcuts import render
 from django.utils import timezone
 from django.http.response import HttpResponseRedirect, HttpResponse
@@ -280,6 +282,28 @@ def EditClassRegistration(request, id):
         is_past_deadline = True
     context = {'classes': classes, 'deadline': deadline, 'is_past_deadline': is_past_deadline, 'student': student, 'form': form}
     return render(request, 'User/edit-class-registration.html', context)
+
+
+@CheckValidUser
+def EditClassAnnouncement(request, id, class_id, announcement_id):
+    lecturer = Lecturer.objects.get(id=id)
+    lecturer_class = Class.objects.get(id=class_id)
+    announcement = ClassAnnouncement.objects.get(id=announcement_id)
+    if request.POST:
+        form = forms.EditClassAnnouncementForm(request.POST or None, instance=announcement)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('lecturer-class-announcement-page', args=[id, class_id]))
+    else:
+        form = forms.EditClassAnnouncementForm(request.POST or None, instance=announcement)
+    context = {"lecturer": lecturer, "announcement": announcement, "lecturer_class": lecturer_class, 'form': form}
+    return render(request, 'User/edit-class-announcement.html', context)
+
+
+
+@CheckValidUser
+def DeleteClassAnnouncement(request, id, class_id, announcement_id):
+    pass
 
 
 @CheckValidUser

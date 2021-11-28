@@ -45,11 +45,18 @@ class EditClassRegistrationForm(forms.Form):
     selection = forms.BooleanField(widget=forms.CheckboxSelectMultiple)
 
 
+class EditClassAnnouncementForm(forms.ModelForm):
+    title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Announcement Title'}))
+    content = forms.CharField(label='Content', widget=forms.Textarea(attrs={'placeholder': 'Announcement Content'}))
+
+    class Meta:
+        model = ClassAnnouncement
+        fields = ['title', 'content']
 
 
-
-
-
-
-
-
+class DummyForm(forms.ModelForm):
+    title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Announcement Title'}))
+    content = forms.CharField(label='Content', widget=forms.Textarea(attrs={'placeholder': 'Announcement Content'}))
+    class Meta:
+        model = ClassAnnouncement
+        fields = ['title', 'content']
