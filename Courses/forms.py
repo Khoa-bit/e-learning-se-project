@@ -29,8 +29,15 @@ class UploadClassContentForm(forms.ModelForm):
 class ClassRegistrationForm(forms.Form):
     CLASS_CHOICES = []
     for i in Class.objects.all():
-        CLASS_CHOICES.append((i.id, i))
+        CLASS_CHOICES.append((int(i.id), i.course.name))
     selection = forms.MultipleChoiceField(choices=CLASS_CHOICES, widget=forms.CheckboxSelectMultiple)
+
+    class Meta:
+        model = Class
+
+
+
+
 
 
 

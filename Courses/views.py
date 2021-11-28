@@ -215,7 +215,6 @@ def Download(request, id, class_id, content_id):
     raise Http404
 
 
-
 @CheckValidUser
 def ClassRegistration(request, id):
     classes = Class.objects.all()
@@ -223,9 +222,13 @@ def ClassRegistration(request, id):
     if request.method == 'POST':
         form = forms.ClassRegistrationForm()
         selected_classes = request.POST.getlist('selection')
+        print(selected_classes)
         for i in selected_classes:
-            student.class_id.add(i)
-        return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
+            student.class_id.add(Class.objects.get(course__name=i))
+        if not selected_classes:
+            return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
+        else:
+            return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
     else:
         form = forms.ClassRegistrationForm()
     context = {'form': form, 'classes': classes, 'student': student}
@@ -234,10 +237,10 @@ def ClassRegistration(request, id):
 
 @CheckValidUser
 def EditClassRegistration(request, id):
-    selected_classes = Class.objects.all()
+    student = Student.objects.get(id=id)
+
     deadline = datetime(2021, 12, 31, 19, 59, 00)
     now = datetime.now()
-    student = Student.objects.get(id=id)
     context = {'selected_classes': selected_classes, 'deadline': deadline, 'now': now, 'student': student}
     return render(request, 'User/edit-class-registration.html', context)
 
