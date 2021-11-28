@@ -46,20 +46,23 @@
           <tbody>
             {% for field in form %}
               {% for choice_id, choice_label in field.field.choices %}
-                <tr>
-                  <td><input type="checkbox" name="selection" value="{{ choice_id }}" id="{{ choice_id }}"></td>
-                  <td>{{ choice_label }}</td>
-                  <td>{{ choice_id }}</td>
-                  {% for class in classes %}
-                    {% if class.id == choice_id %}
-                      <td>{{ class.sem_year }}</td>
-                      <td>{{ class.schedule.get_day_of_the_week_display }}</td>
-                      <td>{{ class.schedule.start_time }}</td>
-                      <td>{{ class.schedule.duration }}</td>
-                      <td>{{ class.lecturer.user_id.full_name }}</td>
-                    {% endif %}
-                  {% endfor %}
-                </tr>
+                {% for class in classes %}
+                  {% if class.id == choice_id %}
+                      <tr>
+                        <td><input type="checkbox" name="selection" value="{{ choice_id }}" id="{{ choice_id }}"
+                                   {% for student_class in student_classes %}
+                                    {% if student_class.course.name == choice_label %}disabled{% endif %}
+                                   {% endfor %}></td>
+                        <td>{{ choice_label }}</td>
+                        <td>{{ choice_id }}</td>
+                        <td>{{ class.sem_year }}</td>
+                        <td>{{ class.schedule.get_day_of_the_week_display }}</td>
+                        <td>{{ class.schedule.start_time }}</td>
+                        <td>{{ class.schedule.duration }}</td>
+                        <td>{{ class.lecturer.user_id.full_name }}</td>
+                      </tr>
+                  {% endif %}
+                {% endfor %}
               {% endfor %}
             {% endfor %}
           </tbody>
