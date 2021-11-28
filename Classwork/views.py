@@ -68,7 +68,6 @@ def EditClassworkView(request, id, class_id , test_id):
   return render(request,'Classwork/edit-classwork.html',context)
 
 def DoTestView(request,id,class_id,test_id):
-  test = None
   done=False
   grade = None
   if request.user.is_lecturer():
@@ -98,7 +97,7 @@ def DoTestView(request,id,class_id,test_id):
             a.choice_ans.add(MultipleChoiceOption.objects.get(id=int(mco)))
         a.save()
     return HttpResponseRedirect(reverse('student-class-announcement-page',args=[id,class_id]))
-  context={'test':test, "done":done, "id":id,"class_id":class_id,"grade":grade}
+  context={'test':Test.objects.get(id=test_id), "done":done, "id":id,"class_id":class_id,"grade":grade}
   return render(request,"Classwork/do-test.html",context)
 
 @CheckValidUser
