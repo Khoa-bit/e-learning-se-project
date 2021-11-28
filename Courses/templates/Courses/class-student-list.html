@@ -1,11 +1,32 @@
-<!DOCTYPE html>
+{% extends 'Courses/base-class-course.html' %}
+{% load static %}
 
-<head>
-  <title>{{ class }} Student List</title>
-</head>
+{% block title %}
+<title>{{ class }} Student List</title>
+{% endblock title %}
 
-<body>
-  {% for i in student_list %}
-    <h2>{{ i.id }} - {{ i.user_id.full_name }} - {{ i.user_id.email }}</h2>
-  {% endfor %}
-</body>
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'Courses/class-student-list.css' %}">
+{% endblock %}
+
+{% block class-my-grades-active %}active{% endblock %}
+
+{% block panel-content %}
+  <article>
+    <div class="number">
+      <p>1</p>
+    </div>
+    <div class="name">
+      <p>Do Quang Minh</p>
+    </div>
+    <div class="id">
+      <p>ITITIU19028</p>
+    </div>
+    <div class="email">
+      <p>minh.do@student.com</p>
+    </div>
+  </article>
+  
+
+{% endblock %}
