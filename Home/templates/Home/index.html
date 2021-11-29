@@ -162,7 +162,7 @@
             {% for class in user.student.class_id.all %}
               <li class="btn small">
                 <a href="{% url 'student-class-announcement-page' user.student.id class.id %}">
-                  {{ class.course.name }} - {{ class.schedule }}
+                  {{ class.course.name }} - {{ class.schedule }} - {{ class.sem_year }}
                 </a>
               </li>
             {% endfor %}
@@ -170,7 +170,7 @@
             {% for class in user.lecturer.class_set.all %}
               <li class="btn small">
                 <a href="{% url 'lecturer-class-announcement-page' user.lecturer.id class.id %}">
-                  {{ class.course.name }} - {{ class.schedule }}
+                  {{ class.course.name }} - {{ class.schedule }} - {{ class.sem_year }}
                 </a>
               </li>
             {% endfor %}

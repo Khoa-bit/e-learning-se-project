@@ -11,9 +11,9 @@
   <article class="panel">
     <header>
       {% if user.user_type == 'Student' %}
-        <h2>{{ student_class.course.name }} - {{ student_class.schedule }}</h2>
+        <h2>{{ student_class.course.name }} - {{ student_class.schedule }} - {{ student_class.sem_year }}</h2>
       {% elif user.user_type == 'Lecturer' %}
-        <h2>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }}</h2>
+        <h2>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} - {{ lecturer_class.sem_year }}</h2>
       {% endif %}
 
       {% if user.user_type == 'Student' %}
@@ -71,6 +71,10 @@
           {% if user.user_type == 'Lecturer' %}
             <li>
               <a class="tab " href="{% url 'lecturer-class-view-student-list' user.lecturer.id lecturer_class.id %}">Student List</a>
+            </li>
+          {% elif user.user_type == 'Student' %}
+            <li>
+              <a class="tab " href="{% url 'student-view-self-course-performance' user.student.id student_class.id %}">Course Performance</a>
             </li>
           {% endif %}
         </ul>

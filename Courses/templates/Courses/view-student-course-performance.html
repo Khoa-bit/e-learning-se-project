@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ student.user_id.full_name }}</title>
+</head>
+
+<body>
+    <h1>Student: {{ student.user_id.full_name }} - {{ student.id }}</h1>
+    <h2>Major: {{ student.major_id }}</h2>
+    <h3>Course performance</h3>
+    {% for entry in tests %}
+    {% if entry.grade %}
+    <p>{{forloop.counter}}. {{entry.test_id.test_name}}: {{entry.grade}}</p>
+    {% else%}
+    <p>{{forloop.counter}}. {{entry.test_id.test_name}}: UNGRADED</p>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

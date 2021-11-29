@@ -1,11 +1,26 @@
-<!DOCTYPE html>
+{% extends 'Courses/base.html' %}
 
-<head>
-  <title>{{ class }} Student List</title>
-</head>
+{% block column_names %}
+    <th scope="col">#</th>
+    <th scope="col">Student ID</th>
+    <th scope="col">Full name</th>
+    <th scope="col">Email</th>
+    <th scope="col">Major</th>
+{% endblock column_names %}
 
-<body>
-  {% for i in student_list %}
-    <h2>{{ i.id }} - {{ i.user_id.full_name }} - {{ i.user_id.email }}</h2>
-  {% endfor %}
-</body>
+{% block filter %}
+
+{% endblock filter %}
+
+{% block content %}
+    {% for i in student_list %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ i.id }}</td>
+                <td><a href="{% url 'lecturer-view-student-course-performance' lecturer.id class.id i.id %}">{{ i.user_id.full_name }}</a></td>
+                <td>{{ i.user_id.email }}</td>
+                <td>{{ i.major_id }}</td>
+        </tr>
+    {% endfor %}
+{% endblock content %}
+

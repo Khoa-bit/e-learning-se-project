@@ -19,8 +19,7 @@
 
 {% block panel-content %}
   {% if user.is_lecturer %}
-    <a class="upload-button"
-       href="#">
+    <a class="upload-button"href="{% url 'create-classwork-view' user.lecturer.id lecturer_class.id%}">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <g id="Property 1=ico, Property 2=24, Property 3=ui, Property 4=new_message">
           <path id="Icon color" fill-rule="evenodd" clip-rule="evenodd"
@@ -40,11 +39,35 @@
       </footer>
     </div>
     <p>{{ test.test_description | linebreaks }}</p>
+    {% if user.is_student%}
+    <p>
+      <a href="{% url 'do-test' user.student.id student_class.id test.id %}">Do/View test</a>
+    </p>
+    {% else %}
+    {% if not test.studenttest_set.exists %}
+    <p>
+      <a href="{% url 'edit-classwork-view' user.lecturer.id lecturer_class.id test.id %}">Edit this test</a>
+    </p>
+    {% else %}
+    <p>
+      <a href="{% url 'submitted-view' user.lecturer.id lecturer_class.id test.id %}">View student answers</a>
+    </p>
+    {% endif %}
+    {% endif %}
   </article>
   {% endfor %}
 
   <h4>UPCOMING</h4>
+  {% for test in upcoming %}
   <article>
+    <div class="heading">
+      <h3>test.test_name</h3>
+      <p class="due-text">DUE: {{ test.end_time }}</p>
+    </div>
+  </article>
+    {% endfor %}
+  <article>
+    
     <div class="heading">
       <h3>Homework 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
@@ -76,6 +99,17 @@
   </article>
 
   <h4>OVERDUE</h4>
+  {% for test in overdue %}
+  <article>
+    <div class="heading">
+      <h3>{{test.test_name}}</h3>
+      <p class="due-text">DUE: {{ test.end_time }}</p>
+      <p>
+        <a href="{% url 'do-test' user.student.id student_class.id test.id %}">Do test(will be marked as overdue)</a>
+      </p>
+    </div>
+  </article>
+    {% endfor %}
   <article>
     <div class="heading">
       <h3>Homework 1</h3>
