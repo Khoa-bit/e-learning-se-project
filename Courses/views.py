@@ -340,13 +340,15 @@ def ViewStudentList(request, id, class_id):
 
 @CheckValidUser
 def ViewStudentCoursePerformance(request, id, class_id, student_id):
+    lecturer_class = Class.objects.get(id=class_id)
     student = Student.objects.get(id=student_id)
     tests = StudentTest.objects.filter(student_id=student)
-    return render(request, 'Courses/view-student-course-performance.html', {"student": student,"tests":tests})
+    return render(request, 'Courses/view-student-course-performance.html', {"student": student,"tests":tests, "lecturer_class": lecturer_class})
 
 
 @CheckValidUser
 def ViewSelfCoursePerformance(request, id, class_id):
+    student_class = Class.objects.get(id=class_id)
     student = Student.objects.get(id=id)
     tests = StudentTest.objects.filter(student_id=student.id)
-    return render(request, 'Courses/view-student-course-performance.html', {"student": student, "tests":tests})
+    return render(request, 'Courses/view-student-course-performance.html', {"student": student, "tests":tests, 'student_class': student_class})
