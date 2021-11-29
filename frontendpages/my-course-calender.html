@@ -117,23 +117,46 @@
       </ul>
     </nav>
   </aside>
-  <main>
   <!-- !Create a {main-content} Block here -->
-      <article class="panel">
-          <header>
-              <h2>Course Registration</h2>
-          </header>
+  <main>
+    <article class="panel">
+        <header>
+          <h2>Course Registration</h2>
+        </header>
 
-          <article>
-              <div class="heading">
-                <!-- <input type="text" placeholder="Search for course"> -->
-              </div>
+        <header class="pickweek">
+          <input type="text" name="week" size="100" maxlength="100" autocomplete="off" placeholder="Pick a week" required>
+        </header>
 
-              <div class="heading">
-                
-              </div>
-          </article>
-      </article>
+        <table class="styled-table">
+          <thead>
+              <tr>
+                  <th>No</th>
+                  <th>Weekday</th>
+                  <th>Class</th>
+                  <th>Start time</th>
+                  <th>Duration</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>1</td>
+                  <td>MONDAY</td>
+                  <td>Operating system</td>
+                  <td>1:00 PM</td>
+                  <td>2:00:00</td>
+              </tr>
+              <tr>
+                  <td>2</td>
+                  <td>MONDAY</td>
+                  <td>Computer Architechture</td>
+                  <td>10:00 AM</td>
+                  <td>2:00:00</td>
+              </tr>
+              <!-- and so on... -->
+          </tbody>
+      </table>
+    </article>
   </main>
   <!-- !Create a {condition} Block here for when user logins to add class "user-login" -->
   <footer class="user-login">
