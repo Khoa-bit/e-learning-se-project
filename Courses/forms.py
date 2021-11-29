@@ -54,9 +54,10 @@ class EditClassAnnouncementForm(forms.ModelForm):
         fields = ['title', 'content']
 
 
-class DummyForm(forms.ModelForm):
-    title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Announcement Title'}))
-    content = forms.CharField(label='Content', widget=forms.Textarea(attrs={'placeholder': 'Announcement Content'}))
+class EditClassContentForm(forms.ModelForm):
+    title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Content Title'}))
+    content = forms.CharField(label='Description', widget=forms.Textarea(attrs={'placeholder': 'Content Description'}))
+    attached_file = forms.FileField(label='File', required=False, widget=forms.ClearableFileInput(attrs={'multiple':True}))
     class Meta:
-        model = ClassAnnouncement
-        fields = ['title', 'content']
+        model = ClassContent
+        fields = ['attached_file', 'title', 'content']

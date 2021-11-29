@@ -55,7 +55,7 @@ class Class(models.Model):
 
     def __str__(self):
         if self.schedule:
-            return self.course.name + " - " + str(self.schedule) + " - " + self.lecturer.user_id.full_name + self.sem_year
+            return self.course.name + " - " + str(self.schedule) + " - " + self.lecturer.user_id.full_name + " -  " + self.sem_year
         else:
             return self.course.name + "-" + self.lecturer.user_id.full_name
 
@@ -99,6 +99,11 @@ class ClassContent(models.Model):
     time_modified = models.DateTimeField(auto_now=True)
     attached_file = models.FileField(upload_to='', blank=True)
     content = models.TextField(blank=True)
+
+    @property
+    def file_url(self):
+        if self.attached_file and hasattr(self.attached_file, 'url'):
+            return self.attached_file.url
 
     class Meta:
         ordering = ["time_created", "time_modified"]

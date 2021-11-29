@@ -214,7 +214,7 @@ def UploadClassContent(request, id, class_id):
 def Download(request, id, class_id, content_id):
     content = ClassContent.objects.get(id=content_id)
     path = content.attached_file.url
-    file_path = str(settings.BASE_DIR).replace("\\","/")+path
+    file_path = str(settings.BASE_DIR).replace("\\","/") + path
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/pdf")
@@ -289,21 +289,48 @@ def EditClassAnnouncement(request, id, class_id, announcement_id):
     lecturer = Lecturer.objects.get(id=id)
     lecturer_class = Class.objects.get(id=class_id)
     announcement = ClassAnnouncement.objects.get(id=announcement_id)
-    if request.POST:
+    if "post_button" in request.POST:
         form = forms.EditClassAnnouncementForm(request.POST or None, instance=announcement)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('lecturer-class-announcement-page', args=[id, class_id]))
+    elif "delete_button" in request.POST:
+        announcement.delete()
+        return HttpResponseRedirect(reverse('lecturer-class-announcement-page', args=[id, class_id]))
     else:
         form = forms.EditClassAnnouncementForm(request.POST or None, instance=announcement)
     context = {"lecturer": lecturer, "announcement": announcement, "lecturer_class": lecturer_class, 'form': form}
     return render(request, 'User/edit-class-announcement.html', context)
 
 
-
 @CheckValidUser
-def DeleteClassAnnouncement(request, id, class_id, announcement_id):
-    pass
+def EditClassContent(request, id, class_id, content_id):
+    lecturer = Lecturer.objects.get(id=id)
+    lecturer_class = Class.objects.get(id=class_id)
+    content = ClassContent.objects.get(id=content_id)
+    url = str(settings.BASE_DIR).replace("\\", "/") + "/media/"
+    files = os.listdir(url)
+    if "post_button" in request.POST:
+        form = forms.EditClassContentForm(request.POST or None, request.FILES or None, instance=content)
+        if form.is_valid():
+            form.save()
+            for i in files:
+                if i not in ClassContent.objects.all().values_list('attached_file', flat=True):
+                    remove_url = url + i
+                    os.remove(remove_url)
+        return HttpResponseRedirect(reverse('lecturer-class-content-page', args=[id, class_id]))
+    elif "delete_button" in request.POST:
+        content.delete()
+        for i in files:
+            if i not in ClassContent.objects.all().values_list('attached_file', flat=True):
+                remove_url = url + i
+                os.remove(remove_url)
+        return HttpResponseRedirect(reverse('lecturer-class-content-page', args=[id, class_id]))
+    else:
+        form = forms.EditClassContentForm(request.POST or None, request.FILES or None, instance=content)
+    context = {'lecturer': lecturer, 'lecturer_class': lecturer_class, 'post': content, 'form': form}
+    return render(request, 'User/edit-class-content.html', context)
+
 
 
 @CheckValidUser

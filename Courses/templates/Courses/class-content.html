@@ -43,6 +43,11 @@
           <time>{{ content_post.time_created.date }}<br>{{ content_post.time_created.time | time:"g:iA" }}</time>
         </footer>
       </div>
+      {% if user.is_lecturer %}
+        <div>
+          <a href="{% url 'edit-class-content-page' lecturer_class.lecturer.id lecturer_class.id content_post.id %}">Edit</a>
+        </div>
+      {% endif %}
       <p>{{ content_post.attached_file.name }}</p>
       <p>{{ content_post.content | linebreaks }}</p>
     </article>
