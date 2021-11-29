@@ -30,6 +30,7 @@ urlpatterns = [
     path('lecturer/<int:id>/class/<int:class_id>/upload-class-content/', views.UploadClassContent, name='upload-class-content-page'),
     path('lecturer/<int:id>/class/<int:class_id>/staff-contact/', views.StaffContact, name='lecturer-staff-contact-page'),
     path('lecturer/<int:id>/class/<int:class_id>/student-list/', views.ViewStudentList, name='lecturer-class-view-student-list'),
+    path('lecturer/<int:id>/class/<int:class_id>/student-performance/', views.ViewStudentPerformance, name='lecturer-class-view-student-performance'),
 ]
 
 if settings.DEBUG:
