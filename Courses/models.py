@@ -1,4 +1,6 @@
 import datetime
+
+import pytz
 from django.db import models
 from django.db.models import CASCADE, SET_NULL
 from User.models import Lecturer
@@ -75,6 +77,15 @@ class Class(models.Model):
             return "Sem 1 - {}".format(year)
         elif month in [2, 3, 4, 5, 6]:
             return "Sem 2 - {}".format(int(year-1))
+
+    @property
+    def is_displayable(self):
+        utc = pytz.UTC
+        now = utc.localize(datetime.datetime.now())
+        if (now < self.start_date):
+            return False
+        else:
+            return True
 
 
 class ClassAnnouncement(models.Model):
