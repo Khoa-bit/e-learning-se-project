@@ -19,7 +19,7 @@
 
 {% block panel-content %}
   {% if user.is_lecturer %}
-    <a class="upload-button"href="{% url 'classwork-view' user.lecturer.id lecturer_class.id%}">
+    <a class="upload-button"href="{% url 'create-classwork-view' user.lecturer.id lecturer_class.id%}">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <g id="Property 1=ico, Property 2=24, Property 3=ui, Property 4=new_message">
           <path id="Icon color" fill-rule="evenodd" clip-rule="evenodd"
