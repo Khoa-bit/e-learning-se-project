@@ -24,7 +24,7 @@
           <p>Instructor<br>
             <b>{{ class.lecturer.user_id.full_name }}</b></p>
         </div>
-        <h3 class="course-name">{{ class.course.name }} - {{ class.schedule }}</h3>
+        <h3 class="course-name">{{ class.course.name }} - {{ class.schedule }} - {{ class.sem_year }}</h3>
       </a>
       {% endfor %}
     </div>

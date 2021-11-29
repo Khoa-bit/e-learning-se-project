@@ -1,6 +1,7 @@
 {% extends 'Classwork/base-test.html' %}
 {% block body %}
 <h1>TEST NAME: {{test.test_name}}</h1>
+{% if not done %}
 <form method="POST" action="#">
     {%csrf_token%}
     {%for question in test.question_set.all %}
@@ -17,4 +18,16 @@
     <hr>
     <div><input type="submit" value='Submit test'></div>
 </form>
+{% else %}
+<div>
+    <p>You have already done this test</p>  
+    <hr>
+    {%if grade%}
+    <p>Your grade is {{grade}}</p>
+    {%else%}
+    <p>Test is ungraded</p>
+    {%endif%}
+    <a href="{% url 'student-class-assignment-page' id class_id%}">Return</a>
+</div>
+{% endif %}
 {%endblock body%}

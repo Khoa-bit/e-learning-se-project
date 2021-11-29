@@ -28,7 +28,7 @@
   </div>
 </article>
 
-<a class=student href="class-student-performance.html">
+<a class=student href="#">
   <article>
     <div class="number">
       <p>1</p>
@@ -83,3 +83,16 @@
 </a>
 
 {% endblock %}
+
+{#{% block content %}#}
+{#    {% for i in student_list %}#}
+{#        <tr>#}
+{#            <th scope="row">{{ forloop.counter }}</th>#}
+{#                <td>{{ i.id }}</td>#}
+{#                <td><a href="{% url 'lecturer-view-student-course-performance' lecturer.id class.id i.id %}">{{ i.user_id.full_name }}</a></td>#}
+{#                <td>{{ i.user_id.email }}</td>#}
+{#                <td>{{ i.major_id }}</td>#}
+{#        </tr>#}
+{#    {% endfor %}#}
+{#{% endblock content %}#}
+

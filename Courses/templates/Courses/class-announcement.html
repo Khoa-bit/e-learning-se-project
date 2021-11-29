@@ -47,6 +47,9 @@
           </time>
         </footer>
       </div>
+      {% if user.user_type == 'Lecturer' %}
+        <div><a href="{% url 'edit-class-announcement-page' user.lecturer.id class_announcement.obj.class_id.id class_announcement.obj.id %}">Edit</a></div>
+      {% endif %}
       <p>{{ class_announcement.obj.content | linebreaks }}</p>
     </article>
   {% endfor %}
