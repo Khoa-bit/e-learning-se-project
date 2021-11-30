@@ -31,25 +31,28 @@
     </a>
   {% endif %}
 
-  {% for content_post in content_posts %}
-    <article>
-      <div class="heading">
-        <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
-        <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-content-view-page' user.student.id student_class.id content_post.id %}
-                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-content-view-page' user.lecturer.id lecturer_class.id content_post.id %}
-                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
-                                          {% endif %}"><h3>{{ content_post.title }}</h3></a>
-        <footer>
-          <time>{{ content_post.time_created.date }}<br>{{ content_post.time_created.time | time:"g:iA" }}</time>
-        </footer>
-      </div>
-      {% if user.is_lecturer %}
-        <div>
-          <a href="{% url 'edit-class-content-page' lecturer_class.lecturer.id lecturer_class.id content_post.id %}">Edit</a>
+  {% for post in content_posts %}
+    {% if post.is_displayable or user.user_type == 'Lecturer' and not post.is_displayable %}
+      <article>
+        <div class="heading">
+          <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
+          <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-content-view-page' user.student.id student_class.id post.id %}
+                                            {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-content-view-page' user.lecturer.id lecturer_class.id post.id %}
+                                            {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                            {% endif %}"><h3>{{ post.title }}</h3></a>
+          <footer>
+            <time>{{ post.time_created.date }}<br>{{ post.time_created.time | time:"g:iA" }}</time>
+          </footer>
         </div>
-      {% endif %}
-      <p>{{ content_post.attached_file.name }}</p>
-      <p>{{ content_post.content | linebreaks }}</p>
-    </article>
+        {% if user.is_lecturer %}
+          <div>
+            <a href="{% url 'edit-class-content-page' lecturer_class.lecturer.id lecturer_class.id post.id %}">Edit</a>
+          </div>
+        {% endif %}
+        <p>{{ post.attached_file.name }}</p>
+        <p>{{ post.content | linebreaks }}</p>
+      </article>
+    {% else %}
+    {% endif %}
   {% endfor %}
 {% endblock %}

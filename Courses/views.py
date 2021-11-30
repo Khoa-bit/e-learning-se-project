@@ -2,12 +2,16 @@ import os
 
 import pytz
 import datetime
+import calendar
+from calendar import HTMLCalendar
 
 from django.forms import model_to_dict
 from django.shortcuts import render
 from django.utils import timezone
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.utils.safestring import mark_safe
+
 from .models import *
 from User.models import Student, Lecturer
 from Classwork.models import *
@@ -17,7 +21,6 @@ from datetime import datetime
 from django.conf import Settings, settings
 from django.http import HttpResponse, Http404
 from django.views.static import serve
-
 
 
 @CheckValidUser
@@ -150,6 +153,7 @@ def StudentClassAssignment(request, id, class_id):
     return render(request, "Courses/class-assignment.html", content)
 
 
+
 @CheckValidUser
 def LecturerClassAssignment(request, id, class_id):
     user = Lecturer.objects.get(id=id)
@@ -257,7 +261,7 @@ def EditClassRegistration(request, id):
     student = Student.objects.get(id=id)
     classes = []
     now = utc.localize(datetime.now())
-    deadline = utc.localize(datetime(2021, 12, 31, 19, 59, 00))
+    deadline = datetime(2021, 12, 31, 19, 59, 00)
     for i in student.class_id.all():
         if (i.start_date > now):
             classes.append(i)
@@ -293,6 +297,8 @@ def EditClassAnnouncement(request, id, class_id, announcement_id):
         form = forms.EditClassAnnouncementForm(request.POST or None, instance=announcement)
         if form.is_valid():
             form.save()
+            if not announcement.is_displayable:
+                announcement.time_modified = announcement.time_created
             return HttpResponseRedirect(reverse('lecturer-class-announcement-page', args=[id, class_id]))
     elif "delete_button" in request.POST:
         announcement.delete()
@@ -330,7 +336,6 @@ def EditClassContent(request, id, class_id, content_id):
         form = forms.EditClassContentForm(request.POST or None, request.FILES or None, instance=content)
     context = {'lecturer': lecturer, 'lecturer_class': lecturer_class, 'post': content, 'form': form}
     return render(request, 'User/edit-class-content.html', context)
-
 
 
 @CheckValidUser

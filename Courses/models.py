@@ -74,9 +74,9 @@ class Class(models.Model):
         year = self.year
         month = self.month
         if month in [9, 10, 11, 12, 1]:
-            return "Sem 1 - {}".format(year)
+            return "Sem 1 - {}".format(year + 1)
         elif month in [2, 3, 4, 5, 6]:
-            return "Sem 2 - {}".format(int(year-1))
+            return "Sem 2 - {}".format(int(year))
 
     @property
     def is_displayable(self):
@@ -91,9 +91,20 @@ class Class(models.Model):
 class ClassAnnouncement(models.Model):
     class_id = models.ForeignKey(Class, on_delete=CASCADE)
     title = models.CharField(max_length=255)
-    time_created = models.DateTimeField(auto_now_add=True)
+    time_created = models.DateTimeField(auto_now_add=False)
     time_modified = models.DateTimeField(auto_now=True)
     content = models.TextField()
+
+    @property
+    def is_displayable(self):
+        utc = pytz.UTC
+        if self.time_created > utc.localize(datetime.datetime.now()):
+            return False
+        else:
+            return True
+
+    def __save__(self):
+        self.time_created = datetime.now()
 
     class Meta:
         ordering = ["time_created", "time_modified"]
@@ -106,15 +117,26 @@ def class_content_location(instance, filename):
 class ClassContent(models.Model):
     class_id = models.ForeignKey(Class, on_delete=CASCADE)
     title = models.CharField(max_length=255)
-    time_created = models.DateTimeField(auto_now_add=True)
+    time_created = models.DateTimeField(auto_now_add=False)
     time_modified = models.DateTimeField(auto_now=True)
     attached_file = models.FileField(upload_to='', blank=True)
     content = models.TextField(blank=True)
 
     @property
+    def is_displayable(self):
+        utc = pytz.UTC
+        if self.time_created > utc.localize(datetime.datetime.now()):
+            return False
+        else:
+            return True
+
+    @property
     def file_url(self):
         if self.attached_file and hasattr(self.attached_file, 'url'):
             return self.attached_file.url
+
+    def __save__(self):
+        self.time_created = datetime.now()
 
     class Meta:
         ordering = ["time_created", "time_modified"]

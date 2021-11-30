@@ -32,24 +32,28 @@
   {% endif %}
 
   {% for announcement in announcements %}
-    <article>
-      <div class="heading">
-        <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id announcement.class_id.id announcement.id %}
-                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id announcement.class_id.id announcement.id %}
-                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
-                                          {% endif %}"><h3>{{ announcement.title }}</h3></a>
-        <footer>
-          {% if announcement.time_created < announcement.time_modified %}
-            <time>{{ announcement.time_modified.date }}<br>{{ announcement.time_modified.time | time:"g:iA" }}</time>
-          {% else %}
-            <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
-          {% endif %}
-        </footer>
-      </div>
-      {% if user.user_type == 'Lecturer' %}
-        <div><a href="{% url 'edit-class-announcement-page' user.lecturer.id announcement.class_id.id announcement.id %}">Edit</a></div>
-      {% endif %}
-      <p>{{ announcement.content | linebreaks }}</p>
-    </article>
+    {% if announcement.is_displayable or user.user_type == 'Lecturer' and not announcement.is_displayable %}
+      <article>
+        <div class="heading">
+          <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id announcement.class_id.id announcement.id %}
+                                            {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id announcement.class_id.id announcement.id %}
+                                            {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                            {% endif %}"><h3>{{ announcement.title }}</h3></a>
+          <footer>
+            {% if announcement.time_created < announcement.time_modified %}
+              <time>{{ announcement.time_modified.date }}<br>{{ announcement.time_modified.time | time:"g:iA" }}</time>
+            {% else %}
+              <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
+            {% endif %}
+          </footer>
+        </div>
+        {% if user.user_type == 'Lecturer' %}
+          <div><a href="{% url 'edit-class-announcement-page' user.lecturer.id announcement.class_id.id announcement.id %}">Edit</a></div>
+        {% endif %}
+        <p>{{ announcement.content | linebreaks }}</p>
+      </article>
+    {% else %}
+    {% endif %}
+
   {% endfor %}
 {% endblock %}

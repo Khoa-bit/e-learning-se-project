@@ -82,7 +82,8 @@ def StudentUserAnnouncement(request, id):
         general_announcements.append(i)
     for class_id in student.class_id.all():
         for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
-            class_announcements.append(announcement)
+            if announcement.is_displayable:
+                class_announcements.append(announcement)
     return render(request, "User/user-announcement.html",
                   {"class_announcements": class_announcements[:3], "general_announcements": general_announcements[:3]})
 
@@ -98,7 +99,7 @@ def LecturerUserAnnouncement(request, id):
         for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
             class_announcements.append(announcement)
     return render(request, "User/user-announcement.html",
-                  {"class_announcements": class_announcements, "general_announcements": general_announcements[:3]})
+                  {"class_announcements": class_announcements[:3], "general_announcements": general_announcements[:3]})
 
 
 @CheckValidUser
