@@ -110,10 +110,6 @@ class ClassAnnouncement(models.Model):
         ordering = ["time_created", "time_modified"]
 
 
-def class_content_location(instance, filename):
-    return 'class_content/{0}/{1}'.format(instance.class_id.id, filename)
-
-
 class ClassContent(models.Model):
     class_id = models.ForeignKey(Class, on_delete=CASCADE)
     title = models.CharField(max_length=255)
@@ -140,4 +136,10 @@ class ClassContent(models.Model):
 
     class Meta:
         ordering = ["time_created", "time_modified"]
+
+
+class ClassFeedback(models.Model):
+    class_id = models.ForeignKey(Class, on_delete=CASCADE)
+    content = models.TextField(max_length=1000, blank=False)
+    time_created = models.DateTimeField(auto_now_add=True)
 

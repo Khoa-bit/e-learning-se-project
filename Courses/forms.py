@@ -1,6 +1,6 @@
 import pytz
 
-from Courses.models import ClassAnnouncement, ClassContent, Class
+from Courses.models import ClassAnnouncement, ClassContent, Class, ClassFeedback
 from django import forms
 from django.core.exceptions import ValidationError
 from datetime import datetime, timedelta
@@ -84,3 +84,11 @@ class EditClassContentForm(forms.ModelForm):
     class Meta:
         model = ClassContent
         fields = ['attached_file', 'title', 'content']
+
+
+class UploadClassFeedbackForm(forms.ModelForm):
+    content = forms.CharField(label='Content', widget=forms.Textarea(attrs={'placeholder': '...'}))
+
+    class Meta:
+        model = ClassFeedback
+        fields = ['content']

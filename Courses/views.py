@@ -339,6 +339,33 @@ def EditClassContent(request, id, class_id, content_id):
 
 
 @CheckValidUser
+def StudentClassFeedback(request, id, class_id):
+    student = Student.objects.get(id=id)
+    student_class = Class.objects.get(id=class_id)
+    if "send_button" in request.POST:
+        form = forms.UploadClassFeedbackForm(request.POST or None)
+        if form.is_valid():
+            feedback = form.save(commit=False)
+            feedback.class_id_id = class_id
+            feedback.save()
+            return HttpResponseRedirect(reverse('student-class-announcement-page', args=[id, class_id]))
+    else:
+        form = forms.UploadClassFeedbackForm(request.POST or None)
+    context = {'student': student, 'student_class': student_class, 'form': form}
+    return render(request, 'User/upload-feedback.html', context)
+
+
+@CheckValidUser
+def LecturerClassFeedback(request, id, class_id):
+    lecturer = Lecturer.objects.get(id=id)
+    lecturer_class = Class.objects.get(id=class_id)
+    posts = lecturer_class.classfeedback_set.all()
+    context = {'lecturer': lecturer, 'lecturer_class': lecturer_class, 'posts': posts.order_by('-time_created')}
+    return render(request, 'User/view-feedback.html', context)
+
+
+
+@CheckValidUser
 def StaffContact(request, id, class_id):
     lecturer = Class.objects.get(id=class_id).lecturer.user_id
     return render(request, 'User/user-about.html', {"userObj": lecturer, "page_title": "Staff Contact"})

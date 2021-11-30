@@ -7,6 +7,7 @@ from django.conf.urls import url
 from django.views.static import serve
 
 urlpatterns = [
+    path('student/<int:id>/class/<int:class_id>/feedback', views.StudentClassFeedback, name='student-class-feedback-page'),
     path('student/<int:id>/class/<int:class_id>/announcement', views.StudentClassAnnouncement, name='student-class-announcement-page'),
     path('student/<int:id>/class/<int:class_id>/announcement/<int:class_announcement_id>', views.StudentClassAnnouncementViewPage, name="student-class-announcement-viewpage"),
     path('student/<int:id>/class/<int:class_id>/content', views.StudentClassContent, name='student-class-content-page'),
@@ -34,6 +35,7 @@ urlpatterns = [
     path('lecturer/<int:id>/class/<int:class_id>/staff-contact/', views.StaffContact, name='lecturer-staff-contact-page'),
     path('lecturer/<int:id>/class/<int:class_id>/student-list/', views.ViewStudentList, name='lecturer-class-view-student-list'),
     path('lecturer/<int:id>/class/<int:class_id>/student/<int:student_id>/performance', views.ViewStudentCoursePerformance, name='lecturer-view-student-course-performance'),
+    path('lecturer/<int:id>/class/<int:class_id>/feedback', views.LecturerClassFeedback, name='lecturer-class-feedback-page'),
 ]
 
 if settings.DEBUG:
