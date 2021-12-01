@@ -22,5 +22,18 @@
 }
 
 .panel > article p {
-  margin-block: 3rem;
+  margin-block-end: 3rem;
 }
+
+.panel > article .content {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
+
+.panel > article .content .edit {
+  display: flex;
+  margin-inline-start: auto;
+}
+
+
