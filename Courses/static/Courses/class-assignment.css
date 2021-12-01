@@ -10,8 +10,9 @@
 }
 
 .panel > article {
-  display: grid;
-  grid-template-columns: 3fr 3fr 1fr;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding-block-end: 3rem;
   margin-block-end: 3rem;
 }
@@ -41,4 +42,17 @@
   font-weight: 400;
   font-size: 1.8rem;
   color: var(--gray-default);
+}
+
+.panel > article .container {
+  display: flex;
+  gap: 2rem;
+}
+
+.panel > article .container a {
+  color: var(--gray-dark);
+}
+
+.panel > article .container a:hover {
+  color: var(--gray-light);
 }

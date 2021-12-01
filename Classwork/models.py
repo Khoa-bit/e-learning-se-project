@@ -10,6 +10,7 @@ class Test(models.Model):
   test_name = models.CharField(max_length=100)
   publish_time = models.DateTimeField()
   end_time = models.DateTimeField()
+  time_modified = models.DateTimeField(auto_now=True)
   available_time_after_deadline = models.DurationField(default=datetime.timedelta(hours=6)) # available for submission after deadline
   def __str__(self):
       return self.test_name 

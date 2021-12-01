@@ -152,21 +152,33 @@ def LecturerClassContentViewPage(request, id, class_id, content_id):
 def StudentClassAssignment(request, id, class_id):
     student = Student.objects.get(id=id)
     student_class = Class.objects.get(id=class_id)
-    test,upcoming,overdue = [],[],[]
+    ongoing,upcoming,overdue = [],[],[]
     # add filter here (check if test is in the time window because students can only see those tests)
     now = timezone.localtime()+timezone.timedelta(hours=7)
-    for t in student_class.test_set.all():
-        if t.publish_time <= now and t.end_time >= now:
+    for t in student_class.test_set.order_by('-time_modified'):
+        is_new = None
+        # is_new = timezone.now() - t.time_modified < timezone.timedelta(weeks=1)
+        print("Hello?")
+        if t.publish_time <= now and t.end_time >= now - t.available_time_after_deadline:
             print("added "+t.test_name+" to tests")
-            test.append(t)
+            ongoing.append({'obj': t, 'is_new': is_new})
         elif t.publish_time >= now:
             print("added "+t.test_name+" to upcoming")
-            upcoming.append(t)
-        elif t.end_time <= now+ t.available_time_after_deadline and not t.studenttest_set.filter(student_id=student).exists():
-            overdue.append(t)
-    content = {'student_class': student_class,'tests':test,'upcoming':upcoming,'overdue':overdue} # tests that can be taken are in the test list and upcoming test are in the upcoming list
+            upcoming.append({'obj': t, 'is_new': is_new})
+        elif t.end_time <= now - t.available_time_after_deadline and not t.studenttest_set.filter(student_id=student).exists():
+            overdue.append({'obj': t, 'is_new': is_new})
+        # else:
+        #     overdue.append({'obj': t, 'is_new': is_new})
+    content = {'student_class': student_class,'ongoing':ongoing,'upcoming':upcoming,'overdue':overdue} # tests that can be taken are in the test list and upcoming test are in the upcoming list
     return render(request, "Courses/class-assignment.html", content)
 
+
+def fetch_class_assignments(lecturer_class):
+    class_assignments = []
+    for class_assignment in lecturer_class.test_set.order_by('-time_modified'):
+        is_new = timezone.now() - class_assignment.time_modified < timezone.timedelta(weeks=1)
+        class_assignments.append({"obj": class_assignment, "is_new": is_new})
+    return class_assignments
 
 @CheckValidUser
 def LecturerClassAssignment(request, id, class_id):
@@ -174,8 +186,8 @@ def LecturerClassAssignment(request, id, class_id):
     if (class_id not in user.class_set.all().values_list('id', flat=True)):
         return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[id]))
     lecturer_class = Class.objects.get(id=class_id)
-    tests = lecturer_class.test_set.all()   # lecturers can see all tests
-    content = {'lecturer_class': lecturer_class, 'tests':tests}
+    tests = fetch_class_assignments(lecturer_class)   # lecturers can see all tests
+    content = {'lecturer_class': lecturer_class, 'ongoing':tests}
     return render(request, "Courses/class-assignment.html", content)
 
 

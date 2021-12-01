@@ -90,6 +90,10 @@ body {
   background-color: var(--body-bg);
 }
 
+button {
+  font-family: var(--body-font-family);
+}
+
 hr {
   margin: 1.6rem 0;
   color: inherit;
