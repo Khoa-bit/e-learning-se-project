@@ -38,6 +38,7 @@
 
 .registration .btn {
   padding: 1.55rem 2.55rem;
+  margin-inline-end: 1rem;
 
   font-size: 1.8rem;
 
