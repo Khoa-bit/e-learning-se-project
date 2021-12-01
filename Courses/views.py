@@ -346,19 +346,21 @@ def StaffContact(request, id, class_id):
 def ViewStudentList(request, id, class_id):
     lecturer = Lecturer.objects.get(id=id)
     lecturer_class = Class.objects.get(id=class_id)
-    student_list = lecturer_class.student_set.all()
-    return render(request, 'Courses/class-student-list.html', {"student_list": student_list.order_by('user_id__first_name'), "class": lecturer_class, "lecturer": lecturer})
+    student_list = lecturer_class.student_set.all().order_by('user_id__first_name')
+    return render(request, 'Courses/class-student-list.html', {"student_list": student_list, "lecturer_class": lecturer_class, "lecturer": lecturer})
 
 
 @CheckValidUser
 def ViewStudentCoursePerformance(request, id, class_id, student_id):
+    lecturer_class = Class.objects.get(id=class_id)
     student = Student.objects.get(id=student_id)
     tests = StudentTest.objects.filter(student_id=student)
-    return render(request, 'Courses/view-student-course-performance.html', {"student": student,"tests":tests})
+    return render(request, 'Courses/view-student-course-performance.html', {"student": student,"tests":tests, "lecturer_class": lecturer_class})
 
 
 @CheckValidUser
 def ViewSelfCoursePerformance(request, id, class_id):
+    student_class = Class.objects.get(id=class_id)
     student = Student.objects.get(id=id)
     tests = StudentTest.objects.filter(student_id=student.id)
-    return render(request, 'Courses/view-student-course-performance.html', {"student": student, "tests":tests})
+    return render(request, 'Courses/view-student-course-performance.html', {"student": student, "tests":tests, 'student_class': student_class})

@@ -50,6 +50,7 @@
 
 /* Submit button */
 .registration .btn.submit {
+  font-family: var(--body-font-family);
   font-weight: bold;
   color: var(--white-default);
   background-color: var(--iu-primary-default);

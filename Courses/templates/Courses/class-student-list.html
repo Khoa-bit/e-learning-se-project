@@ -1,26 +1,54 @@
-{% extends 'Courses/base.html' %}
+{% extends 'Courses/base-class-course.html' %}
+{% load static %}
 
-{% block column_names %}
-    <th scope="col">#</th>
-    <th scope="col">Student ID</th>
-    <th scope="col">Full name</th>
-    <th scope="col">Email</th>
-    <th scope="col">Major</th>
-{% endblock column_names %}
+{% block title %}
+<title>{{ class }} Student List</title>
+{% endblock title %}
 
-{% block filter %}
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'Courses/class-student-list.css' %}">
+{% endblock %}
 
-{% endblock filter %}
+{% block class-view-student-list-active %}active{% endblock %}
 
-{% block content %}
-    {% for i in student_list %}
-        <tr>
-            <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ i.id }}</td>
-                <td><a href="{% url 'lecturer-view-student-course-performance' lecturer.id class.id i.id %}">{{ i.user_id.full_name }}</a></td>
-                <td>{{ i.user_id.email }}</td>
-                <td>{{ i.major_id }}</td>
-        </tr>
-    {% endfor %}
-{% endblock content %}
+{% block panel-content %}
+<article class="header">
+  <div class="number">
+    <p></p>
+  </div>
+  <div class="name">
+    <h3>Student Name</h3>
+  </div>
+  <div class="id">
+    <h3>Student ID</h3>
+  </div>
+  <div class="email">
+    <h3>Student Email</h3>
+  </div>
+</article>
+
+{% for student in student_list %}
+    <a class=student href="{% url 'lecturer-view-student-course-performance' lecturer.id lecturer_class.id student.id %}">
+      <article>
+        <div class="number">
+          <p>{{ forloop.counter }}</p>
+        </div>
+
+        <div class="name">
+          <p>{{ student.user_id.full_name }}</p>
+        </div>
+        <div class="id">
+          <p>{{ student.id }}</p>
+        </div>
+        <div class="email">
+          <p>{{ student.user_id.email }}</p>
+        </div>
+      </article>
+    </a>
+  {% endfor %}
+
+{% endblock %}
+
+
 

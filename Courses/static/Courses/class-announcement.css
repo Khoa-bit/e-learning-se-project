@@ -21,19 +21,16 @@
   color: var(--gray-default);
 }
 
+.panel > article p {
+  margin-block-end: 3rem;
+}
+
 .panel > article .content {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.panel > article .content p {
-  margin-block: 3rem;
+  flex-wrap: wrap;
 }
 
-.panel > article .content a {
-  color: var(--gray-dark);
-}
-
-.panel > article .content a:hover {
-  color: var(--gray-light);
+.panel > article .content .edit {
+  display: flex;
+  margin-inline-start: auto;
 }
