@@ -27,11 +27,12 @@
                 fill="currentColor"></path>
         </g>
       </svg>
-      Upload Announcement
+      New Announcement
     </a>
   {% endif %}
 
   {% for class_announcement in class_announcements %}
+    {% if class_announcement.obj.is_displayable or user.user_type == 'Lecturer' and not class_announcement.obj.is_displayable %}
     <article>
       <div class="heading">
         <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id class_announcement.obj.class_id.id class_announcement.obj.id %}
@@ -62,5 +63,6 @@
       {% endif %}
     </div>
     </article>
+    {% endif %}
   {% endfor %}
 {% endblock %}

@@ -2,30 +2,28 @@
 {% load static %}
 
 {% block title %}
-  <title>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} Edit announcement</title>
+  <title>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} Edit content</title>
 {% endblock title %}
 
 {% block stylesheets %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static 'User/base-upload.css' %}">
   <link rel="stylesheet" href="{% static 'User/upload-announcement.css' %}">
+  <script src="{% static 'User/upload-content.js' %}" defer></script>
 {% endblock %}
 
 {% block tabs_navbar %}{% endblock tabs_navbar %}
 
 {% block panel-content %}
   <article>
-    <form action="{% url 'edit-class-announcement-page' lecturer.id lecturer_class.id announcement.id %}" method="POST" enctype="multipart/form-data">
+    <div class="heading">
+      <h3 class="title">Edit Content</h3>
+    </div>
+    <form method="POST" action="{% url 'edit-class-content-page' lecturer.id lecturer_class.id post.id %}" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
-      <div class="heading">
-        <h3 class="title"></h3>
-      </div>
       <div class="btn-container">
-        <input class="btn-delete" type="Submit" value="Delete" href="{% url 'lecturer-class-announcement-page' lecturer.id lecturer_class.id %}"/>
-        <div class="right-buttons">
-        <input class="btn post" type="Submit" value="Post"/>
-        <a class="btn cancel" href="{% url 'lecturer-class-announcement-page' lecturer.id lecturer_class.id %}">
+        <a class="btn cancel" href="{% url 'lecturer-class-content-page' lecturer.id lecturer_class.id %}">
           Cancel
         </a>
         <input class="btn post" name="delete_button" type="submit" value="Delete"/>

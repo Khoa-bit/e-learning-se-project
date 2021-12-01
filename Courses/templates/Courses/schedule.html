@@ -11,13 +11,15 @@
 
 {% block content %}
     {% for i in classes %}
-        <tr>
-            <th scope="row">{{ i.id }}</th>
-                <td>{{ i.schedule.day_of_the_week }}</td>
-                <td>{{ i }}</td>
-                <td>{{ i.schedule.start_time }}</td>
-                <td>{{ i.schedule.duration }}</td>
-        </tr>
+        {% if i.is_displayable %}
+            <tr>
+                <th scope="row">{{ i.id }}</th>
+                    <td>{{ i.schedule.day_of_the_week }}</td>
+                    <td>{{ i }}</td>
+                    <td>{{ i.schedule.start_time }}</td>
+                    <td>{{ i.schedule.duration }}</td>
+            </tr>
+        {% endif %}
     {% endfor %}
   <p>time_created</p>
 {% endblock content %}
