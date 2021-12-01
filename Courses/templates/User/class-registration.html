@@ -22,108 +22,52 @@
                 fill="currentColor"/>
         </svg>
       </label>
-      <input type="search" id="search" placeholder="Search for courses">
+      <input type="search" id="search" placeholder="Search for courses..">
     </div>
-
-    <form id="registrationForm" method="POST">
+    <form method="POST" action="{% url 'student-class-registration-page' student.id %}" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="scrollable">
         <table id="class-table" class="class-table">
           <thead>
           <tr>
-            <th></th>
+            <th>Select</th>
             <th class="subject-col">Subject name</th>
-            <th>Cre</th>
             <th>Class ID</th>
-            <th>Size</th>
-            <th>Re</th>
+            <th>Semester</th>
             <th>Day</th>
-            <th>Start per.</th>
-            <th>NO. per.</th>
-            <th>Room</th>
+            <th>Start time</th>
+            <th>Duration</th>
             <th>Instructor</th>
-            <th>Period</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td><input type="checkbox" id="horns" name="horns"></td>
-            <td><label for="horns">Horns</label></td>
-            <td>4</td>
-            <td>ITIT19CS2</td>
-            <td>30</td>
-            <td>30</td>
-            <td>Tue</td>
-            <td>1</td>
-            <td>3</td>
-            <td>304</td>
-            <td>N.T.T.Loan</td>
-            <td>06/09/2021 - 02/01/2022</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" id="horns" name="horns"></td>
-            <td><label for="horns">Horns</label></td>
-            <td>4</td>
-            <td>ITIT19CS2</td>
-            <td>30</td>
-            <td>30</td>
-            <td>Wed</td>
-            <td>7</td>
-            <td>4</td>
-            <td>401</td>
-            <td>L.H.Duong</td>
-            <td>06/09/2021 - 02/01/2022</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" id="horns" name="horns"></td>
-            <td><label for="horns">Horns</label></td>
-            <td>4</td>
-            <td>ITIT19CS2</td>
-            <td>30</td>
-            <td>30</td>
-            <td>Tue</td>
-            <td>1</td>
-            <td>3</td>
-            <td>304</td>
-            <td>N.T.T.Loan</td>
-            <td>06/09/2021 - 02/01/2022</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox" id="horns" name="horns"></td>
-            <td><label for="horns">Horns</label></td>
-            <td>4</td>
-            <td>ITIT19CS2</td>
-            <td>30</td>
-            <td>30</td>
-            <td>Wed</td>
-            <td>7</td>
-            <td>4</td>
-            <td>401</td>
-            <td>L.H.Duong</td>
-            <td>06/09/2021 - 02/01/2022</td>
-          </tr>
-          {% for class in classes %}
-            <tr>
-              <td><input type="checkbox" id="horns" name="horns"></td>
-              <td><label for="horns">{{ class.course.name }}</label></td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>-</td>
-              <td>{{ class.schedule.day_of_the_week }}</td>
-              <td>{{ class.schedule.start_time }}</td>
-              <td>{{ class.schedule.duration }}</td>
-              <td>-</td>
-              <td>
-                {{ class.lecturer.user_id.last_name.0|capfirst|add:"." }}{{ class.lecturer.user_id.middle_name.0|capfirst|add:"." }}.{{ class.lecturer.user_id.first_name|capfirst }}</td>
-              <td>-</td>
-            </tr>
+          {% for field in form %}
+            {% for choice_id, choice_label in field.field.choices %}
+              {% for class in classes %}
+                {% if class.id == choice_id %}
+                  <tr>
+                    <td><input type="checkbox" name="selection" value="{{ choice_id }}" id="{{ choice_id }}"
+                            {% for student_class in student_classes %}
+                               {% if student_class.course.name == choice_label %}disabled{% endif %}
+                            {% endfor %}></td>
+                    <td>{{ choice_label }}</td>
+                    <td>{{ choice_id }}</td>
+                    <td>{{ class.sem_year }}</td>
+                    <td>{{ class.schedule.get_day_of_the_week_display }}</td>
+                    <td>{{ class.schedule.start_time }}</td>
+                    <td>{{ class.schedule.duration }}</td>
+                    <td>{{ class.lecturer.user_id.full_name }}</td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
           {% endfor %}
           </tbody>
         </table>
       </div>
-      <input type="Submit" hidden/>
+      <button id="submit" class="btn submit">Register</button>
+      <a class="btn submit" href="{% url 'edit-class-registration-page' student.id %}">Edit registered
+        classes</a>
     </form>
-    <button id="submit" class="btn submit">Register</button>
   </article>
 {% endblock %}

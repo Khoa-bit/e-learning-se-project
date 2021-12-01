@@ -38,21 +38,27 @@ def GuestAnnouncementAll(request):
                   {"general_announcements": fetch_general_announcements()})
 
 
-@redirect_auth_user
-def GuestAnnouncementSearch(request):  # new
-    query = request.GET.get('search')
-    if query is None:
-        context = {'announcements': Announcement.objects.order_by("-time_announced")}
-        return render(request, "Home/guest-announcement-all.html", context)
-    else:
-        context = {'announcements': Announcement.objects.filter(title__icontains=query).order_by("-time_announced")}
-        return render(request, "Home/guest-announcement-search.html", context)
+def GuestAnnouncementSearch(request): # new
+        query = request.GET.get('search')
+        if request.user.is_authenticated:
+            user = User.objects.get(id=request.user.id)
+            if user.is_student():
+                return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
+            if user.is_lecturer():
+                return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
+        if query is None:
+            context = {'general_announcements' : Announcement.objects.order_by("-time_created")}
+            return render(request, "User/user-general-announcement-view-all.html", context)
+        else:
+            context = {'general_announcements': Announcement.objects.filter(title__icontains=query).order_by("-time_created")}
+            return render(request, "User/user-general-announcement-view-all.html", context)
 
 
 @redirect_auth_user
 def GuestAnnouncementPage(request, id):
-    announcement = Announcement.objects.get(id=id)
-    return render(request, "User/user-general-announcement-page.html", {"announcement": announcement})
+    #announcement = Announcement.objects.get(id=id)
+    context = {'announcements' : Announcement.objects.filter(id=id)}
+    return render(request, "User/user-general-announcement-page.html", context)
 
 
 def About(request):

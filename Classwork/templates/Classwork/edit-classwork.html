@@ -36,4 +36,7 @@
     <a href="{% url 'delete-classwork-view' id class_id test.id %}">DELETE THIS TEST</a>
   </div>
   </form>
+  <div>
+    <a href="{% url 'lecturer-class-assignment-page' id class_id%}">Go back to classworks view</a>
+  </div>
 {% endblock body %}

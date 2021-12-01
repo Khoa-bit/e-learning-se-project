@@ -1,3 +1,4 @@
+from datetime import timezone
 from uuid import uuid4
 from django.http.response import HttpResponse
 from django.shortcuts import render
@@ -6,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from Courses.models import Class
 from User.models import Lecturer, Student, User
+from django.utils import timezone
 from .models import *
 from .forms import *
 # Create your views here.
@@ -55,7 +57,6 @@ def ClassworkView(request, id, class_id):
 
 @CheckValidUser
 def EditClassworkView(request, id, class_id , test_id):
-  # when the edit button is implemented
   if request.method == "POST":
     print(request.POST)
   lecturer = Lecturer.objects.get(id=id)
@@ -67,11 +68,22 @@ def EditClassworkView(request, id, class_id , test_id):
   return render(request,'Classwork/edit-classwork.html',context)
 
 def DoTestView(request,id,class_id,test_id):
+  done=False
+  grade = None
   if request.user.is_lecturer():
     return HttpResponseRedirect(reverse('classwork-view',args=[id,class_id]))
+  t = Test.objects.get(id=test_id)
+  now = timezone.localtime()+timezone.timedelta(hours=7)
+  if not t.publish_time <= now:
+    HttpResponseRedirect(reverse('student-class-announcement-page',args=[id,class_id]))
+  if t.studenttest_set.filter(student_id=id,test_id=test_id).exists():
+    a = t.studenttest_set.get(student_id=id,test_id=test_id)
+    done = True
+    grade = a.grade
   if request.method == 'POST':
-    print(dict(request.POST.lists()))
-    test = StudentTest(student_id=Student.objects.get(id=id),test_id=Test.objects.get(id=test_id))
+    # print(dict(request.POST.lists()))
+    isoverdue = t.end_time <= now+ t.available_time_after_deadline
+    test = StudentTest(student_id=Student.objects.get(id=id),test_id=Test.objects.get(id=test_id),is_overdue=isoverdue)
     test.save()
     for question, answer in dict(request.POST.lists()).items():
       if question != 'csrfmiddlewaretoken':
@@ -84,18 +96,27 @@ def DoTestView(request,id,class_id,test_id):
           for mco in answer:
             a.choice_ans.add(MultipleChoiceOption.objects.get(id=int(mco)))
         a.save()
-    print(test.choice_ans)
     return HttpResponseRedirect(reverse('student-class-announcement-page',args=[id,class_id]))
-  # student = User.objects.get(id=id).student
-  class_id = Class.objects.get(id=test_id)
-  test = Test.objects.get(id=test_id)
-  context={'test':test,}
+  context={'test':Test.objects.get(id=test_id), "done":done, "id":id,"class_id":class_id,"grade":grade}
   return render(request,"Classwork/do-test.html",context)
 
 @CheckValidUser
 def ViewStudentTest(request,id,class_id,studenttest_id):
   st = StudentTest.objects.get(id=studenttest_id)
-  return render(request,"Classwork/view-student-test.html",{"test":st})
+  if request.method == "POST":
+    grade = float(request.POST['grade'])
+    if grade >= 0:
+      st.grade = grade
+      st.save()
+    
+  right_ans=0
+  for ans in st.studentanswer_set.all():
+    if not ans.question.is_written:
+        q = ans.question.multiplechoiceoption_set.all()
+        right = [answer for answer in q if answer.is_true]
+        if(set(ans.choice_ans.all())==set(right)):
+          right_ans+=1
+  return render(request,"Classwork/view-student-test.html",{"test":st,"right":right_ans})
 
 @CheckValidUser
 def written_question_form(request,id,class_id,test_id):
@@ -129,7 +150,7 @@ def multiplechoice_form(request,id,class_id,test_id):
     return HttpResponseRedirect(reverse("edit-classwork-view",args=[id,class_id,test_id]))
   return render(request,"Classwork/partials/partial-multiplechoice-form.html",context)
 
-@CheckValidUser
+
 def parseMultipleChoice(request):
   questions={}
   options={}
@@ -185,3 +206,11 @@ def UpdateQuestion(request,id,class_id,test_id,qid):
         option.save()
     return HttpResponseRedirect(reverse("edit-classwork-view",args=[id,class_id,test_id]))
   return render(request,"Classwork/update-question.html",context)
+
+@CheckValidUser
+def SubmittedListView(request, id, class_id, test_id):
+  submitted = Test.objects.get(id=test_id).studenttest_set.all()
+  times = [t.submit_time + datetime.timedelta(hours=7) for t in submitted]
+  list = zip(submitted,times)
+  context={'id':id,'class_id':class_id,'test_id':test_id,'submitted':list}
+  return render(request,"Classwork/submitted-list.html",context)

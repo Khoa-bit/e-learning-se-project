@@ -1,5 +1,10 @@
+import pytz
+
 from Courses.models import ClassAnnouncement, ClassContent, Class
 from django import forms
+import datetime
+
+utc = pytz.UTC
 
 class UploadClassAnnouncementForm(forms.ModelForm):
     title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Announcement Title'}))
@@ -27,12 +32,31 @@ class UploadClassContentForm(forms.ModelForm):
 
 
 class ClassRegistrationForm(forms.Form):
-    CLASS_CHOICES = []
-    for i in Class.objects.all():
-        CLASS_CHOICES.append((i.id, i))
-    selection = forms.MultipleChoiceField(choices=CLASS_CHOICES, widget=forms.CheckboxSelectMultiple)
+    def __init__(self, *args, **kwargs):
+        choices = kwargs.pop('choices')
+        super(ClassRegistrationForm,self).__init__(*args, **kwargs)
+        self.fields['selection'] = forms.MultipleChoiceField(choices=choices,widget=forms.CheckboxSelectMultiple)
+
+    class Meta:
+        model = Class
 
 
+class EditClassRegistrationForm(forms.Form):
+    selection = forms.BooleanField(widget=forms.CheckboxSelectMultiple)
 
 
+class EditClassAnnouncementForm(forms.ModelForm):
+    title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Announcement Title'}))
+    content = forms.CharField(label='Content', widget=forms.Textarea(attrs={'placeholder': 'Announcement Content'}))
 
+    class Meta:
+        model = ClassAnnouncement
+        fields = ['title', 'content']
+
+
+class DummyForm(forms.ModelForm):
+    title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Announcement Title'}))
+    content = forms.CharField(label='Content', widget=forms.Textarea(attrs={'placeholder': 'Announcement Content'}))
+    class Meta:
+        model = ClassAnnouncement
+        fields = ['title', 'content']

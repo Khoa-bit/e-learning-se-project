@@ -13,21 +13,28 @@
     {% else %}
         <title>International University</title>
     {% endif %}
+
+    {% block style %}
+    {% endblock style %}
 </head>
 
 <body>
     <table class="table">
-    <thead>
-      <tr>
-          {% block column_names %}
-          {% endblock column_names %}
-      </tr>
-    </thead>
-    <tbody>
-        {% block content %}
-        {% endblock content %}
-    </tbody>
-  </table>
+        <thead>
+          <tr>
+              {% block column_names %}
+              {% endblock column_names %}
+          </tr>
+        </thead>
+        <tbody>
+            {% block content %}
+            {% endblock content %}
+        </tbody>
+    </table>
+    <div>
+        {% block filter %}
+        {% endblock filter %}
+    </div>
 </body>
 </html>
 

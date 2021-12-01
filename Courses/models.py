@@ -51,12 +51,30 @@ class Class(models.Model):
     course = models.ForeignKey(Course, on_delete=CASCADE)
     lecturer = models.ForeignKey(Lecturer, on_delete=CASCADE)
     schedule = models.ForeignKey(Schedule, on_delete=SET_NULL, null=True,blank=True)
+    start_date = models.DateTimeField(default=datetime.datetime(2021, 9, 6))
 
     def __str__(self):
         if self.schedule:
-            return self.course.name + " - " + str(self.schedule) + " - " + self.lecturer.user_id.full_name
+            return self.course.name + " - " + str(self.schedule) + " - " + self.lecturer.user_id.full_name + self.sem_year
         else:
             return self.course.name + "-" + self.lecturer.user_id.full_name
+
+    @property
+    def month(self):
+        return int(self.start_date.strftime("%m"))
+
+    @property
+    def year(self):
+        return int(self.start_date.strftime("%Y"))
+
+    @property
+    def sem_year(self):
+        year = self.year
+        month = self.month
+        if month in [9, 10, 11, 12, 1]:
+            return "Sem 1 - {}".format(year)
+        elif month in [2, 3, 4, 5, 6]:
+            return "Sem 2 - {}".format(int(year-1))
 
 
 class ClassAnnouncement(models.Model):
