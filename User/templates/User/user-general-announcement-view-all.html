@@ -24,18 +24,18 @@
       <input id="search" name="search" type="text" placeholder="Search for announcements..">
       </div>
     </form>
-    {% for announcement in general_announcements %}
-      <article style="--order: 1">
+    {% for general_announcement in general_announcements %}
+      <article style="--order: {{ forloop.counter }}">
         <a class="heading"
-           href="{% if user.user_type == 'Student' %}{% url 'student-general-announcement-page' user.student.id announcement.obj.id %}
-                  {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-general-announcement-page' user.lecturer.id announcement.obj.id %}
-                  {% elif not user.is_authenticated %}{% url 'guest-announcement-viewpage' announcement.obj.id %}
-                  {% endif %}"><h3>{{ announcement.obj.title }}</h3>
+           href="{% if user.user_type == 'Student' %}{% url 'student-general-announcement-page' user.student.id general_announcement.obj.id %}
+                  {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-general-announcement-page' user.lecturer.id general_announcement.obj.id %}
+                  {% elif not user.is_authenticated %}{% url 'guest-announcement-viewpage' general_announcement.obj.id %}
+                  {% endif %}"><h3>{{ general_announcement.obj.title }}</h3>
         </a>
-        <footer>
-          <time>{{ announcement.obj.time_modified.date }}<br>{{ announcement.obj.time_modified.time | time:"g:iA" }}
-          </time>
-        </footer>
+            <footer>
+                <div class="new-tag" {% if general_announcement.is_new == False %}style="visibility: hidden"{% endif %}>NEW</div>
+                <time datetime="{{ general_announcement.obj.time_modified | date:"c" }}">{{ general_announcement.obj.time_modified | date:"d/m/Y" }}</time>
+            </footer>
       </article>
     {% endfor %}
   </article>
