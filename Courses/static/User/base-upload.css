@@ -59,7 +59,8 @@
   font-size: 1.8rem;
   transition: background-color var(--hover-transition);
   background-color: var(--alert-primary);
-  color: var(--white-default)
+  color: var(--white-default);
+  border: none;
 }
 
 .panel > article form .btn {
