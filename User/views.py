@@ -121,20 +121,32 @@ def LecturerGeneralAnnouncementViewAll(request, id):
 @CheckValidUser
 def StudentClassAnnouncementViewAll(request, id):
     student = Student.objects.get(id=id)
+    query = request.GET.get('search')
     class_announcements = []
-    for class_id in student.class_id.all():
-        for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
-            class_announcements.append(announcement)
+    if query is None:
+        for class_id in student.class_id.all():
+            for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
+                class_announcements.append(announcement)
+    else:
+        for class_id in student.class_id.all():
+            for announcement in ClassAnnouncement.objects.filter(class_id=class_id, title__icontains=query).order_by("-time_created"):
+                class_announcements.append(announcement)
     return render(request, "User/user-class-announcement-view-all.html", {"class_announcements": class_announcements})
 
 
 @CheckValidUser
 def LecturerClassAnnouncementViewAll(request, id):
     lecturer = Lecturer.objects.get(id=id)
+    query = request.GET.get('search')
     class_announcements = []
-    for class_id in lecturer.class_set.all():
-        for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
-            class_announcements.append(announcement)
+    if query is None:
+        for class_id in lecturer.class_set.all():
+            for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
+                class_announcements.append(announcement)
+    else:
+        for class_id in lecturer.class_set.all():
+            for announcement in ClassAnnouncement.objects.filter(class_id=class_id, title__icontains=query).order_by("-time_created"):
+                class_announcements.append(announcement)
     return render(request, "User/user-class-announcement-view-all.html", {"class_announcements": class_announcements})
 
 

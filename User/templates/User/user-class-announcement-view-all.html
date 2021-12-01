@@ -13,11 +13,21 @@
 
 {% block main-content %}
     <article class="panel announcement general-information">
-        <h2>General Information
+        <h2>Class Information
           <br></br>
+          {% if user.user_type == 'Student' %}
+          <form action="{% url 'student-class-announcement-all' %}" method="get">
+            <input name="search" type="text" placeholder="Search...">
+          </form>
+          {% elif user.user_type == 'Lecturer' %}
+          <form action="{% url 'lecturer-class-announcement-all' %}" method="get">
+            <input name="search" type="text" placeholder="Search...">
+          </form>
+          {% elif not user.is_authenticated %}
           <form action="{% url 'guest-announcement-search' %}" method="get">
             <input name="search" type="text" placeholder="Search...">
           </form>
+          {% endif %}
         </h2>
         {% for announcement in class_announcements %}
             {% if announcement.is_displayable or user.user_type == 'Lecturer' and not announcement.is_displayable %}
@@ -39,4 +49,3 @@
         {% endfor %}
     </article>
 {% endblock %}
-
