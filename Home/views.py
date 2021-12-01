@@ -22,7 +22,7 @@ def GuestAnnouncement(request):
             return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
     '''
     general_announcements = []
-    for i in Announcement.objects.all().order_by('-time_created'):
+    for i in Announcement.objects.all().order_by("-time_modified"):
         general_announcements.append(i)
     return render(request, "User/user-announcement.html", {"general_announcements": general_announcements[:3]})
 
@@ -52,10 +52,10 @@ def GuestAnnouncementSearch(request): # new
             if user.is_lecturer():
                 return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
         if query is None:
-            context = {'general_announcements' : Announcement.objects.order_by("-time_created")}
+            context = {'general_announcements' : Announcement.objects.order_by("-time_modified")}
             return render(request, "User/user-general-announcement-view-all.html", context)
         else:
-            context = {'general_announcements': Announcement.objects.filter(title__icontains=query).order_by("-time_created")}
+            context = {'general_announcements': Announcement.objects.filter(title__icontains=query).order_by("-time_modified")}
             return render(request, "User/user-general-announcement-view-all.html", context)
 
 

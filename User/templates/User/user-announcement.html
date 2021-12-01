@@ -22,7 +22,7 @@
                                           {% endif %}"><h3>{{ announcement.title }}</h3>
             </a>
             <footer>
-                <time>{{ announcement.time_created.date }}<br>{{ announcement.time_created.time | time:"g:iA" }}</time>
+                <time>{{ announcement.time_modified.date }}<br>{{ announcement.time_modified.time | time:"g:iA" }}</time>
             </footer>
         </article>
         {% endfor %}
