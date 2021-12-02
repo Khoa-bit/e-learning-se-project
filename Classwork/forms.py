@@ -6,9 +6,13 @@ class TestForm(forms.ModelForm):
   class Meta:
     model = Test
     fields = ["test_name","test_description","publish_time","end_time","available_time_after_deadline"]
+    # widgets={
+    #   "publish_time":widgets.DateTimeInput(attrs={'type':'datetime-local'}),
+    #   "end_time":forms.DateTimeInput(attrs={'type':'datetime-local'}),
+    # }
     widgets={
-      "publish_time":widgets.DateTimeInput(attrs={'type':'datetime-local'}),
-      "end_time":forms.DateTimeInput(attrs={'type':'datetime-local'}),
+      "publish_time":forms.DateTimeInput(format='%Y-%m-%d %H:%M:%S', attrs={'class':'datetimefield'}),
+      "end_time":forms.DateTimeInput(format='%Y-%m-%d %H:%M:%S', attrs={'class':'datetimefield'}),
     }
 
 class WrittenQuestionForm(forms.Form):

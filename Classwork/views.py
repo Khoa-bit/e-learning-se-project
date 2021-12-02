@@ -40,11 +40,25 @@ def CreateClassworkView(request, id, class_id):
       t = form.save(commit=False)
       t.class_id = Class.objects.get(id=class_id)
       t.save()
-      return HttpResponseRedirect(reverse("classwork-view",args=[id,class_id]))
+      return HttpResponseRedirect(reverse("lecturer-class-assignment-page",args=[id,class_id]))
   else:
     form = TestForm()
   context['form'] = form
   return render(request, "Classwork/create-classwork.html",context)
+
+@CheckValidUser
+def ChangeTestInformation(request, id, class_id, test_id):
+  test = Test.objects.get(id=test_id)
+  form = TestForm(instance=test)
+  if request.method == 'POST':
+    form = TestForm(data=request.POST)
+    if(form.is_valid()):
+      form.save()
+      return HttpResponseRedirect(reverse("classwork-view",args=[id,class_id]))
+  else:  
+    context= {"id":id,"class_id":class_id,"test_id":test_id,"form":form}
+    return render(request, "Classwork/create-classwork.html",context)
+  
 
 @CheckValidUser
 def ClassworkView(request, id, class_id):

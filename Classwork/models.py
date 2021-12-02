@@ -7,6 +7,7 @@ from django.db.models.deletion import CASCADE
 class Test(models.Model):
   class_id = models.ForeignKey("Courses.Class",on_delete=CASCADE)
   test_description = models.TextField(null=True,blank=True)
+  test_file = models.FileField(null=True,blank=True)
   test_name = models.CharField(max_length=100)
   publish_time = models.DateTimeField()
   end_time = models.DateTimeField()
