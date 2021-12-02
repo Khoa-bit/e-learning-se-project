@@ -2,6 +2,8 @@ import os
 
 import pytz
 import datetime
+import calendar
+from calendar import HTMLCalendar
 
 from django.forms import model_to_dict
 from django.shortcuts import render
@@ -9,6 +11,7 @@ from django.utils import timezone
 from django.http.response import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.safestring import mark_safe
 
 from .models import *
 from User.models import Student, Lecturer
@@ -19,7 +22,6 @@ from datetime import datetime
 from django.conf import Settings, settings
 from django.http import HttpResponse, Http404
 from django.views.static import serve
-
 
 
 @CheckValidUser
@@ -244,7 +246,7 @@ def UploadClassContent(request, id, class_id):
 def Download(request, id, class_id, content_id):
     content = ClassContent.objects.get(id=content_id)
     path = content.attached_file.url
-    file_path = str(settings.BASE_DIR).replace("\\","/")+path
+    file_path = str(settings.BASE_DIR).replace("\\","/") + path
     if os.path.exists(file_path):
         with open(file_path, 'rb') as fh:
             response = HttpResponse(fh.read(), content_type="application/pdf")
@@ -287,7 +289,7 @@ def EditClassRegistration(request, id):
     student = Student.objects.get(id=id)
     classes = []
     now = utc.localize(datetime.now())
-    deadline = utc.localize(datetime(2021, 12, 31, 19, 59, 00))
+    deadline = datetime(2021, 12, 31, 19, 59, 00).replace(tzinfo=utc)
     for i in student.class_id.all():
         if (i.start_date > now):
             classes.append(i)
@@ -319,21 +321,76 @@ def EditClassAnnouncement(request, id, class_id, announcement_id):
     lecturer = Lecturer.objects.get(id=id)
     lecturer_class = Class.objects.get(id=class_id)
     announcement = ClassAnnouncement.objects.get(id=announcement_id)
-    if request.POST:
+    if "post_button" in request.POST:
         form = forms.EditClassAnnouncementForm(request.POST or None, instance=announcement)
         if form.is_valid():
             form.save()
+            if not announcement.is_displayable:
+                announcement.time_modified = announcement.time_created
             return HttpResponseRedirect(reverse('lecturer-class-announcement-page', args=[id, class_id]))
+    elif "delete_button" in request.POST:
+        announcement.delete()
+        return HttpResponseRedirect(reverse('lecturer-class-announcement-page', args=[id, class_id]))
     else:
         form = forms.EditClassAnnouncementForm(request.POST or None, instance=announcement)
     context = {"lecturer": lecturer, "announcement": announcement, "lecturer_class": lecturer_class, 'form': form}
     return render(request, 'User/edit-class-announcement.html', context)
 
 
+@CheckValidUser
+def EditClassContent(request, id, class_id, content_id):
+    lecturer = Lecturer.objects.get(id=id)
+    lecturer_class = Class.objects.get(id=class_id)
+    content = ClassContent.objects.get(id=content_id)
+    url = str(settings.BASE_DIR).replace("\\", "/") + "/media/"
+    files = os.listdir(url)
+    if "post_button" in request.POST:
+        form = forms.EditClassContentForm(request.POST or None, request.FILES or None, instance=content)
+        if form.is_valid():
+            form.save()
+            for i in files:
+                if i not in ClassContent.objects.all().values_list('attached_file', flat=True):
+                    remove_url = url + i
+                    os.remove(remove_url)
+        return HttpResponseRedirect(reverse('lecturer-class-content-page', args=[id, class_id]))
+    elif "delete_button" in request.POST:
+        content.delete()
+        for i in files:
+            if i not in ClassContent.objects.all().values_list('attached_file', flat=True):
+                remove_url = url + i
+                os.remove(remove_url)
+        return HttpResponseRedirect(reverse('lecturer-class-content-page', args=[id, class_id]))
+    else:
+        form = forms.EditClassContentForm(request.POST or None, request.FILES or None, instance=content)
+    context = {'lecturer': lecturer, 'lecturer_class': lecturer_class, 'post': content, 'form': form}
+    return render(request, 'User/edit-class-content.html', context)
+
 
 @CheckValidUser
-def DeleteClassAnnouncement(request, id, class_id, announcement_id):
-    pass
+def StudentClassFeedback(request, id, class_id):
+    student = Student.objects.get(id=id)
+    student_class = Class.objects.get(id=class_id)
+    if "send_button" in request.POST:
+        form = forms.UploadClassFeedbackForm(request.POST or None)
+        if form.is_valid():
+            feedback = form.save(commit=False)
+            feedback.class_id_id = class_id
+            feedback.save()
+            return HttpResponseRedirect(reverse('student-class-announcement-page', args=[id, class_id]))
+    else:
+        form = forms.UploadClassFeedbackForm(request.POST or None)
+    context = {'student': student, 'student_class': student_class, 'form': form}
+    return render(request, 'User/upload-feedback.html', context)
+
+
+@CheckValidUser
+def LecturerClassFeedback(request, id, class_id):
+    lecturer = Lecturer.objects.get(id=id)
+    lecturer_class = Class.objects.get(id=class_id)
+    posts = lecturer_class.classfeedback_set.all()
+    context = {'lecturer': lecturer, 'lecturer_class': lecturer_class, 'posts': posts.order_by('-time_created')}
+    return render(request, 'User/view-feedback.html', context)
+
 
 
 @CheckValidUser

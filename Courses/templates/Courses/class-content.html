@@ -32,6 +32,7 @@
   {% endif %}
 
   {% for content_post in content_posts %}
+    {% if content_post.obj.is_displayable or user.user_type == 'Lecturer' and not content_post.obj.is_displayable %}
     <article>
       <div class="heading">
         <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
@@ -51,5 +52,6 @@
       <p>Attached Files: {{ content_post.obj.attached_file.name }}</p>
       <p>{{ content_post.obj.content | linebreaks }}</p>
     </article>
+    {% endif %}
   {% endfor %}
 {% endblock %}

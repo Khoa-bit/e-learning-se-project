@@ -13,13 +13,24 @@
 
 {% block main-content %}
     <article class="panel announcement general-information">
-        <h2>General Information
+        <h2>Class Information
           <br></br>
+          {% if user.user_type == 'Student' %}
+          <form action="{% url 'student-class-announcement-all' %}" method="get">
+            <input name="search" type="text" placeholder="Search...">
+          </form>
+          {% elif user.user_type == 'Lecturer' %}
+          <form action="{% url 'lecturer-class-announcement-all' %}" method="get">
+            <input name="search" type="text" placeholder="Search...">
+          </form>
+          {% elif not user.is_authenticated %}
           <form action="{% url 'guest-announcement-search' %}" method="get">
             <input name="search" type="text" placeholder="Search...">
           </form>
+          {% endif %}
         </h2>
         {% for announcement in classes_announcements %}
+            {% if announcement.obj.is_displayable or user.user_type == 'Lecturer' and not announcement.obj.is_displayable %}
             <article style="--order: 1">
                 <a href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-page' user.student.id announcement.obj.class_id.id %}
                                           {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-page' user.lecturer.id announcement.obj.class_id.id %}
@@ -33,7 +44,7 @@
                     <time>{{ announcement.obj.time_modified.date }}<br>{{ announcement.obj.time_modified.time | time:"g:iA" }}</time>
                 </footer>
             </article>
+            {% endif %}
         {% endfor %}
     </article>
 {% endblock %}
-
