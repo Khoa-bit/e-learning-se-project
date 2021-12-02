@@ -1,0 +1,25 @@
+{% extends 'Classwork/base-test.html' %}
+{% block body %}
+<h1>TEST NAME: {{test.test_name}}</h1>
+<p>{{test.test_description}}</p>
+<p><a href="{% url 'download-test-file' id class_id test.id%}">Download test file</a>
+{% if not done %}
+<form method="POST" action="#" enctype="multipart/form-data">
+    {%csrf_token%}
+    {{form.as_p}}
+    <hr>
+    <div><input type="submit" value='Submit test'></div>
+</form>
+{% else %}
+<div>
+    <p>You have already done this test (<a href="{% url 'download-student-file' id class_id studenttest.id %}">Download your submission</a>)</p>  
+    <hr>
+    {%if grade%}
+    <p>Your grade is {{grade}}</p>
+    {%else%}
+    <p>Test is ungraded</p>
+    {%endif%}
+    <a href="{% url 'student-class-assignment-page' id class_id%}">Return</a>
+</div>
+{% endif %}
+{%endblock body%}

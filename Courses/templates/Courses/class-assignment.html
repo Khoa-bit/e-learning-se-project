@@ -33,21 +33,33 @@
   {% for test in tests %}
   <article>
     <div class="heading">
-      <h3>{{ test.test_name }}</h3>
+      <h3>{{ test.test_name }} 
+        {% if user.is_lecturer%}
+        | <a href="{% url 'delete-classwork-view' user.lecturer.id lecturer_class.id test.id%}">🗑</a>
+        {% endif %}
+      </h3>
       <footer>
         <time>Publish date: {{ test.publish_time }}<br />Deadline: {{ test.end_time }}</time>
       </footer>
     </div>
     <p>{{ test.test_description | linebreaks }}</p>
     {% if user.is_student%}
+    {% if not test.is_quiz %}
+    <p>
+      <a href="{% url 'upload-assignment' user.student.id student_class.id test.id %}">Do Assignment</a>
+    </p>
+    {%else%}
     <p>
       <a href="{% url 'do-test' user.student.id student_class.id test.id %}">Do/View test</a>
     </p>
+    {%endif%}
     {% else %}
     {% if not test.studenttest_set.exists %}
     <p>
+      {% if test.is_quiz %}
       <a href="{% url 'edit-classwork-view' user.lecturer.id lecturer_class.id test.id %}">Edit this test</a>
     |
+      {% endif %}
       <a href="{% url 'change-test-information' user.lecturer.id lecturer_class.id test.id %}">Change test information</a>
     </p>
     {% else %}
@@ -63,8 +75,8 @@
   {% for test in upcoming %}
   <article>
     <div class="heading">
-      <h3>test.test_name</h3>
-      <p class="due-text">DUE: {{ test.end_time }}</p>
+      <h3>{{test.test_name}}</h3>
+      <p class="due-text">AVAILABLE: {{ test.publish_time }}</p>
     </div>
   </article>
     {% endfor %}
