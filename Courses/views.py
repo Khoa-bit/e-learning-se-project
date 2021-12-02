@@ -108,18 +108,6 @@ def fetch_class_content_posts(class_id):
 
 
 @CheckValidUser
-def StudentClassAnnouncementViewPage(request, id, class_id, class_announcement_id):
-    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
-    return render(request, "Courses/class-announcement-viewpage.html", {"announcement": announcement})
-
-
-@CheckValidUser
-def LecturerClassAnnouncementViewPage(request, id, class_id, class_announcement_id):
-    announcement = ClassAnnouncement.objects.get(id=class_announcement_id)
-    return render(request, "Courses/class-announcement-viewpage.html", {"announcement": announcement})
-
-
-@CheckValidUser
 def StudentClassContent(request, id, class_id):
     content_posts = fetch_class_content_posts(class_id)
     student_class = Class.objects.get(id=class_id)

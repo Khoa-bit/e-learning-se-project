@@ -47,8 +47,8 @@
                                           {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-page' user.lecturer.id class_announcement.obj.class_id.id %}
                                           {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
                                           {% endif %}"><p>{{ class_announcement.obj.class_id }}</p></a>
-                    <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-viewpage' user.student.id class_announcement.obj.class_id.id class_announcement.obj.id %}
-                                              {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-viewpage' user.lecturer.id class_announcement.obj.class_id.id class_announcement.obj.id %}
+                    <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-announcement-page' user.student.id class_announcement.obj.class_id.id %}#{{ class_announcement.obj.id }}
+                                              {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-announcement-page' user.lecturer.id class_announcement.obj.class_id.id %}#{{ class_announcement.obj.id }}
                                               {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
                                               {% endif %}"><h3>{{ class_announcement.obj.title }}</h3></a>
                 </div>

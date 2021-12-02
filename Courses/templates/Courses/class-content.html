@@ -33,7 +33,7 @@
 
   {% for content_post in content_posts %}
     {% if content_post.obj.is_displayable or user.user_type == 'Lecturer' and not content_post.obj.is_displayable %}
-    <article>
+    <article style="--order: {{ forloop.counter }}">
       <div class="heading">
         <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
         <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-content-view-page' user.student.id student_class.id content_post.obj.id %}
