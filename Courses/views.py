@@ -289,7 +289,7 @@ def EditClassRegistration(request, id):
     student = Student.objects.get(id=id)
     classes = []
     now = utc.localize(datetime.now())
-    deadline = datetime(2021, 12, 31, 19, 59, 00)
+    deadline = datetime(2021, 12, 31, 19, 59, 00).replace(tzinfo=utc)
     for i in student.class_id.all():
         if (i.start_date > now):
             classes.append(i)
