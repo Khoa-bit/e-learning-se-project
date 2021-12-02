@@ -45,18 +45,18 @@ def GuestAnnouncementAll(request):
 
 def GuestAnnouncementSearch(request): # new
         query = request.GET.get('search')
-        if request.user.is_authenticated:
-            user = User.objects.get(id=request.user.id)
-            if user.is_student():
-                return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
-            if user.is_lecturer():
-                return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
         if query is None:
             context = {'general_announcements' : Announcement.objects.order_by("-time_created")}
-            return render(request, "User/user-general-announcement-view-all.html", context)
+            #return render(request, "User/user-general-announcement-view-all.html", context)
         else:
             context = {'general_announcements': Announcement.objects.filter(title__icontains=query).order_by("-time_created")}
-            return render(request, "User/user-general-announcement-view-all.html", context)
+        #if request.user.is_authenticated:
+            #user = User.objects.get(id=request.user.id)
+            #if user.is_student():
+                #return HttpResponseRedirect(reverse("student-announcement-page", args=[user.student.id]))
+            #if user.is_lecturer():
+                #return HttpResponseRedirect(reverse("lecturer-announcement-page", args=[user.lecturer.id]))
+        return render(request, "User/user-general-announcement-view-all.html", context)
 
 
 def GuestAnnouncementPage(request, id):

@@ -126,11 +126,13 @@ def StudentClassAnnouncementViewAll(request, id):
     if query is None:
         for class_id in student.class_id.all():
             for announcement in ClassAnnouncement.objects.filter(class_id=class_id).order_by("-time_created"):
-                class_announcements.append(announcement)
+                if announcement.is_displayable:
+                    class_announcements.append(announcement)
     else:
         for class_id in student.class_id.all():
             for announcement in ClassAnnouncement.objects.filter(class_id=class_id, title__icontains=query).order_by("-time_created"):
-                class_announcements.append(announcement)
+                if announcement.is_displayable:
+                    class_announcements.append(announcement)
     return render(request, "User/user-class-announcement-view-all.html", {"class_announcements": class_announcements})
 
 
@@ -153,14 +155,14 @@ def LecturerClassAnnouncementViewAll(request, id):
 
 @CheckValidUser
 def StudentGeneralAnnouncementPage(request, id, announcement_id):
-    announcement = Announcement.objects.get(id=announcement_id)
-    return render(request, "User/user-general-announcement-page.html", {"announcement": announcement})
+    announcements = Announcement.objects.filter(id=announcement_id)
+    return render(request, "User/user-general-announcement-page.html", {"announcements": announcements})
 
 
 @CheckValidUser
 def LecturerGeneralAnnouncementPage(request, id, announcement_id):
-    announcement = Announcement.objects.get(id=announcement_id)
-    return render(request, "User/user-general-announcement-page.html", {"announcement": announcement})
+    announcements = Announcement.objects.filter(id=announcement_id)
+    return render(request, "User/user-general-announcement-page.html", {"announcements": announcements})
 
 
 def ForgotPasswordView(request):
