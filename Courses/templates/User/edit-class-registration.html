@@ -46,7 +46,7 @@
           <tbody>
             {% for class in classes %}
               <tr>
-                <td><input type="checkbox" checked="checked" name="selection" value="{{ class.id }}"></td>
+                <td><input type="checkbox" name="selection" value="{{ class.id }}" {% if is_past_deadline %}disabled{% else %}checked="checked"{% endif %}></td>
                 <th>{{ class.course.name }}</th>
                 <th>{{ class.id }}</th>
                 <th>{{ class.sem_year }}</th>
@@ -59,9 +59,9 @@
           </tbody>
         </table>
       </div>
-      {% if is_past_deadline %}
+      {% if not is_past_deadline %}
         <button id="submit" class="btn submit">Submit</button>
-      {% elif not is_past_deadline %}
+      {% elif is_past_deadline %}
       {% endif %}
   </form>
 </article>

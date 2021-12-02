@@ -27,6 +27,9 @@
   <div>
     <button class="btn submit"><a href="{% url 'edit-class-registration-page' student.id %}">Edit registered classes</a></button>
   </div>
+  <div>
+    <h2>Deadline: {{ deadline }}</h2>
+  </div>
   <form method="POST" action="{% url 'student-class-registration-page' student.id %}" enctype="multipart/form-data">
     {% csrf_token %}
       <div class="scrollable">
@@ -50,9 +53,12 @@
                   {% if class.id == choice_id %}
                       <tr>
                         <td><input type="checkbox" name="selection" value="{{ choice_id }}" id="{{ choice_id }}"
-                                   {% for student_class in student_classes %}
-                                    {% if student_class.course.name == choice_label %}disabled{% endif %}
-                                   {% endfor %}></td>
+                                   {% if not is_past_deadline %}
+                                     {% for student_class in student_classes %}
+                                      {% if student_class.id == choice_id %}disabled{% endif %}
+                                     {% endfor %}
+                                   {% elif is_past_deadline %}disabled
+                                   {% endif %}></td>
                         <td>{{ choice_label }}</td>
                         <td>{{ choice_id }}</td>
                         <td>{{ class.sem_year }}</td>
