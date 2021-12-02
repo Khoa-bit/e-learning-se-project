@@ -1,0 +1,34 @@
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, var(--gray-dark), var(--gray-default));
+}
+
+main svg {
+  min-width: 30%;
+  max-width: 80%;
+  color: var(--gray-lighter);
+}
+
+main svg #Signature #AnhKhoa {
+  stroke-dasharray: 3543;
+  stroke-dashoffset: -3543;
+  animation: sign 7s ease forwards;
+  animation-delay: 1s;
+}
+
+main svg #Signature #Underline {
+  stroke-dasharray: 688;
+  stroke-dashoffset: 688;
+  animation: sign 1s ease forwards;
+  animation-delay: 7s;
+}
+
+@keyframes sign {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
