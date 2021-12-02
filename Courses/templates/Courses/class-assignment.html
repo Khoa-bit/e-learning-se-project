@@ -47,6 +47,8 @@
     {% if not test.studenttest_set.exists %}
     <p>
       <a href="{% url 'edit-classwork-view' user.lecturer.id lecturer_class.id test.id %}">Edit this test</a>
+    |
+      <a href="{% url 'change-test-information' user.lecturer.id lecturer_class.id test.id %}">Change test information</a>
     </p>
     {% else %}
     <p>
