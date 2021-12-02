@@ -49,7 +49,10 @@
             <a href="{% url 'edit-class-content-page' lecturer_class.lecturer.id lecturer_class.id post.id %}">Edit</a>
           </div>
         {% endif %}
-        <p>{{ post.attached_file.name }}</p>
+        {% if post.attached_file %}
+          <p>{{ post.attached_file.name }}</p>
+        {% else %}
+        {% endif %}
         <p>{{ post.content | linebreaks }}</p>
       </article>
     {% else %}
