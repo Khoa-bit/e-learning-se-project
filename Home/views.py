@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
+
 from User.models import User
-from User.views import CheckValidUser, fetch_general_announcements
+from User.views import CheckValidUser, fetch_general_announcements, fetch_general_announcement
 from .models import Announcement
 
 
@@ -38,25 +40,37 @@ def GuestAnnouncementAll(request):
                   {"general_announcements": fetch_general_announcements()})
 
 
-@redirect_auth_user
-def GuestAnnouncementSearch(request):  # new
-    query = request.GET.get('search')
-    if query is None:
-        context = {'announcements': Announcement.objects.order_by("-time_announced")}
-        return render(request, "Home/guest-announcement-all.html", context)
-    else:
-        context = {'announcements': Announcement.objects.filter(title__icontains=query).order_by("-time_announced")}
-        return render(request, "Home/guest-announcement-search.html", context)
+def fetch_searched_general_announcements(title__icontains):
+    general_announcements = []
+    for announcement in Announcement.objects.filter(title__icontains=title__icontains).order_by('-time_modified'):
+        is_new = timezone.now() - announcement.time_modified < timezone.timedelta(weeks=1)
+        general_announcements.append({"obj": announcement, "is_new": is_new})
+    return general_announcements
+
+
+def GuestAnnouncementSearch(request): # new
+        query = request.GET.get('search')
+        if query is None:
+            context = fetch_general_announcements()
+            return render(request, "User/user-general-announcement-view-all.html", context)
+        else:
+            general_announcement = fetch_searched_general_announcements(title__icontains=query)
+            context = {"general_announcements": general_announcement}
+            return render(request, "User/user-general-announcement-view-all.html", context)
 
 
 @redirect_auth_user
-def GuestAnnouncementPage(request, id):
-    announcement = Announcement.objects.get(id=id)
-    return render(request, "User/user-general-announcement-page.html", {"announcement": announcement})
+def GuestAnnouncementPage(request, announcement_id):
+    general_announcement = fetch_general_announcement(announcement_id)
+    return render(request, "User/user-general-announcement-page.html", {"general_announcement": general_announcement})
 
 
 def About(request):
     return render(request, "Home/about.html")
+
+
+def Talents(request):
+    return render(request, "Home/talents.html")
 
 
 def Contact(request):

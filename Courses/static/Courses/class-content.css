@@ -1,4 +1,12 @@
-/* Course Content Tab */
+/* Class Content Tab */
+
+.panel > article {
+  opacity: 0;
+  transform: translateY(3rem);
+  animation: var(--riseUpAnimation);
+  animation-delay: calc(var(--order) * 100ms + 0.3s);
+}
+
 .panel > article .heading {
   display: flex;
   flex-wrap: wrap;

@@ -12,4 +12,14 @@
   </ul>
   {%endif%}
   {%endfor%}
+  <hr>
+  <div>
+    <p>Correct multiple choice answers: {{right}}</p>
+  </div>
+  <form action="" method="POST">
+    {%csrf_token%}
+    <label for="grade">Grade:</label>
+    <input type="number" name="grade" id="" step=".01">
+    <button type="submit">CONFIRM GRADING</button>
+  </form>
 {%endblock body%}

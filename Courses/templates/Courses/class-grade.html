@@ -18,7 +18,7 @@
 
 {% block panel-content %}
   {% if user.is_lecturer %}
-    <a class="upload-button"
+    <!--<a class="upload-button"
        href="#">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
         <g id="Property 1=ico, Property 2=24, Property 3=ui, Property 4=new_message">
@@ -28,10 +28,10 @@
         </g>
       </svg>
       Generous with an A please.. 🥺
-    </a>
+    </a>-->
   {% endif %}
 
-  <article>
+  <article style="--order: 1">
     <div class="heading">
       <h3>Homework 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
@@ -45,7 +45,7 @@
       <p>/100</p>
     </div>
   </article>
-  <article>
+  <article style="--order: 2">
     <div class="heading">
       <h3>Homework 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
@@ -59,7 +59,7 @@
       <p>/100</p>
     </div>
   </article>
-  <article>
+  <article style="--order: 3">
     <div class="heading">
       <h3>Quiz - Week 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
@@ -73,7 +73,7 @@
       <p>/100</p>
     </div>
   </article>
-  <article>
+  <article style="--order: 4">
     <div class="heading">
       <h3>Homework 2</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
@@ -87,7 +87,7 @@
       <p>/100</p>
     </div>
   </article>
-  <article>
+  <article style="--order: 5">
     <div class="heading">
       <h3>Quiz - Week 1</h3>
       <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>

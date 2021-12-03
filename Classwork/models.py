@@ -10,6 +10,7 @@ class Test(models.Model):
   test_name = models.CharField(max_length=100)
   publish_time = models.DateTimeField()
   end_time = models.DateTimeField()
+  time_modified = models.DateTimeField(auto_now=True)
   available_time_after_deadline = models.DurationField(default=datetime.timedelta(hours=6)) # available for submission after deadline
   def __str__(self):
       return self.test_name 
@@ -31,6 +32,9 @@ class MultipleChoiceOption(models.Model):
 class StudentTest(models.Model):
   student_id = models.ForeignKey("User.student",on_delete=CASCADE)
   test_id = models.ForeignKey(Test,on_delete=CASCADE)
+  submit_time = models.DateTimeField(auto_now_add=True)
+  grade = models.FloatField(blank=True,null=True)
+  is_overdue = models.BooleanField(default=False)
 
 class StudentAnswer(models.Model):
   student_test = models.ForeignKey(StudentTest,on_delete=CASCADE)

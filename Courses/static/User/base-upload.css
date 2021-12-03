@@ -47,6 +47,22 @@
   justify-content: flex-end;
 }
 
+.panel > article form .btn-delete {
+  width: 12rem;
+  height: 5rem;
+
+  margin-inline-start: 0rem;
+  border-radius: 6px;
+
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.8rem;
+  transition: background-color var(--hover-transition);
+  background-color: var(--alert-primary);
+  color: var(--white-default);
+  border: none;
+}
+
 .panel > article form .btn {
   width: 12rem;
   height: 5rem;
@@ -76,8 +92,15 @@
   align-items: center;
 
   color: var(--iu-primary-default);
+  border-color: var(--gray-lighter);
 }
 
 .panel > article form .cancel:hover {
   background-color: var(--iu-secondary-light);
 }
+
+.panel > article form .btn-delete:hover {
+  background-color: var(--alert-secondary);
+  color: var(--alert-primary);
+}
+
