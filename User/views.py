@@ -170,9 +170,14 @@ def ForgotPasswordView(request):
                     user.set_password(data["new_password"])
                     user.save()
                     messages.success(request, 'Form submission successful')
+                    return redirect('forgot-password-success')
     else:
         form = PasswordResetForm()
     return render(request, "User/forgot-password.html", {"form": form})
+
+
+def ForgotPasswordSuccessView(request):
+    return render(request, "User/forgot-password-success.html")
 
 
 def StudentChangePassword(request, id):
@@ -182,7 +187,7 @@ def StudentChangePassword(request, id):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('student-change-password', request.user.student.id)
+            return redirect('student-change-password-success', request.user.student.id)
         else:
             messages.error(request, 'Please correct the error below.')
     else:
@@ -198,10 +203,15 @@ def LecturerChangePassword(request, id):
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('lecturer-change-password', request.user.lecturer.id)
+            return redirect('lecturer-change-password-success', request.user.lecturer.id)
         else:
             messages.error(request, 'Please correct the error below.')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, "User/change-password.html", {'form': form, 'lecturer': request.user.lecturer})
     # return render(request, "User/change-password.html", {"lecturer": request.user.lecturer})
+
+
+@CheckValidUser
+def ChangePasswordSuccessView(request, id):
+    return render(request, "User/change-password-success.html")
