@@ -44,7 +44,7 @@
 }
 
 
-.panel > article:target p {
+.panel > article:target .content {
   animation: blink 0.2s ease 4 alternate;
   animation-delay: calc(var(--order) * 100ms + 1.2s);
 }
