@@ -105,13 +105,6 @@ input[type = text], input[type = password]{
     color: var(--iu-primary-dark);
 }
 
-.loginbutton:active{
-    background-color: var(--iu-secondary-light);
-    color: var(--iu-primary-dark);
-    box-shadow: 0rem 0.5rem #666;
-    transform: translateY(0.4rem);
-}
-
 .or{
     width: 100%; 
     text-align: center; 
@@ -146,12 +139,6 @@ input[type = text], input[type = password]{
     color: var(--iu-primary-dark);
 }
 
-.loginasguessbutton:active{
-    background-color: var(--iu-secondary-light);
-    color: var(--iu-primary-dark);
-    box-shadow: 0rem 0.5rem #666;
-    transform: translateY(0.4rem);
-}
 .passvisibility{
     position: static;
 }
