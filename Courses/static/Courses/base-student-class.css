@@ -94,5 +94,5 @@
 }
 
 .panel .upload-button:hover {
-  background-color: var(--iu-secondary-default);
+  background-color: var(--iu-primary-dark);
 }
