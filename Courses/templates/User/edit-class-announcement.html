@@ -22,6 +22,9 @@
         <h3 class="title"></h3>
       </div>
       <div class="btn-container">
+        <input class="btn-delete" type="Submit" value="Delete" href="{% url 'lecturer-class-announcement-page' lecturer.id lecturer_class.id %}"/>
+        <div class="right-buttons">
+        <input class="btn post" type="Submit" value="Post"/>
         <a class="btn cancel" href="{% url 'lecturer-class-announcement-page' lecturer.id lecturer_class.id %}">
           Cancel
         </a>

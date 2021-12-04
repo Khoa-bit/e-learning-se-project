@@ -6,7 +6,7 @@
 
 <body>
     <h2>{{ content_post.title }}</h2>
-    <time><h3>{{ content_post.time_created.date }}<br>{{ content_post.time_created.time | time:"g:iA" }}</h3></time>
+    <time><h3>{{ content_post.time_modified.date }}<br>{{ content_post.time_modified.time | time:"g:iA" }}</h3></time>
     <p>{{ content_post.content }}</p>
     {% if content_post.attached_file %}
         <p>{{ content_post.attached_file }}</p>
