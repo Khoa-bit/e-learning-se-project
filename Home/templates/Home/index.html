@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  {% load static %}
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'site.webmanifest' %}">
+  <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#2b5797">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Primary Meta Tags -->
+  <meta name="description" content="This is an e-learning platform designed with the sole purpose of assisting in students' learning endeavor and lecturers' managerial duties">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ request.path }}">
+  <meta property="og:site_name" content="IU E-Learning Platform">
+  <meta property="og:description" content="This is an e-learning platform designed with the sole purpose of assisting in students' learning endeavor and lecturers' managerial duties">
+  <meta property="og:image" content="{% static 'images/signin-background-image-png.png' %}">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="{{ request.path }}">
+  <meta property="twitter:description" content="This is an e-learning platform designed with the sole purpose of assisting in students' learning endeavor and lecturers' managerial duties">
+  <meta property="twitter:image" content="{% static 'images/signin-background-image-png.png' %}">
+
+
   {% block title %}
     <title>Index</title>
   {% endblock title %}
-  {% load static %}
 
-  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
   <link rel="stylesheet" href="{% static 'Home/index.css' %}">
   <link rel="stylesheet" href="{% static 'Home/components.css' %}">
   <script defer src="{% static 'Home/index.js' %}"></script>
