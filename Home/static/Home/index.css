@@ -142,6 +142,11 @@ body > footer {
   .logo h1 {
     display: none;
   }
+
+  .header-nav .guest {
+    display: none;
+  }
+
 }
 
 /* SideBar */
