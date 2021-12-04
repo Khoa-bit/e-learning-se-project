@@ -10,6 +10,10 @@
   <p>
     Check the "is quiz" field if this is a quiz taken on the website or leave it unchecked if this is a file upload assignment
   </p>
+  {% if test.is_quiz %}
+  <a href="{% url 'edit-classwork-view' id class_id test_id%}">Change quiz questions</a>
+  {% endif %}
+  <hr>
   <button type="submit">Save Test</button>
 </div>
 </form>
