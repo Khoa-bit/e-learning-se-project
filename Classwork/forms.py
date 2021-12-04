@@ -3,9 +3,20 @@ from django.forms import widgets
 from .models import *
 
 class TestForm(forms.ModelForm):
+  publish_time = forms.DateTimeField(label='Publish time', widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+  end_time = forms.DateTimeField(label='End time', widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+  
   class Meta:
     model = Test
-    fields = ["test_name","test_description","attached_file","publish_time","end_time","available_time_after_deadline","is_quiz"]
+    fields = [
+      "test_name",
+      "test_description",
+      "attached_file",
+      "publish_time",
+      "end_time",
+      "available_time_after_deadline",
+      "is_quiz"
+      ]
     # widgets={
     #   "publish_time":widgets.DateTimeInput(attrs={'type':'datetime-local'}),
     #   "end_time":forms.DateTimeInput(attrs={'type':'datetime-local'}),
