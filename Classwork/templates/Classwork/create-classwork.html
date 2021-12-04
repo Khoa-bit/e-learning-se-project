@@ -1,11 +1,17 @@
 {% extends 'Classwork/base-test.html' %}
 {%block body%}
-<form method = "POST">
+<form method = "POST" enctype="multipart/form-data">
 {% csrf_token %}
 <div>
   {{form.as_p}}
+  {% if not new %}
+  <a href="{% url 'download-test-file' id class_id test_id %}">Download file</a>
+  {%endif%}
+  <p>
+    Check the "is quiz" field if this is a quiz taken on the website or leave it unchecked if this is a file upload assignment
+  </p>
   <button type="submit">Save Test</button>
 </div>
 </form>
-
+<h1><a href="{% url 'lecturer-class-assignment-page' id class_id %}">Go back to classwork view</a></h1>
 {% endblock body %}

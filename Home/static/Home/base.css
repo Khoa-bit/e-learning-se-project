@@ -45,6 +45,7 @@
 
 html {
   box-sizing: border-box;
+  scroll-padding-top: 20vh;
 
   /* Set font size for easy rem calculations
   * default document font size = 16px, 1rem = 16px, 100% = 16px
@@ -88,6 +89,10 @@ body {
   line-height: var(--body-line-height);
   color: var(--body-color);
   background-color: var(--body-bg);
+}
+
+button {
+  font-family: var(--body-font-family);
 }
 
 hr {

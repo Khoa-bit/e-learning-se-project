@@ -20,10 +20,6 @@
       {{ form.as_p }}
       <div class="heading">
         <h3 class="title"></h3>
-        <!--<input type="text" value="{{ announcement.title }}">-->
-      </div>
-      <div>
-        <!--<input type="text" value="{{ announcement.content }}">-->
       </div>
       <div class="btn-container">
         <input class="btn-delete" type="Submit" value="Delete" href="{% url 'lecturer-class-announcement-page' lecturer.id lecturer_class.id %}"/>
@@ -32,7 +28,8 @@
         <a class="btn cancel" href="{% url 'lecturer-class-announcement-page' lecturer.id lecturer_class.id %}">
           Cancel
         </a>
-      </div>
+        <input class="btn post" name="delete_button" type="submit" value="Delete"/>
+        <input class="btn post" name="post_button" type="submit" value="Post"/>
       </div>
     </form>
   </article>

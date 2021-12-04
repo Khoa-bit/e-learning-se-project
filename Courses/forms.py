@@ -1,8 +1,9 @@
 import pytz
 
-from Courses.models import ClassAnnouncement, ClassContent, Class
+from Courses.models import ClassAnnouncement, ClassContent, Class, ClassFeedback
 from django import forms
-import datetime
+from django.core.exceptions import ValidationError
+from datetime import datetime, timedelta
 
 utc = pytz.UTC
 
@@ -10,11 +11,22 @@ class UploadClassAnnouncementForm(forms.ModelForm):
     title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Announcement Title'}))
     content = forms.CharField(label='Content', widget=forms.Textarea(
         attrs={'placeholder': 'Announcement Content'}))
+    time_created = forms.DateTimeField(label='Time displayed', widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+
+    def clean_time_created(self):
+        time_created = self.cleaned_data['time_created']
+        if time_created < utc.localize(datetime.now()):
+            raise forms.ValidationError("Time displayed must not be in the past.")
+        elif time_created > utc.localize(datetime.now() + timedelta(days=7)):
+            raise forms.ValidationError("Only choose display time within this week.")
+        return time_created
+
     class Meta:
         model = ClassAnnouncement
         fields = [
             'title',
-            'content'
+            'content',
+            'time_created'
         ]
 
 
@@ -22,12 +34,23 @@ class UploadClassContentForm(forms.ModelForm):
     title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Content Title'}))
     content = forms.CharField(label='Description', widget=forms.Textarea(
         attrs={'placeholder': 'Content Description'}))
+    time_created = forms.DateTimeField(label='Time displayed', widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+
+    def clean_time_created(self):
+        time_created = self.cleaned_data['time_created']
+        if time_created < utc.localize(datetime.now()):
+            raise forms.ValidationError("Time displayed must not be in the past.")
+        elif time_created > utc.localize(datetime.now() + timedelta(days=7)):
+            raise forms.ValidationError("Only choose display time within this week.")
+        return time_created
+
     class Meta:
         model = ClassContent
         fields = [
             'attached_file',
             'title',
             'content',
+            'time_created'
         ]
 
 
@@ -54,9 +77,18 @@ class EditClassAnnouncementForm(forms.ModelForm):
         fields = ['title', 'content']
 
 
-class DummyForm(forms.ModelForm):
-    title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Announcement Title'}))
-    content = forms.CharField(label='Content', widget=forms.Textarea(attrs={'placeholder': 'Announcement Content'}))
+class EditClassContentForm(forms.ModelForm):
+    title = forms.CharField(label='Title', widget=forms.TextInput(attrs={'placeholder': 'Content Title'}))
+    content = forms.CharField(label='Description', widget=forms.Textarea(attrs={'placeholder': 'Content Description'}))
+    attached_file = forms.FileField(label='File', required=False, widget=forms.ClearableFileInput(attrs={'multiple':True}))
     class Meta:
-        model = ClassAnnouncement
-        fields = ['title', 'content']
+        model = ClassContent
+        fields = ['attached_file', 'title', 'content']
+
+
+class UploadClassFeedbackForm(forms.ModelForm):
+    content = forms.CharField(label='Content', widget=forms.Textarea(attrs={'placeholder': '...'}))
+
+    class Meta:
+        model = ClassFeedback
+        fields = ['content']

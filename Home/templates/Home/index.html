@@ -160,19 +160,23 @@
         <ul class="drop-down-menu collapse">
           {% if user.user_type == 'Student' %}
             {% for class in user.student.class_id.all %}
-              <li class="btn small">
-                <a href="{% url 'student-class-announcement-page' user.student.id class.id %}">
-                  {{ class.course.name }} - {{ class.schedule }} - {{ class.sem_year }}
-                </a>
-              </li>
+              {% if class.is_displayable %}
+                <li class="btn small">
+                  <a href="{% url 'student-class-announcement-page' user.student.id class.id %}">
+                    {{ class.course.name }} - {{ class.schedule }} - {{ class.sem_year }}
+                  </a>
+                </li>
+              {% endif %}
             {% endfor %}
           {% elif user.user_type == 'Lecturer' %}
             {% for class in user.lecturer.class_set.all %}
-              <li class="btn small">
-                <a href="{% url 'lecturer-class-announcement-page' user.lecturer.id class.id %}">
-                  {{ class.course.name }} - {{ class.schedule }} - {{ class.sem_year }}
-                </a>
-              </li>
+              {% if class.is_displayable %}
+                <li class="btn small">
+                  <a href="{% url 'lecturer-class-announcement-page' user.lecturer.id class.id %}">
+                    {{ class.course.name }} - {{ class.schedule }} - {{ class.sem_year }}
+                  </a>
+                </li>
+              {% endif %}
             {% endfor %}
           {% endif %}
         </ul>

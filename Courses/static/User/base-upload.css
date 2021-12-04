@@ -59,7 +59,8 @@
   font-size: 1.8rem;
   transition: background-color var(--hover-transition);
   background-color: var(--alert-primary);
-  color: var(--white-default)
+  color: var(--white-default);
+  border: none;
 }
 
 .panel > article form .btn {
@@ -82,24 +83,23 @@
 }
 
 .panel > article form .post:hover {
-  background-color: var(--iu-secondary-default);
+  background-color: var(--iu-primary-dark);
 }
 
 .panel > article form .cancel {
   display: flex;
   justify-content: center;
   align-items: center;
-
+  border: 1px solid;
   color: var(--iu-primary-default);
   border-color: var(--gray-lighter);
 }
 
 .panel > article form .cancel:hover {
-  background-color: var(--iu-secondary-light);
+  background-color: var(--gray-lighter);
 }
 
 .panel > article form .btn-delete:hover {
-  background-color: var(--alert-secondary);
-  color: var(--alert-primary);
+  background-color: #980B33;
 }
 

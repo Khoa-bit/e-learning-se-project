@@ -134,7 +134,7 @@ body > footer {
 }
 
 .header-nav .sign-in:hover {
-  background-color: var(--iu-secondary-default);
+  background-color: var(--iu-primary-dark);
 }
 
 /* 980px / 16px = 61.25em */

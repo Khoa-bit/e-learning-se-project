@@ -1,4 +1,6 @@
 import datetime
+
+import pytz
 from django.db import models
 from django.db.models import CASCADE, SET_NULL
 from User.models import Lecturer
@@ -55,7 +57,7 @@ class Class(models.Model):
 
     def __str__(self):
         if self.schedule:
-            return self.course.name + " - " + str(self.schedule) + " - " + self.lecturer.user_id.full_name + self.sem_year
+            return self.course.name + " - " + str(self.schedule) + " - " + self.lecturer.user_id.full_name + " -  " + self.sem_year
         else:
             return self.course.name + "-" + self.lecturer.user_id.full_name
 
@@ -72,34 +74,72 @@ class Class(models.Model):
         year = self.year
         month = self.month
         if month in [9, 10, 11, 12, 1]:
-            return "Sem 1 - {}".format(year)
+            return "Sem 1 - {}".format(year + 1)
         elif month in [2, 3, 4, 5, 6]:
-            return "Sem 2 - {}".format(int(year-1))
+            return "Sem 2 - {}".format(int(year))
+
+    @property
+    def is_displayable(self):
+        utc = pytz.UTC
+        now = utc.localize(datetime.datetime.now())
+        if (now < self.start_date):
+            return False
+        else:
+            return True
 
 
 class ClassAnnouncement(models.Model):
     class_id = models.ForeignKey(Class, on_delete=CASCADE)
     title = models.CharField(max_length=255)
-    time_created = models.DateTimeField(auto_now_add=True)
+    time_created = models.DateTimeField(auto_now_add=False)
     time_modified = models.DateTimeField(auto_now=True)
     content = models.TextField()
 
+    @property
+    def is_displayable(self):
+        utc = pytz.UTC
+        if self.time_created > utc.localize(datetime.datetime.now()):
+            return False
+        else:
+            return True
+
+    def __save__(self):
+        self.time_created = datetime.now()
+
     class Meta:
         ordering = ["time_created", "time_modified"]
-
-
-def class_content_location(instance, filename):
-    return 'class_content/{0}/{1}'.format(instance.class_id.id, filename)
 
 
 class ClassContent(models.Model):
     class_id = models.ForeignKey(Class, on_delete=CASCADE)
     title = models.CharField(max_length=255)
-    time_created = models.DateTimeField(auto_now_add=True)
+    time_created = models.DateTimeField(auto_now_add=False)
     time_modified = models.DateTimeField(auto_now=True)
     attached_file = models.FileField(upload_to='', blank=True)
     content = models.TextField(blank=True)
 
+    @property
+    def is_displayable(self):
+        utc = pytz.UTC
+        if self.time_created > utc.localize(datetime.datetime.now()):
+            return False
+        else:
+            return True
+
+    @property
+    def file_url(self):
+        if self.attached_file and hasattr(self.attached_file, 'url'):
+            return self.attached_file.url
+
+    def __save__(self):
+        self.time_created = datetime.now()
+
     class Meta:
         ordering = ["time_created", "time_modified"]
+
+
+class ClassFeedback(models.Model):
+    class_id = models.ForeignKey(Class, on_delete=CASCADE)
+    content = models.TextField(max_length=1000, blank=False)
+    time_created = models.DateTimeField(auto_now_add=True)
 

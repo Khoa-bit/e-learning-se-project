@@ -38,6 +38,7 @@
 
 .registration .btn {
   padding: 1.55rem 2.55rem;
+  margin-inline-end: 1rem;
 
   font-size: 1.8rem;
 
@@ -57,9 +58,29 @@
 }
 
 .registration .btn.submit:hover {
-  background-color: var(--iu-secondary-default);
+  background-color: var(--iu-primary-dark);
 }
 
+/* Edit button */
+.registration .btn-edit {
+  padding: 1.55rem 2.55rem;
+  margin-inline-end: 1rem;
+  font-size: 1.8rem;
+  border-width: 0;
+  border: 1px solid var(--gray-lighter);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: var(--body-font-family);
+  font-weight: bold;
+  color: var(--iu-primary-default);
+  background-color: var(--white-default);
+  /* background-color: var(--iu-primary-default); */
+  transition: background-color var(--hover-transition);
+}
+
+.registration .btn-edit:hover {
+  background-color: var(--gray-lighter);
+}
 
 /* Registration Table */
 .scrollable {

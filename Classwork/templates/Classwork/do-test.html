@@ -1,6 +1,10 @@
 {% extends 'Classwork/base-test.html' %}
 {% block body %}
 <h1>TEST NAME: {{test.test_name}}</h1>
+<p>{{test.test_description}}</p>
+{% if not test.is_quiz %}
+<p><a href="{% url 'download-test-file' id class_id test.id%}"></a>Download test file</p>
+{% endif %}
 {% if not done %}
 <form method="POST" action="#">
     {%csrf_token%}
