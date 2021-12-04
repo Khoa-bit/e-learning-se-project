@@ -1,6 +1,6 @@
 {% extends 'Classwork/base-test.html'%}
 {%block body%}
-{% if test.is_quiz %}
+{% if test.test_id.is_quiz %}
   {% for answer in test.studentanswer_set.all %}
   <h2>{{answer.question}}</h2>
   {%if answer.question.is_written%}

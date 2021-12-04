@@ -85,6 +85,7 @@ def CreateClassworkView(request, id, class_id):
 @CheckValidUser
 def ChangeTestInformation(request, id, class_id, test_id):
   test = Test.objects.get(id=test_id)
+
   if request.method == 'POST':
     form = TestForm(request.POST,request.FILES, instance=test)
     if(form.is_valid()):
@@ -93,7 +94,7 @@ def ChangeTestInformation(request, id, class_id, test_id):
       return HttpResponseRedirect(reverse("lecturer-class-assignment-page",args=[id,class_id]))
   else:  
     form = TestForm(instance=test)
-    context= {"id":id,"class_id":class_id,"test_id":test_id,"form":form}
+    context= {"id":id,"class_id":class_id,"test_id":test_id,"form":form,"test":test}
     return render(request, "Classwork/create-classwork.html",context)
 
 
@@ -180,7 +181,7 @@ def DoTestView(request,id,class_id,test_id):
           for mco in answer:
             a.choice_ans.add(MultipleChoiceOption.objects.get(id=int(mco)))
         a.save()
-    return HttpResponseRedirect(reverse('student-class-announcement-page',args=[id,class_id]))
+    return HttpResponseRedirect(reverse('do-test',args=[id,class_id,test_id]))
   context={'test':Test.objects.get(id=test_id), "done":done, "id":id,"class_id":class_id,"grade":grade,}
   return render(request,"Classwork/do-test.html",context)
 
