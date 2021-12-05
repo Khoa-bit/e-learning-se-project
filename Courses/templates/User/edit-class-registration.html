@@ -46,7 +46,7 @@
           <tbody>
             {% for class in classes %}
               <tr>
-                <td><input type="checkbox" checked="checked" name="selection" value="{{ class.id }}"></td>
+                <td><input type="checkbox" name="selection" value="{{ class.id }}" {% if is_past_deadline %}disabled{% else %}checked="checked"{% endif %}></td>
                 <th>{{ class.course.name }}</th>
                 <th>{{ class.id }}</th>
                 <th>{{ class.sem_year }}</th>

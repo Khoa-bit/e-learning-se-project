@@ -59,7 +59,7 @@
 }
 
 .panel > article .container a {
-  color: var(--gray-dark);
+  color: var(--gray-default);
 }
 
 .panel > article .container a:hover {

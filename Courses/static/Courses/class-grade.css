@@ -39,6 +39,19 @@
   color: var(--black-default);
 }
 
+.panel > article .heading h3 a {
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: var(--black-default);
+}
+
+.panel > article .heading h3 a:hover {
+  font-weight: 700;
+  font-size: 2.2rem;
+  color: var(--black-default);
+  text-decoration: underline;
+}
+
 .panel > article .heading p {
   font-weight: 400;
   font-size: 1.8rem;
