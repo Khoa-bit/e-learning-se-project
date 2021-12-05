@@ -11,16 +11,6 @@
   <link rel="stylesheet" href="{% static 'User/upload-assignment.css' %}">
   <link rel="stylesheet" href="{% static 'User/upload-announcement.css' %}">
   <script src="{% static 'User/upload-content.js' %}" defer></script>
-  <script>
-    // This code activates flatpickr on fields with the 'datetimefield' class when the document has loaded
-    window.addEventListener("DOMContentLoaded", function () {
-        flatpickr(".datetimefield", {
-            enableTime: true,
-            enableSeconds: true,
-            dateFormat: "Y-m-d H:i:S",
-        });
-    });
-</script>
 {% endblock %}
 
 {% block panel-content %}

@@ -30,8 +30,12 @@
     <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
   </div>
   <div class="status">
+    {% if entry.is_overdue%}
     <p>SUBMITTED (LATE)</p>
-    <p>Wed, Sep 8 10:23:03 PM</p>
+    {% else %}
+    <p>SUBMITTED</p>
+    {% endif %}
+    <p>{{entry.submit_time}}</p>
   </div>
   <div class="grade">
     {% if entry.grade %}

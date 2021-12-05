@@ -149,7 +149,7 @@ def UploadAssignmentview(request,id,class_id,test_id):
     form = StudentUploadForm()
     if StudentTest.objects.filter(student_id=Student.objects.get(id=id),test_id=Test.objects.get(id=test_id)).exists():
       studenttest=StudentTest.objects.get(student_id=Student.objects.get(id=id),test_id=Test.objects.get(id=test_id))
-    context={'test':Test.objects.get(id=test_id), "done":done, "id":id,"class_id":class_id,"grade":grade,"form":form,"studenttest":studenttest}
+    context={'test':Test.objects.get(id=test_id), "done":done, "id":id,"class_id":class_id,"grade":grade,"form":form,"studenttest":studenttest,"student_class":Class.objects.get(id=class_id)}
     return render(request,"Classwork/upload-assignment.html",context)
 
 def DoTestView(request,id,class_id,test_id):
@@ -183,7 +183,7 @@ def DoTestView(request,id,class_id,test_id):
             a.choice_ans.add(MultipleChoiceOption.objects.get(id=int(mco)))
         a.save()
     return HttpResponseRedirect(reverse('do-test',args=[id,class_id,test_id]))
-  context={'test':Test.objects.get(id=test_id), "done":done, "id":id,"class_id":class_id,"grade":grade,}
+  context={'test':Test.objects.get(id=test_id), "done":done, "id":id,"class_id":class_id,"grade":grade,"student_class":Class.objects.get(id=class_id)}
   return render(request,"Classwork/do-test.html",context)
 
 @CheckValidUser
@@ -205,7 +205,7 @@ def ViewStudentTest(request,id,class_id,studenttest_id):
         right = [answer for answer in q if answer.is_true]
         if(set(ans.choice_ans.all())==set(right)):
           right_ans+=1
-  context = {"class_id":class_id, "id":id,"test":st,"right":right_ans,"grade":g}
+  context = {"class_id":class_id, "id":id,"test":st,"right":right_ans,"grade":g,"lecturer_class":Class.objects.get(id=class_id)}
   return render(request,"Classwork/view-student-test.html",context)
 
 @CheckValidUser
@@ -269,7 +269,7 @@ def mco_form(request,id,class_id,qid):
 @CheckValidUser
 def DeleteTest(request,id,class_id,test_id):
   test = Test.objects.get(id=test_id)
-  context = {'id':id,'class_id':class_id,'test_id':test_id,'test':test}
+  context = {'id':id,'class_id':class_id,'test_id':test_id,'test':test,"lecturer_class":Class.objects.get(id=class_id)}
   if request.method == "POST":
     test.delete()
     return HttpResponseRedirect(reverse("lecturer-class-assignment-page",args=[id,class_id]))
@@ -302,5 +302,5 @@ def SubmittedListView(request, id, class_id, test_id):
   submitted = Test.objects.get(id=test_id).studenttest_set.all()
   times = [t.submit_time + datetime.timedelta(hours=7) for t in submitted]
   list = zip(submitted,times)
-  context={'id':id,'class_id':class_id,'test_id':test_id,'submitted':list}
+  context={'id':id,'class_id':class_id,'test_id':test_id,'submitted':list,"lecturer_class":Class.objects.get(id=class_id)}
   return render(request,"Classwork/submitted-list.html",context)

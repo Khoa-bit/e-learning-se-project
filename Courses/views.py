@@ -148,7 +148,6 @@ def StudentClassAssignment(request, id, class_id):
     for t in student_class.test_set.order_by('-time_modified'):
         is_new = None
         # is_new = timezone.now() - t.time_modified < timezone.timedelta(weeks=1)
-        print("Hello?")
         if t.publish_time <= now and t.end_time >= now - t.available_time_after_deadline:
             print("added "+t.test_name+" to tests")
             ongoing.append({'obj': t, 'is_new': is_new})
