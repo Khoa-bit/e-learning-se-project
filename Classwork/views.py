@@ -80,6 +80,7 @@ def CreateClassworkView(request, id, class_id):
   else:
     form = TestForm()
   context['form'] = form
+  context['lecturer_class'] = Class.objects.get(id=class_id)
   return render(request, "Classwork/create-classwork.html",context)
 
 @CheckValidUser

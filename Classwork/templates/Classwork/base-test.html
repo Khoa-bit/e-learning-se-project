@@ -17,17 +17,6 @@
       {% if user.user_type == 'Student' %}
         <p>Instructor: {{ student_class.lecturer.user_id.full_name }}</p>
       {% endif %}
-
-<script>
-    // This code activates flatpickr on fields with the 'datetimefield' class when the document has loaded
-    window.addEventListener("DOMContentLoaded", function () {
-        flatpickr(".datetimefield", {
-            enableTime: true,
-            enableSeconds: true,
-            dateFormat: "Y-m-d H:i:S",
-        });
-    });
-</script>
   <title>Document</title>
 </header>
 <body>
@@ -44,8 +33,8 @@
 <!-- DUY 
 
 Note: Đăng nhập vô lecturer account: loan.nguyen@lecturer.com,
-                   student account: khoa.nguyen@student.com 
-                   Môn Software Engineering - TUE Afternoon - Sem 1 - 2022
+                  student account: khoa.nguyen@student.com 
+                  Môn Software Engineering - TUE Afternoon - Sem 1 - 2022
 
 cái title tên môn học, instructor trên cùng của các page: 
   create-classwork.html, 
