@@ -49,11 +49,11 @@ body > footer {
 .logo {
   display: flex;
   align-items: center;
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
 }
 
 .logo:hover {
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
 }
 
 .logo h1 {

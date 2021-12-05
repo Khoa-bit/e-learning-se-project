@@ -1,3 +1,33 @@
+// Toggle theme
+
+const toggleThemeBtn = document.getElementById("toggle-theme");
+const darkSVG = document.getElementById("dark");
+const lightSVG = document.getElementById("light");
+const body = document.body;
+const darkTheme = localStorage.getItem("darkTheme");
+
+if (darkTheme) {
+  body.classList.add("dark");
+  lightSVG.style.display = "none";
+} else {
+  darkSVG.style.display = "none";
+}
+
+toggleThemeBtn.onclick = () => {
+  if (body.classList.contains("dark")) {
+    body.classList.remove("dark");
+    darkSVG.style.display = "none";
+    lightSVG.style.display = null;
+    localStorage.removeItem("darkTheme");
+  } else {
+    body.classList.add("dark");
+    lightSVG.style.display = "none";
+    darkSVG.style.display = null;
+    localStorage.setItem("darkTheme", "true");
+  }
+}
+
+
 // Toggle Dropdown in Sidebar
 
 const sidebarDropBtnList = document.querySelectorAll(".drop-btn:not(.disabled)");

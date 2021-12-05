@@ -17,6 +17,7 @@
   --success-primary: #1ac687;
   --success-secondary: #e2fcf2;
   --iu-primary-default: #2e3191;
+  --iu-primary-default-text: #2e3191;
   --iu-primary-dark: #1d1f5d;
   --iu-primary-dark-text: #1d1f5d;
   --iu-secondary-light: #dbf1fa;
@@ -47,11 +48,12 @@
   --alert-secondary: #e8e6e3;
   --success-primary: #159e6c;
   --success-secondary: #07402f;
-  --iu-primary-default: #81a2d7;
+  --iu-primary-default: #252774;
+  --iu-primary-default-text: #81a2d7;
   --iu-primary-dark: #17194a;
   --iu-primary-dark-text: #a0b9e1;
   --iu-secondary-light: #093242;
-   --iu-secondary-default: #167ba3;
+  --iu-secondary-default: #167ba3;
   --iu-secondary-dark: #7acced;
 
   --body-color: #e3e1dd;
@@ -251,6 +253,11 @@ a:hover {
 img {
   display: block;
   width: 100%;
+}
+
+input, textarea {
+  background-color: var(--white-default);
+  color: var(--body-color);
 }
 
 .panel > article .btn-container {

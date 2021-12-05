@@ -40,7 +40,7 @@ article.panel > footer .view-all-btn:hover {
 }
 
 .announcement > article .heading  {
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
   width: 76.6%;
 }
 
@@ -92,7 +92,7 @@ article.panel > footer .view-all-btn:hover {
 }
 
 .courses-announcements > article .heading h3  {
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
   font-weight: 700;
   font-size: 2.2rem;
   line-height: 2.6rem;

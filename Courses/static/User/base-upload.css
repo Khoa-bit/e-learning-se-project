@@ -91,7 +91,7 @@
   justify-content: center;
   align-items: center;
   border: 1px solid;
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
   border-color: var(--gray-lighter);
 }
 

@@ -30,6 +30,8 @@
 
   border-radius: 4px;
   border: 1px solid var(--gray-lighter);
+  background-color: var(--white-default);
+  color: var(--body-color);
 }
 
 .registration .search input::placeholder {
@@ -72,7 +74,7 @@
   cursor: pointer;
   font-family: var(--body-font-family);
   font-weight: bold;
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
   background-color: var(--white-default);
   /* background-color: var(--iu-primary-default); */
   transition: background-color var(--hover-transition);
@@ -138,7 +140,7 @@
 }
 
 .class-table tbody tr:nth-child(2n + 1) {
-  background-color: #F6F7F8;
+  background-color: var(--background-default);
 }
 
 .class-table tbody tr {
