@@ -49,11 +49,11 @@ body > footer {
 .logo {
   display: flex;
   align-items: center;
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
 }
 
 .logo:hover {
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
 }
 
 .logo h1 {
@@ -105,7 +105,7 @@ body > footer {
 
 .header-nav .sign-in {
   font-weight: bold;
-  color: var(--white-default);
+  color: var(--white-default-text);
   background-color: var(--iu-primary-default);
 }
 
@@ -123,7 +123,7 @@ body > footer {
 /* SideBar */
 .sidebar {
   position: relative;
-  background-color: var(--white-default);
+  background-color: var(--white-default-text);
 }
 
 .sidebar-nav {
@@ -197,7 +197,7 @@ body > footer {
 .sidebar-nav .active,
 .sidebar-nav .active:hover {
   font-weight: bold;
-  color: var(--white-default);
+  color: var(--white-default-text);
   background-color: var(--iu-secondary-default);
 }
 
@@ -318,28 +318,28 @@ body > footer {
 
 /* Page Header when User Login */
 .user-login {
-  color: var(--white-default);
+  color: var(--white-default-text);
   background-color: var(--iu-secondary-default);
 }
 
 .user-login .logo {
-  color: var(--white-default);
+  color: var(--white-default-text);
 }
 
 .user-login .logo:hover {
-  color: var(--white-default);
+  color: var(--white-default-text);
 }
 
 .my-profile {
   position: relative;
   display: flex;
   align-items: center;
-  color: var(--white-default);
+  color: var(--white-default-text);
   cursor: pointer;
 }
 
 .my-profile:hover {
-  color: var(--white-default);
+  color: var(--white-default-text);
 }
 
 .my-profile img {
@@ -347,7 +347,7 @@ body > footer {
   height: 5rem;
   margin-inline-start: var(--spacing);
   border-radius: 50%;
-  background-color: var(--white-default);
+  background-color: var(--white-default-text);
 }
 
 .my-profile svg {
@@ -379,7 +379,7 @@ body > footer {
   position: absolute;
   top: 6rem;
   left: var(--spacing);
-  background-color: var(--white-default);
+  background-color: var(--white-default-text);
   border-radius: 0px 6px 6px 6px;
   border: 1px solid var(--gray-lighter);
   padding: var(--spacing);
@@ -405,18 +405,18 @@ body > footer {
 }
 
 .my-profile > .drop-down-menu .info.btn:hover {
-  background-color: var(--white-default);
+  background-color: var(--white-default-text);
 }
 
 /* Page Footer When user login */
 .user-login .footer-bottom-container ul > li a {
   font-weight: 500;
-  color: var(--white-default);
+  color: var(--white-default-text);
   transition: color var(--hover-transition);
 }
 
 .user-login .footer-bottom-container ul > li a:hover {
-  color: var(--gray-light);
+  color: var(--gray-light-text);
 }
 
 .user-login .footer-top-container a {
@@ -426,7 +426,7 @@ body > footer {
 }
 
 .user-login .footer-top-container a:hover {
-  color: var(--gray-light);
+  color: var(--gray-light-text);
 }
 
 /* Page Main Content */
@@ -436,7 +436,7 @@ main {
 }
 
 article.panel {
-  background-color: var(--white-default);
+  background-color: var(--white-default-text);
   border-radius: 6px;
   padding: 2rem 3rem;
   margin-bottom: 2rem;

@@ -127,18 +127,6 @@ def LecturerClassContent(request, id, class_id):
 
 
 @CheckValidUser
-def StudentClassContentViewPage(request, id, class_id, content_id):
-    content_post = ClassContent.objects.get(id=content_id)
-    return render(request, "Courses/class-content-viewpage.html", {"content_post": content_post, "id": id, "class_id": class_id})
-
-
-@CheckValidUser
-def LecturerClassContentViewPage(request, id, class_id, content_id):
-    content_post = ClassContent.objects.get(id=content_id)
-    return render(request, "Courses/class-content-viewpage.html", {"content_post": content_post, "id": id, "class_id": class_id})
-
-
-@CheckValidUser
 def StudentClassAssignment(request, id, class_id):
     student = Student.objects.get(id=id)
     student_class = Class.objects.get(id=class_id)

@@ -53,7 +53,7 @@ article.panel .card .teacher-profile {
   left: var(--spacing);
   display: flex;
   align-items: center;
-  color: var(--white-default);
+  color: var(--white-default-text);
   cursor: pointer;
 }
 

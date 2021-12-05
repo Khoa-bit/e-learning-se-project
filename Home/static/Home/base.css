@@ -4,10 +4,12 @@
 
 :root {
   --white-default: #ffffff;
+  --white-default-text: #ffffff;
   --black-default: #000000;
-  --background-default: #f6f7f8;
+  --background-default: #eaeef0;
   --gray-lighter: #dce2e4;
   --gray-light: #bac5ca;
+  --gray-light-text: #bac5ca;
   --gray-default: #6a818a;
   --gray-dark: #3e4b51;
   --alert-primary: #ef255d;
@@ -15,7 +17,9 @@
   --success-primary: #1ac687;
   --success-secondary: #e2fcf2;
   --iu-primary-default: #2e3191;
+  --iu-primary-default-text: #2e3191;
   --iu-primary-dark: #1d1f5d;
+  --iu-primary-dark-text: #1d1f5d;
   --iu-secondary-light: #dbf1fa;
   --iu-secondary-default: #1c9acc;
   --iu-secondary-dark: #115f7e;
@@ -28,6 +32,31 @@
   --body-bg: var(--white-default);
 
   --hover-transition: 0.25s ease-out;
+}
+
+.dark {
+  --white-default: #181a1b;
+  --white-default-text: #e8e6e3;
+  --black-default: #e8e6e3;
+  --background-default: #1e262a;
+  --gray-lighter: #393d40;
+  --gray-light: #414749;
+  --gray-light-text: #c1bcb4;
+  --gray-default: #9b9285;
+  --gray-dark: #bbb5ac;
+  --alert-primary: #f0376a;
+  --alert-secondary: #e8e6e3;
+  --success-primary: #159e6c;
+  --success-secondary: #07402f;
+  --iu-primary-default: #252774;
+  --iu-primary-default-text: #81a2d7;
+  --iu-primary-dark: #17194a;
+  --iu-primary-dark-text: #a0b9e1;
+  --iu-secondary-light: #093242;
+  --iu-secondary-default: #167ba3;
+  --iu-secondary-dark: #7acced;
+
+  --body-color: #e3e1dd;
 }
 
 /* Base reset */
@@ -224,6 +253,11 @@ a:hover {
 img {
   display: block;
   width: 100%;
+}
+
+input, textarea {
+  background-color: var(--white-default);
+  color: var(--body-color);
 }
 
 .panel > article .btn-container {
