@@ -81,7 +81,7 @@
   font-size: 1.8rem;
   line-height: 1.9rem;
 
-  color: var(--white-default);
+  color: var(--white-default-text);
   background-color: var(--iu-primary-default);
 
   border-radius: 6px;

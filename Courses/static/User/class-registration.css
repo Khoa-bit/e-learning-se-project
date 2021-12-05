@@ -52,7 +52,7 @@
 .registration .btn.submit {
   font-family: var(--body-font-family);
   font-weight: bold;
-  color: var(--white-default);
+  color: var(--white-default-text);
   background-color: var(--iu-primary-default);
   transition: background-color var(--hover-transition);
 }
@@ -121,7 +121,7 @@
 }
 
 .class-table thead {
-  color: var(--white-default);
+  color: var(--white-default-text);
   font-weight: bold;
 
   background-color: var(--iu-secondary-default);

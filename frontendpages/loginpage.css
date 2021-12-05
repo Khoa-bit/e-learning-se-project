@@ -89,7 +89,7 @@ input[type = text], input[type = password]{
 .loginbutton {
     font-size: medium;
     font-weight: bold;
-    color: var(--white-default);
+    color: var(--white-default-text);
     background-color: var(--iu-primary-default);
     padding: 1.4rem 2rem;
     margin: 0.8rem 0;
@@ -102,7 +102,7 @@ input[type = text], input[type = password]{
 
 .loginbutton:hover{
     background-color: var(--iu-secondary-light);
-    color: var(--iu-primary-dark);
+    color: var(--iu-primary-dark-text);
 }
 
 .or{
@@ -136,7 +136,7 @@ input[type = text], input[type = password]{
 
 .loginasguessbutton:hover{
     background-color: var(--iu-secondary-light);
-    color: var(--iu-primary-dark);
+    color: var(--iu-primary-dark-text);
 }
 
 .passvisibility{

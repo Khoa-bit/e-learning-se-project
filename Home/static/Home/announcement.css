@@ -51,7 +51,7 @@ article.panel > footer .view-all-btn:hover {
 }
 
 .announcement > article .heading h3:hover {
-  color: var(--iu-primary-dark);
+  color: var(--iu-primary-dark-text);
 }
 
 .announcement > article footer {
@@ -98,7 +98,7 @@ article.panel > footer .view-all-btn:hover {
 }
 
 .courses-announcements > article .heading h3:hover {
-  color: var(--iu-primary-dark);
+  color: var(--iu-primary-dark-text);
 }
 
 .general-information .search, .courses-announcements .search {
