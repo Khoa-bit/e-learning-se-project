@@ -83,14 +83,14 @@ input[type = text], input[type = password]{
 .forgotpass{
     text-align: right;
     font-weight: 500;
-    color: var(--iu-primary-default);
+    color: var(--iu-primary-default-text);
     margin-bottom: 2rem;
 }
 
 .loginbutton {
     font-size: medium;
     font-weight: bold;
-    color: var(--white-default);
+    color: var(--white-default-text);
     background-color: var(--iu-primary-default);
     padding: 1.4rem 2rem;
     margin: 0.8rem 0;
@@ -128,7 +128,7 @@ input[type = text], input[type = password]{
     background-color: var(--white-default);
     font-size: medium;
     font-weight: bold;
-    color: var(--iu-primary-default);
+    color: var(--iu-primary-default-text);
     padding: 1.4rem 2rem;
     margin: 0.8rem 0;
     border: 0.1rem solid var(--gray-lighter);

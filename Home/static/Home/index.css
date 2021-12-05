@@ -45,7 +45,9 @@ body > footer {
   grid-template-columns: 1fr minmax(0, 72rem) minmax(0, 72rem) 1fr;
   padding-inline: var(--header-footer-padding-inline);
   min-height: var(--header-height);
-  border-bottom: 1px solid #dce2e4;
+  border-bottom: 1px solid var(--gray-light);
+  color: var(--body-color);
+  background-color: var(--white-default);
 }
 
 .logo img {
@@ -56,11 +58,11 @@ body > footer {
 .logo {
   display: flex;
   align-items: center;
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
 }
 
 .logo:hover {
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
 }
 
 .logo h1 {
@@ -129,7 +131,7 @@ body > footer {
 
 .header-nav .sign-in {
   font-weight: bold;
-  color: var(--white-default);
+  color: var(--white-default-text);
   background-color: var(--iu-primary-default);
 }
 
@@ -253,7 +255,7 @@ body > footer {
 
 .sidebar-nav .btn.active > a,
 .sidebar-nav .btn.active > a:hover {
-  color: var(--white-default);
+  color: var(--white-default-text);
   font-weight: 600;
 }
 
@@ -267,7 +269,7 @@ body > footer {
 }
 
 .sidebar-nav .btn.active .drop-btn {
-  color: var(--white-default);
+  color: var(--white-default-text);
 }
 
 .sidebar-nav .btn .drop-btn.disabled svg {
@@ -287,7 +289,7 @@ body > footer {
   grid-column: span 2;
 
   padding: 0;
-  background-color: #F6F7F8;
+  background-color: var(--background-default);
   border-radius: 0 0 6px 6px;
 
   overflow: hidden;
@@ -359,6 +361,9 @@ body > footer {
   flex-direction: column;
   align-items: center;
   padding: clamp(var(--spacing), 3vw, 3rem) var(--header-footer-padding-inline) 0;
+  border-top: 1px solid var(--gray-light);
+  color: var(--body-color);
+  background-color: var(--white-default);
 }
 
 .footer-hr {
@@ -471,28 +476,28 @@ body > footer {
 
 /* Page Header when User Login */
 .user-login {
-  color: var(--white-default);
+  color: var(--white-default-text);
   background-color: var(--iu-secondary-default);
 }
 
 .user-login .logo {
-  color: var(--white-default);
+  color: var(--white-default-text);
 }
 
 .user-login .logo:hover {
-  color: var(--white-default);
+  color: var(--white-default-text);
 }
 
 .my-profile {
   position: relative;
   display: flex;
   align-items: center;
-  color: var(--white-default);
+  color: var(--white-default-text);
   cursor: pointer;
 }
 
 .my-profile:hover {
-  color: var(--white-default);
+  color: var(--white-default-text);
 }
 
 .my-profile img {
@@ -560,13 +565,13 @@ body > footer {
 }
 
 .my-profile > .drop-down-menu .log-out.btn:hover {
-  color: var(--white-default);
+  color: var(--white-default-text);
   background-color: var(--alert-primary);
 }
 
 .my-profile > .drop-down-menu .info.btn:hover {
   background-color: var(--iu-primary-default);
-  color: var(--white-default);
+  color: var(--white-default-text);
 }
 
 article.panel:last-child {
@@ -577,22 +582,22 @@ article.panel:last-child {
 /* Page Footer When user login */
 .user-login .footer-bottom-container ul > li a {
   font-weight: 500;
-  color: var(--white-default);
+  color: var(--white-default-text);
   transition: color var(--hover-transition);
 }
 
 .user-login .footer-bottom-container ul > li a:hover {
-  color: var(--gray-light);
+  color: var(--gray-light-text);
 }
 
 .user-login .footer-top-container a {
   font-weight: 500;
-  color: var(--white-default);
+  color: var(--white-default-text);
   transition: color var(--hover-transition);
 }
 
 .user-login .footer-top-container a:hover {
-  color: var(--gray-light);
+  color: var(--gray-light-text);
 }
 
 /* Page Main Content */
@@ -600,7 +605,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #eaeef0;
+  background-color: var(--background-default);
   padding: 2rem;
 }
 

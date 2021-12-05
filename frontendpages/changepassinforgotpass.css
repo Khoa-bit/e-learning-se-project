@@ -72,7 +72,7 @@
     padding-right: 2rem;
     border-radius: 6px;
     background-color: var(--iu-primary-default);
-    color: var(--white-default);
+    color: var(--white-default-text);
     border: 1px solid; 
     border-color: var(--gray-lighter);
     font-weight: bold;

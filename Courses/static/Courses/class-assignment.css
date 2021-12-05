@@ -63,5 +63,5 @@
 }
 
 .panel > article .container a:hover {
-  color: var(--gray-light);
+  color: var(--gray-light-text);
 }

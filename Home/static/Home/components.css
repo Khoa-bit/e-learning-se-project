@@ -4,7 +4,7 @@
   padding-inline: 1rem;
 
   font-weight: bold;
-  color: var(--white-default);
+  color: var(--white-default-text);
   background-color: var(--success-primary);
   border-radius: 6px;
 }

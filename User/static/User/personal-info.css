@@ -1,5 +1,5 @@
 main {
-  background-color: #eaeef0;
+  background-color: var(--background-default);
   padding: 2rem;
   padding-inline: 6vw;
   max-width: 100vw;
@@ -32,7 +32,7 @@ section.panel h2 {
   padding-inline: 5rem;
   border-radius: 6px;
   border: 1px solid;
-  color: var(--iu-primary-default);
+  color: var(--iu-primary-default-text);
   border-color: var(--gray-light);
   font-weight: bold;
   margin: 0;
