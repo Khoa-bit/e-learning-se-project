@@ -27,7 +27,7 @@
 <article>
   <div class="heading">
     <h3>{{entry.test_id.test_name}}</h3>
-    <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+    <p class="due-text">{{ entry.test_id.end_time }}</p>
   </div>
   <div class="status">
     {% if entry.is_overdue%}

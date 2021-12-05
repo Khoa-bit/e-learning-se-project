@@ -1,6 +1,19 @@
 {% extends 'Classwork/base-test.html' %}
+{% load static %}
+
+{% block title %}
+  <title>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} New Assignment</title>
+{% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'User/upload-assignment.css' %}">
+  <link rel="stylesheet" href="{% static 'User/upload-announcement.css' %}">
+  <script src="{% static 'User/upload-content.js' %}" defer></script>
+{% endblock %}
 {%block panel-content%}
-<form method = "POST">
+<article>
+  <form method = "POST">
   {% csrf_token %}
   <div id="questionform">
     {% for question in test.question_set.all%}
@@ -36,4 +49,6 @@
   <div>
     <a href="{% url 'lecturer-class-assignment-page' id class_id%}">Go back to classworks view</a>
   </div>
+</article>
+
 {% endblock %}
