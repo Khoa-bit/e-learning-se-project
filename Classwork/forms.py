@@ -3,8 +3,8 @@ from django.forms import widgets
 from .models import *
 
 class TestForm(forms.ModelForm):
-  publish_time = forms.DateTimeField(label='Publish time', widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
-  end_time = forms.DateTimeField(label='End time', widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+  # publish_time = forms.DateTimeField(label='Publish time', widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+  # end_time = forms.DateTimeField(label='End time', widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
   
   class Meta:
     model = Test

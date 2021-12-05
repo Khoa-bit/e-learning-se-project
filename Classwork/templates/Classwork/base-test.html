@@ -8,9 +8,17 @@
 {% block main-content %}
   <article class="panel">
     <header>
-      <h2>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} - {{ lecturer_class.sem_year }}</h2>
+      {% if user.user_type == 'Student' %}
+        <h2>{{ student_class.course.name }} - {{ student_class.schedule }} - {{ student_class.sem_year }}</h2>
+      {% elif user.user_type == 'Lecturer' %}
+        <h2>{{ lecturer_class.course.name }} - {{ lecturer_class.schedule }} - {{ lecturer_class.sem_year }}</h2>
+      {% endif %}
 
-<!-- <script>
+      {% if user.user_type == 'Student' %}
+        <p>Instructor: {{ student_class.lecturer.user_id.full_name }}</p>
+      {% endif %}
+
+<script>
     // This code activates flatpickr on fields with the 'datetimefield' class when the document has loaded
     window.addEventListener("DOMContentLoaded", function () {
         flatpickr(".datetimefield", {
@@ -19,16 +27,16 @@
             dateFormat: "Y-m-d H:i:S",
         });
     });
-</script> -->
+</script>
   <title>Document</title>
 </header>
 <body>
   {% block panel-content %}{% endblock panel-content %}
-    <!-- <script>
+    <script>
       document.body.addEventListener('htmx:configRequest', (event) => {
           event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
       })
-  </script> -->
+  </script>
 </body>
 </article>
 {% endblock %}
