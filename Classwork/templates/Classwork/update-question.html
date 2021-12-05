@@ -1,6 +1,7 @@
 {%extends 'Classwork/base-test.html'%}
-{%block body%}
-<form method="POST">
+{%block panel-content%}
+<article>
+  <form method="POST">
   {% csrf_token %}
   <label for="question">Question:  </label><input type="text" value="{{question.question}}" id="question" name=question>
   {%if question.is_written%}
@@ -21,4 +22,6 @@
   {%endif%}
   <button type="submit">Save</button>
 </form>
-{%endblock body%}
+</article>
+
+{%endblock %}

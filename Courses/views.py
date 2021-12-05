@@ -136,7 +136,6 @@ def StudentClassAssignment(request, id, class_id):
     for t in student_class.test_set.order_by('-time_modified'):
         is_new = None
         # is_new = timezone.now() - t.time_modified < timezone.timedelta(weeks=1)
-        print("Hello?")
         if t.publish_time <= now and t.end_time >= now - t.available_time_after_deadline:
             print("added "+t.test_name+" to tests")
             ongoing.append({'obj': t, 'is_new': is_new})
@@ -237,6 +236,8 @@ def ClassRegistration(request, id):
     student = Student.objects.get(id=id)
     student_classes = student.class_id.all()
     choices = []
+    utc = pytz.UTC
+    deadline = utc.localize(datetime(2021, 12, 31, 19, 59, 00))
     for i in Class.objects.all():
         now = pytz.UTC.localize(datetime.now())
         if (i.start_date > now):
@@ -255,7 +256,10 @@ def ClassRegistration(request, id):
             return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
     else:
         form = forms.ClassRegistrationForm(choices=choices)
-    context = {'form': form, 'classes': classes, 'student': student, 'student_classes': student_classes}
+    is_past_deadline = False
+    if now > deadline:
+        is_past_deadline = True
+    context = {'form': form, 'classes': classes, 'student': student, 'student_classes': student_classes, 'deadline': deadline, 'is_past_deadline': is_past_deadline}
     return render(request, 'User/class-registration.html', context)
 
 
@@ -281,12 +285,13 @@ def EditClassRegistration(request, id):
         else:
             for i in student.class_id.all():
                 if str(i.id) not in selected_classes:
-                    student.class_id.remove(i)
+                    if i in classes:
+                        student.class_id.remove(i)
             return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
     else:
         form = forms.EditClassRegistrationForm()
     is_past_deadline = False
-    if now < deadline:
+    if now > deadline:
         is_past_deadline = True
     context = {'classes': classes, 'deadline': deadline, 'is_past_deadline': is_past_deadline, 'student': student, 'form': form}
     return render(request, 'User/edit-class-registration.html', context)

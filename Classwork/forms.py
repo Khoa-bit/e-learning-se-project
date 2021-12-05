@@ -3,12 +3,28 @@ from django.forms import widgets
 from .models import *
 
 class TestForm(forms.ModelForm):
+  # publish_time = forms.DateTimeField(label='Publish time', widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+  # end_time = forms.DateTimeField(label='End time', widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+  
   class Meta:
     model = Test
-    fields = ["test_name","test_description","publish_time","end_time","available_time_after_deadline"]
+    fields = [
+      "test_name",
+      "test_description",
+      "attached_file",
+      "publish_time",
+      "end_time",
+      "available_time_after_deadline",
+      "is_quiz"
+      ]
+    # widgets={
+    #   "publish_time":widgets.DateTimeInput(attrs={'type':'datetime-local'}),
+    #   "end_time":forms.DateTimeInput(attrs={'type':'datetime-local'}),
+    # }
     widgets={
-      "publish_time":widgets.DateTimeInput(attrs={'type':'datetime-local'}),
-      "end_time":forms.DateTimeInput(attrs={'type':'datetime-local'}),
+      "publish_time":forms.DateTimeInput(format='%Y-%m-%d %H:%M:%S', attrs={'class':'datetimefield'}),
+      "end_time":forms.DateTimeInput(format='%Y-%m-%d %H:%M:%S', attrs={'class':'datetimefield'}),
+      "attached_file":forms.ClearableFileInput(attrs={'multiple': True}),
     }
 
 class WrittenQuestionForm(forms.Form):
@@ -16,6 +32,14 @@ class WrittenQuestionForm(forms.Form):
 
 class MultipleChoiceQuestionForm(forms.Form):
   question = forms.CharField(label='Question')
+  
+class StudentUploadForm(forms.ModelForm):
+  class Meta:
+    model = StudentUpload
+    fields = ["attached_file","file_description"]
+    widgets={
+      "file": forms.ClearableFileInput(attrs={'multiple': True}),
+    }
 
 class MultipleChoiceOptionForm(forms.Form):
   optionid = forms.CharField(widget=forms.HiddenInput,required=False)
