@@ -1,5 +1,5 @@
 {% extends 'Classwork/base-test.html' %}
-{%block body%}
+{%block panel-content%}
 <form method = "POST">
   {% csrf_token %}
   <div id="questionform">
@@ -36,4 +36,4 @@
   <div>
     <a href="{% url 'lecturer-class-assignment-page' id class_id%}">Go back to classworks view</a>
   </div>
-{% endblock body %}
+{% endblock %}

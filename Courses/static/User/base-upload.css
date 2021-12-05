@@ -12,16 +12,6 @@
   margin-block-end: 4rem;
 }
 
-.panel > article form .checkbox {
-  display: inline-block;
-}
-
-.panel > article form .checkbox label {
-  font-weight: 700;
-  font-size: 1.8rem;
-  padding-right: 2rem;
-}
-
 .panel > article form {
   width: 70%;
 }
@@ -56,12 +46,6 @@
 .panel > article form .btn-container {
   display: flex;
   justify-content: flex-end;
-}
-
-.panel > article form .btn-middle {
-  display: flex;
-  justify-content: center;
-  margin-block: 10rem;
 }
 
 .panel > article form .btn-delete {
@@ -118,8 +102,4 @@
 
 .panel > article form .btn-delete:hover {
   background-color: #980B33;
-}
-
-.panel > article .text_description {
-  width: 70%;
 }

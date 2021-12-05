@@ -75,7 +75,7 @@
             </li>
           {% elif user.user_type == 'Student' %}
             <li>
-              <a class="tab " href="{% url 'student-view-self-course-performance' user.student.id student_class.id %}">Course Performance</a>
+              <a class="tab {% block student-view-self-course-performance-active %}{% endblock %}" href="{% url 'student-view-self-course-performance' user.student.id student_class.id %}">Course Performance</a>
             </li>
           {% endif %}
           <li>

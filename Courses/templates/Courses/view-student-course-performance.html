@@ -10,58 +10,39 @@
 <link rel="stylesheet" href="{% static 'Courses/class-grade.css' %}">
 {% endblock %}
 
-{% block class-view-student-list-active %}active{% endblock %}
+{% block student-view-self-course-performance-active %}active{% endblock %}
 
 {% block panel-content %}
 
 <head>
-    <div class="info">
-        <h3>{{ student.user_id.full_name }}</h3>
-        <p>Student ID: {{ student.id }}</p>
-        <p>Major: {{ student.major_id }}</p>
-        <p>{{ student.user_id.email }}</p>
-    </div>
-    
-    {% for entry in tests %}
-    {% if entry.grade %}
-    <p>{{forloop.counter}}. {{entry.test_id.test_name}}: {{entry.grade}}</p>
-    {% else%}
-    <p>{{forloop.counter}}. {{entry.test_id.test_name}}: UNGRADED</p>
-    {% endif %}
-    {% endfor %}
+  <div class="info">
+    <h3>{{ student.user_id.full_name }}</h3>
+    <p>Student ID: {{ student.id }}</p>
+    <p>Major: {{ student.major_id }}</p>
+    <p>{{ student.user_id.email }}</p>
+  </div>
 </head>
 
-
+{% for entry in tests %}
 <article>
-    <div class="heading">
-      <h3>Homework 1</h3>
-      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
-    </div>
-    <div class="status">
-      <p>SUBMITTED (LATE)</p>
-      <p>Wed, Sep 8 10:23:03 PM</p>
-    </div>
-    <div class="grade">
-      <p class="highlight">-</p>
-      <p>/100</p>
-    </div>
-  </article>
-  <article>
-    <div class="heading">
-      <h3>Homework 1</h3>
-      <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
-    </div>
-    <div class="status">
-      <p>SUBMITTED (LATE)</p>
-      <p>Wed, Sep 8 10:23:03 PM</p>
-    </div>
-    <div class="grade">
-      <p class="highlight">-</p>
-      <p>/100</p>
-    </div>
-  </article>
+  <div class="heading">
+    <h3>{{entry.test_id.test_name}}</h3>
+    <p class="due-text">DUE: Tue, Sep 7 12:00PM</p>
+  </div>
+  <div class="status">
+    <p>SUBMITTED (LATE)</p>
+    <p>Wed, Sep 8 10:23:03 PM</p>
+  </div>
+  <div class="grade">
+    {% if entry.grade %}
+    <p class="highlight">{{entry.grade}}</p>
+    {% else%}
+    <p class="highlight">-</p>
+    {% endif %}
+    <p>/100</p>
+  </div>
+</article>
+{% endfor %}
+
 
 {% endblock %}
-
-
-
