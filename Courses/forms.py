@@ -60,6 +60,13 @@ class ClassRegistrationForm(forms.Form):
         super(ClassRegistrationForm,self).__init__(*args, **kwargs)
         self.fields['selection'] = forms.MultipleChoiceField(choices=choices,widget=forms.CheckboxSelectMultiple)
 
+    def clean_selection(self):
+        selection = self.cleaned_data['selection']
+        duplicates = any(selection.choice_label.count(i) for i in selection.choice_label)
+        if duplicates > 0:
+            raise forms.ValidationError('Dup')
+        return selection
+
     class Meta:
         model = Class
 
