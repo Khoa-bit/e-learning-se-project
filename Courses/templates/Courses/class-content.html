@@ -31,31 +31,27 @@
     </a>
   {% endif %}
 
-  {% for post in content_posts %}
-    {% if post.is_displayable or user.user_type == 'Lecturer' and not post.is_displayable %}
-      <article>
-        <div class="heading">
-          <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
-          <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-content-view-page' user.student.id student_class.id post.id %}
-                                            {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-content-view-page' user.lecturer.id lecturer_class.id post.id %}
-                                            {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
-                                            {% endif %}"><h3>{{ post.title }}</h3></a>
-          <footer>
-            <time>{{ post.time_created.date }}<br>{{ post.time_created.time | time:"g:iA" }}</time>
-          </footer>
-        </div>
-        {% if user.is_lecturer %}
-          <div>
-            <a href="{% url 'edit-class-content-page' lecturer_class.lecturer.id lecturer_class.id post.id %}">Edit</a>
+  {% for content_post in content_posts %}
+    {% if content_post.obj.is_displayable or user.user_type == 'Lecturer' and not content_post.obj.is_displayable %}
+    <article style="--order: {{ forloop.counter }}">
+      <div class="heading">
+        <img class="icon" src="{% static 'icons/file-icon-svg.svg' %}" alt="file icon">
+        <a class="heading" href="{% if user.user_type == 'Student' %}{% url 'student-class-content-view-page' user.student.id student_class.id content_post.obj.id %}
+                                          {% elif user.user_type == 'Lecturer' %}{% url 'lecturer-class-content-view-page' user.lecturer.id lecturer_class.id content_post.obj.id %}
+                                          {% elif not user.is_authenticated %}{% url 'guest-announcement-page' %}
+                                          {% endif %}"><h3>{{ content_post.obj.title }}</h3></a>
+        <footer>
+          <div class="new-tag" {% if content_post.is_new == False %}style="visibility: hidden"{% endif %}>
+            NEW
           </div>
-        {% endif %}
-        {% if post.attached_file %}
-          <p>{{ post.attached_file.name }}</p>
-        {% else %}
-        {% endif %}
-        <p>{{ post.content | linebreaks }}</p>
-      </article>
-    {% else %}
+          <time datetime="{{ content_post.obj.time_modified | date:"c" }}">
+            {{ content_post.obj.time_modified | date:"D, d M Y" }}<br>{{ content_post.obj.time_modified | date:"g:i A" }}
+          </time>
+        </footer>
+      </div>
+      <p>Attached Files: {{ content_post.obj.attached_file.name }}</p>
+      <p>{{ content_post.obj.content | linebreaks }}</p>
+    </article>
     {% endif %}
   {% endfor %}
 {% endblock %}

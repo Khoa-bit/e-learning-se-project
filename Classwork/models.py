@@ -7,11 +7,13 @@ from django.db.models.deletion import CASCADE
 class Test(models.Model):
   class_id = models.ForeignKey("Courses.Class",on_delete=CASCADE)
   test_description = models.TextField(null=True,blank=True)
-  test_file = models.FileField(null=True,blank=True)
+  attached_file = models.FileField(null=True,blank=True,upload_to='tests/')
   test_name = models.CharField(max_length=100)
   publish_time = models.DateTimeField()
   end_time = models.DateTimeField()
+  time_modified = models.DateTimeField(auto_now=True)
   available_time_after_deadline = models.DurationField(default=datetime.timedelta(hours=6)) # available for submission after deadline
+  is_quiz = models.BooleanField(default=False)
   def __str__(self):
       return self.test_name 
 
@@ -41,4 +43,8 @@ class StudentAnswer(models.Model):
   question = models.ForeignKey(Question,on_delete=CASCADE)
   written_ans = models.TextField(blank=True,null=True)
   choice_ans = models.ManyToManyField(MultipleChoiceOption,blank=True)
-
+  
+class StudentUpload(models.Model):
+  studenttest = models.OneToOneField(StudentTest,on_delete=CASCADE)
+  attached_file = models.FileField(upload_to='assignments/')
+  file_description = models.TextField(null=True,blank=True)

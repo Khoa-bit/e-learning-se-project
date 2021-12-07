@@ -1,5 +1,6 @@
 {% extends 'Classwork/base-test.html'%}
 {%block body%}
+{% if test.test_id.is_quiz %}
   {% for answer in test.studentanswer_set.all %}
   <h2>{{answer.question}}</h2>
   {%if answer.question.is_written%}
@@ -16,10 +17,13 @@
   <div>
     <p>Correct multiple choice answers: {{right}}</p>
   </div>
-  <form action="" method="POST">
-    {%csrf_token%}
-    <label for="grade">Grade:</label>
-    <input type="number" name="grade" id="" step=".01">
-    <button type="submit">CONFIRM GRADING</button>
-  </form>
+{% else %}
+  <a href="{% url 'download-student-file' id class_id test.id %}">Download file submission</a>
+{% endif %}
+<form action="" method="POST">
+  {%csrf_token%}
+  <label for="grade">Grade:</label>
+  <input type="number" name="grade" id="" step=".01" value="{{grade}}">
+  <button type="submit">CONFIRM GRADING</button>
+</form>
 {%endblock body%}
