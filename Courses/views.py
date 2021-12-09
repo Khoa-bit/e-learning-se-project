@@ -245,7 +245,9 @@ def Download(request, id, class_id, content_id):
 
 @CheckValidUser
 def ClassRegistration(request, id):
-    classes = Class.objects.all()
+    classes = []
+    dup_count = 0
+    all_classes = Class.objects.all()
     student = Student.objects.get(id=id)
     student_classes = student.class_id.all()
     choices = []
@@ -258,21 +260,31 @@ def ClassRegistration(request, id):
     if request.method == 'POST':
         form = forms.ClassRegistrationForm(choices=choices)
         selected_classes = request.POST.getlist('selection')
+        for i in selected_classes:
+            classes.append(Class.objects.get(id=int(i)))
         if not selected_classes:
             return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
         else:
-            for i in selected_classes:
-                if int(i) in student.class_id.all().values_list('id',flat=True):
-                    return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
-                else:
-                    student.class_id.add(Class.objects.get(id=i))
-            return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
+            for i in classes:
+                for j in classes:
+                    if i.id != j.id:
+                        if i.course.name == j.course.name or i.schedule == j.schedule:
+                            dup_count = dup_count + 1
+            if dup_count == 0:
+                for i in selected_classes:
+                    if int(i) in student.class_id.all().values_list('id',flat=True):
+                        return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
+                    else:
+                        student.class_id.add(Class.objects.get(id=i))
+                        return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
+            else:
+                return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
     else:
         form = forms.ClassRegistrationForm(choices=choices)
     is_past_deadline = False
     if now > deadline:
         is_past_deadline = True
-    context = {'form': form, 'classes': classes, 'student': student, 'student_classes': student_classes, 'deadline': deadline, 'is_past_deadline': is_past_deadline}
+    context = {'form': form, 'classes': all_classes, 'student': student, 'student_classes': student_classes, 'deadline': deadline, 'is_past_deadline': is_past_deadline}
     return render(request, 'User/class-registration.html', context)
 
 
