@@ -55,7 +55,9 @@
                         <td><input type="checkbox" name="selection" value="{{ choice_id }}" id="{{ choice_id }}"
                                    {% if not is_past_deadline %}
                                      {% for student_class in student_classes %}
-                                      {% if student_class.id == choice_id %}disabled{% endif %}
+                                      {% if student_class.id == choice_id %}disabled
+                                      {% elif student_class.course.name == choice_label %}disabled
+                                      {% endif %}
                                      {% endfor %}
                                    {% elif is_past_deadline %}disabled
                                    {% endif %}></td>
