@@ -32,7 +32,7 @@ def LecturerSchedule(request, id):
     classes = []
 
     for i in user.class_set.all():
-        if i.schedule.start_date < now:
+        if i.start_date < now:
             classes.append(i)
 
     context = {'classes': classes, 'title': 'Lecturer Schedule'}
@@ -45,7 +45,7 @@ def StudentSchedule(request, id):
     classes = []
 
     for i in user.class_id.all():
-        if i.schedule.start_date < now:
+        if i.start_date < now:
             classes.append(i)
 
     context = {'classes': classes, 'title': 'Student Schedule'}
