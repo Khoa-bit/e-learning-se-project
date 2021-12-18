@@ -232,34 +232,60 @@ def Download(request, id, class_id, content_id):
 
 @CheckValidUser
 def ClassRegistration(request, id):
-    classes = Class.objects.all()
-    student = Student.objects.get(id=id)
-    student_classes = student.class_id.all()
-    choices = []
+    classes = []
     utc = pytz.UTC
     deadline = utc.localize(datetime(2021, 12, 31, 19, 59, 00))
+    now = pytz.UTC.localize(datetime.now())
+    dup_count = 0
+    all_classes = Class.objects.all()
+    student = Student.objects.get(id=id)
+    #student_classes = student.class_id.all()
+    student_classes = []
+    for i in student.class_id.all():
+        if i.start_date > now:
+            student_classes.append(i)
+    choices = []
     for i in Class.objects.all():
-        now = pytz.UTC.localize(datetime.now())
         if (i.start_date > now):
             choices.append((int(i.id), i.course.name))
     if request.method == 'POST':
         form = forms.ClassRegistrationForm(choices=choices)
         selected_classes = request.POST.getlist('selection')
+        for i in selected_classes:
+            classes.append(Class.objects.get(id=int(i)))
         if not selected_classes:
             return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
         else:
-            for i in selected_classes:
-                if int(i) in student.class_id.all().values_list('id',flat=True):
-                    return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
-                else:
-                    student.class_id.add(Class.objects.get(id=i))
-            return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
+            print(selected_classes)
+            for i in classes:
+                for j in classes:
+                    if i.id != j.id:
+                        if i.course.name == j.course.name or i.schedule == j.schedule:
+                            dup_count = dup_count + 1
+            print("Duplicates: %d" % dup_count)
+            if dup_count == 0:
+                print(selected_classes)
+                for i in selected_classes:
+                    c = Class.objects.get(id=int(i))
+                    print(i)
+                    if int(i) in student.class_id.all().values_list('id',flat=True):
+                        print(True)
+                        return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
+                    else:
+                        print(False)
+                        for j in student_classes:
+                            if j.course.name == c.course.name or j.schedule == c.schedule:
+                                return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
+                        student.class_id.add(Class.objects.get(id=int(i)))
+                return HttpResponseRedirect(reverse('edit-class-registration-page', args=[id]))
+            else:
+                return HttpResponseRedirect(reverse('student-class-registration-page', args=[id]))
     else:
         form = forms.ClassRegistrationForm(choices=choices)
     is_past_deadline = False
     if now > deadline:
         is_past_deadline = True
-    context = {'form': form, 'classes': classes, 'student': student, 'student_classes': student_classes, 'deadline': deadline, 'is_past_deadline': is_past_deadline}
+    context = {'form': form, 'classes': all_classes, 'student': student, 'student_classes': student_classes, 'deadline': deadline, 'is_past_deadline': is_past_deadline}
     return render(request, 'User/class-registration.html', context)
 
 
