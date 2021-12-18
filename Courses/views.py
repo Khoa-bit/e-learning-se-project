@@ -8,7 +8,7 @@ from calendar import HTMLCalendar
 from django.forms import model_to_dict
 from django.shortcuts import render
 from django.utils import timezone
-from django.http.response import HttpResponseRedirect, HttpResponse
+from django.http.response import HttpResponseRedirect, HttpResponse, FileResponse
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
@@ -223,15 +223,22 @@ def UploadClassContent(request, id, class_id):
 
 @CheckValidUser
 def Download(request, id, class_id, content_id):
+    # content = ClassContent.objects.get(id=content_id)
+    # path = content.attached_file.url
+    # file_path = str(settings.BASE_DIR).replace("\\","/") + path
+    # if os.path.exists(file_path):
+    #     with open(file_path, 'rb') as fh:
+    #         response = HttpResponse(fh.read(), content_type="application/pdf")
+    #         response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+    #         return response
+    # raise Http404
     content = ClassContent.objects.get(id=content_id)
-    path = content.attached_file.url
-    file_path = str(settings.BASE_DIR).replace("\\","/") + path
-    if os.path.exists(file_path):
-        with open(file_path, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type="application/pdf")
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
-            return response
-    raise Http404
+    file = content.attached_file.path
+    response = FileResponse(open(file,'rb'))
+    if response:
+        return response
+    else:
+        return Http404  
 
 
 @CheckValidUser
@@ -358,18 +365,20 @@ def EditClassContent(request, id, class_id, content_id):
     if "post_button" in request.POST:
         form = forms.EditClassContentForm(request.POST or None, request.FILES or None, instance=content)
         if form.is_valid():
-            form.save()
+            if(request.FILES):
+                form.attached_file = list(dict(request.FILES).values())[0]
+            f=form.save()
             for i in files:
                 if i not in ClassContent.objects.all().values_list('attached_file', flat=True):
                     remove_url = url + i
-                    os.remove(remove_url)
+                    # os.remove(remove_url)
         return HttpResponseRedirect(reverse('lecturer-class-content-page', args=[id, class_id]))
     elif "delete_button" in request.POST:
         content.delete()
         for i in files:
             if i not in ClassContent.objects.all().values_list('attached_file', flat=True):
                 remove_url = url + i
-                os.remove(remove_url)
+                # os.remove(remove_url)
         return HttpResponseRedirect(reverse('lecturer-class-content-page', args=[id, class_id]))
     else:
         form = forms.EditClassContentForm(request.POST or None, request.FILES or None, instance=content)
