@@ -6,10 +6,11 @@ main {
 }
 
 section.panel {
+  width: min(100%, 144rem);
+  min-height: 50rem;
   background-color: var(--white-default);
   border-radius: 6px;
   padding: 2rem 3rem;
-  margin-bottom: 2rem;
 }
 
 section.panel h2 {
