@@ -43,16 +43,6 @@
             </a>
           </li>
           <li>
-            <a class="tab {% block class-my-grades-active %}{% endblock %}"
-               href="{% if user.user_type == 'Student' %}
-                      {% url 'student-class-grade-page' user.student.id student_class.id %}
-                      {% elif user.user_type == 'Lecturer' %}
-                      {% url 'lecturer-class-grade-page' user.lecturer.id lecturer_class.id %}
-                      {% endif %}">
-              Grade
-            </a>
-          </li>
-          <li>
             <a class="tab {% block class-assignment-active %}{% endblock %}"
                href="{% if user.user_type == 'Student' %}
                       {% url 'student-class-assignment-page' user.student.id student_class.id %}
