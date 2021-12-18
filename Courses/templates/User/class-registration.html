@@ -25,9 +25,6 @@
     <input type="search" id="search" placeholder="Search for courses..">
   </div>
   <div>
-    <button class="btn submit"><a href="{% url 'edit-class-registration-page' student.id %}">Edit registered classes</a></button>
-  </div>
-  <div>
     <h2>Deadline: {{ deadline }}</h2>
   </div>
   <form method="POST" action="{% url 'student-class-registration-page' student.id %}" enctype="multipart/form-data">
@@ -77,6 +74,7 @@
         </table>
       </div>
     <button id="submit" class="btn submit">Register</button>
+    <a class="btn-edit" href="{% url 'edit-class-registration-page' student.id %}">Edit registered classes</a>
   </form>
 </article>
 {% endblock %}
