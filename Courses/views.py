@@ -23,6 +23,8 @@ from django.conf import Settings, settings
 from django.http import HttpResponse, Http404
 from django.views.static import serve
 
+utc = pytz.UTC
+now = pytz.UTC.localize(datetime.now())
 
 @CheckValidUser
 def LecturerSchedule(request, id):
@@ -30,7 +32,8 @@ def LecturerSchedule(request, id):
     classes = []
 
     for i in user.class_set.all():
-        classes.append(i)
+        if i.schedule.start_date < now:
+            classes.append(i)
 
     context = {'classes': classes, 'title': 'Lecturer Schedule'}
     return render(request, 'Courses/schedule.html', context)
@@ -42,7 +45,8 @@ def StudentSchedule(request, id):
     classes = []
 
     for i in user.class_id.all():
-        classes.append(i)
+        if i.schedule.start_date < now:
+            classes.append(i)
 
     context = {'classes': classes, 'title': 'Student Schedule'}
     return render(request, 'Courses/schedule.html', context)
@@ -233,9 +237,9 @@ def Download(request, id, class_id, content_id):
 @CheckValidUser
 def ClassRegistration(request, id):
     classes = []
-    utc = pytz.UTC
+
     deadline = utc.localize(datetime(2021, 12, 31, 19, 59, 00))
-    now = pytz.UTC.localize(datetime.now())
+
     dup_count = 0
     all_classes = Class.objects.all()
     student = Student.objects.get(id=id)

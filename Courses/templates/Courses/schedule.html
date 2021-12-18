@@ -35,48 +35,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>MONDAY</td>
-                    <td>Operating system</td>
-                    <td>1:00 PM</td>
-                    <td>2:00:00</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>MONDAY</td>
-                    <td>Computer Architechture</td>
-                    <td>10:00 AM</td>
-                    <td>2:00:00</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>TUESDAY</td>
-                    <td>Operating system</td>
-                    <td>1:00 PM</td>
-                    <td>2:00:00</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>WEDNESDAY</td>
-                    <td>Computer Architechture</td>
-                    <td>10:00 AM</td>
-                    <td>2:00:00</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>THURSDAY</td>
-                    <td>Operating system</td>
-                    <td>1:00 PM</td>
-                    <td>2:00:00</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>FRIDAY</td>
-                    <td>Operating system</td>
-                    <td>1:00 PM</td>
-                    <td>2:00:00</td>
-                </tr>
+                {% for class in classes %}
+                    <tr>
+                        <td>{{ class.id }}</td>
+                        <td>{{ class.schedule.day_of_the_week }}</td>
+                        <td>{{ class.course.name }}</td>
+                        <td>{{ class.schedule.start_time }}</td>
+                        <td>{{ class.schedule.duration }}</td>
+                    </tr>
+               {% endfor %}
             </tbody>
         </table>
     </article>
