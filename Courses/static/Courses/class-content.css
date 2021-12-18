@@ -34,3 +34,13 @@
   text-align: right;
   color: var(--gray-default);
 }
+
+.panel > article .content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.panel > article .content .edit {
+  display: flex;
+  margin-inline-start: auto;
+}
